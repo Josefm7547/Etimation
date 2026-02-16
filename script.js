@@ -75,17 +75,21 @@ window.setCondition = (val) => {
 window.goToScreen = (num) => {
     const s1 = document.getElementById('screen-1');
     const s2 = document.getElementById('screen-2');
-    if (num === 1) {
-        s1.style.display = 'block';
-        s1.classList.add('fade-in');
-        s2.style.display = 'none';
-        s2.classList.remove('fade-in');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        s1.style.display = 'none';
-        s1.classList.remove('fade-in');
-        s2.style.display = 'block';
-        s2.classList.add('fade-in');
+    const s3 = document.getElementById('screen-3');
+
+    // Reset all
+    [s1, s2, s3].forEach(s => {
+        if (s) {
+            s.style.display = 'none';
+            s.classList.remove('fade-in');
+        }
+    });
+
+    // Show target
+    const target = num === 1 ? s1 : (num === 2 ? s2 : s3);
+    if (target) {
+        target.style.display = 'block';
+        target.classList.add('fade-in');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 };
