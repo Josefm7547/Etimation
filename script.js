@@ -296,7 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init();
 
-    // document.getElementById('admin-trigger').addEventListener('click', toggleAdmin);
+    const adminTrigger = document.getElementById('new-admin-trigger');
+    if (adminTrigger) {
+        // Just use onclick from HTML to avoid double firing
+    }
+    // Admin trigger handled via onclick in HTML
 
     // Admin Save Button logic
     const saveBtn = document.getElementById('save-prices-btn');
