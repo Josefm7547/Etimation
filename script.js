@@ -342,3 +342,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('print-btn').addEventListener('click', () => window.print());
 });
+
+window.openPreview = (device) => {
+    const overlay = document.getElementById('device-simulator');
+    const frame = document.getElementById('device-frame');
+    const iframe = document.getElementById('preview-iframe');
+
+    overlay.classList.add('active');
+    frame.className = 'device-frame ' + (device === 'mobile' ? 'device-mobile' : 'device-tablet');
+    iframe.src = window.location.href;
+};
+
+window.closePreview = () => {
+    document.getElementById('device-simulator').classList.remove('active');
+    document.getElementById('preview-iframe').src = '';
+};

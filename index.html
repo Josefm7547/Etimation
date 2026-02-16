@@ -128,6 +128,18 @@
             Admin</button>
     </footer>
 
+    <div class="preview-controls">
+        <button class="preview-btn" onclick="openPreview('mobile')">📱 Celular</button>
+        <button class="preview-btn" onclick="openPreview('tablet')"> tablet</button>
+    </div>
+
+    <div id="device-simulator" class="device-overlay">
+        <button class="close-preview" onclick="closePreview()">✕ Salir Vista Previa</button>
+        <div id="device-frame" class="device-frame">
+            <iframe id="preview-iframe"></iframe>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
