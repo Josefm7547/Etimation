@@ -195,6 +195,7 @@ window.toggleAdmin = () => {
         isAdmin = true;
         document.body.classList.add('admin-active');
         document.getElementById('admin-modal').classList.add('active');
+        document.querySelector('.preview-controls').style.display = 'flex';
         renderAll();
     } else {
         alert("Contraseña incorrecta.");
@@ -204,6 +205,7 @@ window.toggleAdmin = () => {
 window.closeAdmin = () => {
     document.body.classList.remove('admin-active');
     document.getElementById('admin-modal').classList.remove('active');
+    document.querySelector('.preview-controls').style.display = 'none';
     isAdmin = false;
     renderAll();
 };
