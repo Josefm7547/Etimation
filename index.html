@@ -18,7 +18,27 @@
     <div class="container">
         <header>
             <div class="logo-container">
-                <img src="assets/logo.png" alt="StarClean Icon" class="main-logo-icon">
+                <div class="logo-svg-wrapper">
+                    <!-- Conceptual House & Stars SVG -->
+                    <svg viewBox="0 0 100 100" class="main-logo-svg">
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Conceptual House Path -->
+                        <path d="M20,50 L50,20 L80,50 L80,85 L60,85 L60,65 L40,65 L40,85 L20,85 Z" fill="none"
+                            stroke="url(#logo-grad)" stroke-width="4" stroke-linejoin="round" />
+                        <!-- Stars/Sparkles -->
+                        <path d="M45,15 L47,20 L52,22 L47,24 L45,29 L43,24 L38,22 L43,20 Z" fill="url(#logo-grad)"
+                            class="star star-1" />
+                        <path d="M75,35 L76,38 L79,39 L76,40 L75,43 L74,40 L71,39 L74,38 Z" fill="url(#logo-grad)"
+                            class="star star-2" />
+                        <path d="M25,30 L26,33 L29,34 L26,35 L25,38 L24,35 L21,34 L24,33 Z" fill="url(#logo-grad)"
+                            class="star star-3" />
+                    </svg>
+                </div>
                 <h1 class="logo-text">Star Clean</h1>
             </div>
             <p>Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.</p>
