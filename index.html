@@ -263,54 +263,63 @@
                     </p>
                 </div>
 
-                <aside>
+                <aside style="margin-top: 2rem;">
                     <div class="summary-card">
-                        <h2 class="summary-title">Resumen de Cotización</h2>
-                        <div id="summary-items"></div>
-                        <div class="total-display">
+                        <h2 class="summary-title" style="margin-bottom: 1.5rem;">Resumen de Cotización</h2>
+
+                        <div id="summary-items" style="margin-bottom: 1.5rem;"></div>
+
+                        <!-- Integrated Form -->
+                        <div class="compact-form"
+                            style="background: transparent; padding: 0; border: none; backdrop-filter: none; gap: 0.5rem; margin-bottom: 2rem;">
+                            <div class="compact-field col-6">
+                                <label>Nombre Completo *</label>
+                                <input type="text" id="cust-name" placeholder="Ej. Juan Pérez"
+                                    oninput="updateContactData()" required>
+                            </div>
+                            <div class="compact-field col-6">
+                                <label>WhatsApp / Teléfono (USA) *</label>
+                                <input type="tel" id="cust-phone" placeholder="(555) 000-0000"
+                                    oninput="updateContactData()" required
+                                    pattern="^(\+?1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$">
+                            </div>
+                            <div class="compact-field col-6">
+                                <label>Correo Electrónico *</label>
+                                <input type="email" id="cust-email" placeholder="juan@ejemplo.com"
+                                    oninput="updateContactData()" required>
+                            </div>
+                            <div class="compact-field col-6">
+                                <label>Dirección del Servicio *</label>
+                                <input type="text" id="cust-address" placeholder="Calle, Ciudad, Código Postal"
+                                    oninput="updateContactData()" required>
+                            </div>
+                            <div class="compact-field col-6">
+                                <label>Fecha de Solicitud (Auto)</label>
+                                <input type="text" id="cust-date" readonly style="opacity: 0.7; cursor: not-allowed;">
+                            </div>
+                        </div>
+
+                        <div class="total-display"
+                            style="border-top: 1px solid var(--card-border); padding-top: 1.5rem;">
                             <p class="total-label">Total Estimado</p>
                             <p class="total-amount">$<span id="total-price">0.00</span></p>
                         </div>
+
                         <button class="btn-primary" id="book-btn" style="margin-top: 2rem;">Confirmar Reserva</button>
-                        <button class="btn-secondary" id="print-btn" style="margin-top: 1rem;">Descargar PDF</button>
-                        <button class="btn-secondary" onclick="goToScreen(3)" style="margin-top: 1rem;">←
-                            Volver</button>
-                        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">
-                            Precio
-                            sujeto a inspección física.</p>
+                        <button class="btn-secondary" id="print-btn" style="margin-top: 1rem;">Descargar cotización
+                            detallada</button>
+
+                        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem;">
+                            Precio sujeto a inspección física.
+                        </p>
                     </div>
                 </aside>
             </main>
 
-            <section class="customer-section">
-                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--secondary);">
-                    <span>✦</span> Completa tus datos para Finalizar
-                </h2>
-                <div class="compact-form">
-                    <div class="compact-field col-3">
-                        <label>Nombre</label>
-                        <input type="text" id="cust-name" placeholder="Ej. Juan Pérez" oninput="updateContactData()">
-                    </div>
-                    <div class="compact-field col-3">
-                        <label>Correo</label>
-                        <input type="email" id="cust-email" placeholder="juan@ejemplo.com"
-                            oninput="updateContactData()">
-                    </div>
-                    <div class="compact-field col-2">
-                        <label>Teléfono</label>
-                        <input type="tel" id="cust-phone" placeholder="(555) 000-0000" oninput="updateContactData()">
-                    </div>
-                    <div class="compact-field col-2">
-                        <label>Fecha</label>
-                        <input type="date" id="cust-date" oninput="updateContactData()">
-                    </div>
-                    <div class="compact-field col-2">
-                        <label>Dirección</label>
-                        <input type="text" id="cust-address" placeholder="Calle, Ciudad..."
-                            oninput="updateContactData()">
-                    </div>
-                </div>
-            </section>
+            <!-- Back navigation moved to the absolute bottom -->
+            <div style="text-align: center; margin-top: 4rem; padding-bottom: 2rem;">
+                <button class="btn-secondary" onclick="goToScreen(3)" style="max-width: 200px;">← Volver</button>
+            </div>
         </div>
     </div>
 

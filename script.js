@@ -129,6 +129,13 @@ function init() {
         }, 0);
     }
     loadPrices();
+
+    // Auto-set today's date
+    const today = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    state.contact.date = today;
+    const dateEl = document.getElementById('cust-date');
+    if (dateEl) dateEl.value = today;
+
     if (state.condition) {
         setTimeout(() => window.setCondition(state.condition), 500);
     }
@@ -307,60 +314,9 @@ function calculateTotal(animate = true) {
 
 function updateSummary() {
     const container = document.getElementById('summary-items');
-    if (!container) return;
-    let html = '';
-    let hasItems = false;
-
-    [...zones, ...appliances].forEach(item => {
-        const qty = state.values[item.id] || 0;
-        if (qty > 0) {
-            hasItems = true;
-            html += `
-                <div class="summary-item">
-                    <span>${item.name} (${qty} x $${item.price})</span>
-                    <span>$${(qty * item.price).toFixed(2)}</span>
-                </div>
-            `;
-        }
-    });
-
-    const conditionNames = {
-        poor: "Pobre",
-        fair: "Regular",
-        good: "Bueno",
-        verygood: "Muy Bueno",
-        pristine: "Impecable"
-    };
-
-    const frequencyNames = {
-        weekly: "Semanal",
-        biweekly: "Quincenal",
-        monthly: "Mensual",
-        once: "De vez en cuando",
-        hiring: "Primera vez / Buscando contratar"
-    };
-
-    const serviceNames = {
-        standard: "Limpieza Estándar",
-        deep: "Limpieza Profunda"
-    };
-
-    html += `
-        <div class="summary-item" style="border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 1rem;">
-            <span>Estado del Hogar:</span>
-            <span style="color: var(--secondary); font-weight: 600;">${conditionNames[state.condition]}</span>
-        </div>
-        <div class="summary-item">
-            <span>Frecuencia:</span>
-            <span style="color: var(--secondary); font-weight: 600;">${frequencyNames[state.frequency]}</span>
-        </div>
-        <div class="summary-item">
-            <span>Tipo de Servicio:</span>
-            <span style="color: var(--secondary); font-weight: 600;">${serviceNames[state.serviceType] || 'Estándar'}</span>
-        </div>
-    `;
-
-    container.innerHTML = hasItems ? html : '<p style="color: var(--text-muted); text-align: center;">Seleccione áreas para ver el resumen.</p>';
+    if (container) {
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; font-style: italic;">Los detalles de su selección se incluirán en la cotización descargable.</p>';
+    }
 }
 
 function animateValue(obj, start, end, duration) {
@@ -411,12 +367,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('book-btn').addEventListener('click', async function () {
         const total = parseFloat(document.getElementById('total-price').innerText);
-        if (!state.contact.name || !state.contact.email || !state.contact.date) {
-            alert('Complete los campos obligatorios del cliente.');
+
+        // Detailed validation
+        const name = document.getElementById('cust-name').value.trim();
+        const email = document.getElementById('cust-email').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+        const address = document.getElementById('cust-address').value.trim();
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^(\+?1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
+        if (!name || !email || !phone || !address) {
+            alert('Por favor, complete todos los campos obligatorios del formulario.');
             return;
         }
+
+        if (!emailRegex.test(email)) {
+            alert('Por favor, ingrese un correo electrónico válido.');
+            return;
+        }
+
+        if (!phoneRegex.test(phone)) {
+            alert('Por favor, ingrese un número de teléfono de USA válido (ej: 555-000-0000).');
+            return;
+        }
+
         if (total <= 0) {
-            alert('La cotización debe ser mayor a $0.');
+            alert('La cotización debe ser mayor a $0. Seleccione áreas en los pasos anteriores.');
             return;
         }
 
