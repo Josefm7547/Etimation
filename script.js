@@ -1,5 +1,5 @@
 // Branding Configuration
-const businessName = "Mi Empresa de Limpieza"; // <--- CAMBIA TU NOMBRE AQUÍ
+const businessName = "StarClean"; // <--- CAMBIA TU NOMBRE AQUÍ
 
 // Data configuration
 const zones = [
