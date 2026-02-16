@@ -2,17 +2,16 @@
 
 :root {
     --primary: #7C3AED;
-    --primary-hover: #6D28D9;
-    --secondary: #10B981;
-    --accent: #F59E0B;
-    --bg-dark: #0F172A;
-    --card-bg: rgba(255, 255, 255, 0.08);
-    --card-border: rgba(255, 255, 255, 0.15);
-    --text-main: #F8FAFC;
-    --text-muted: #94A3B8;
-    --glass-blur: 16px;
-    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: 0.2s ease;
+    --primary-hover: #1d4ed8;
+    --secondary: #10b981;
+    --secondary-hover: #059669;
+    --bg-dark: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-blur: 12px;
+    --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -99,6 +98,95 @@ header h1 {
     font-size: 0.85rem;
     color: var(--text-muted);
     font-weight: 500;
+}
+
+/* Compact Customer Section Redesign */
+.customer-section {
+    max-width: 900px;
+    margin: 0 auto 3.5rem auto;
+}
+
+.compact-form {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(var(--glass-blur));
+}
+
+.col-3 {
+    grid-column: span 3;
+}
+
+.col-2 {
+    grid-column: span 2;
+}
+
+.col-6 {
+    grid-column: span 6;
+}
+
+@media (max-width: 768px) {
+    .compact-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .col-3,
+    .col-2 {
+        grid-column: span 1;
+    }
+
+    .col-6 {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .compact-form {
+        grid-template-columns: 1fr;
+    }
+
+    .col-3,
+    .col-2,
+    .col-6 {
+        grid-column: span 1;
+    }
+}
+
+.compact-field {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.compact-field label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: var(--secondary);
+    margin-bottom: 0.2rem;
+    margin-left: 0.5rem;
+    font-weight: 700;
+}
+
+.compact-field input {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 0.9rem !important;
+    color: white !important;
+    width: 100%;
+    transition: var(--transition-fast);
+}
+
+.compact-field input:focus {
+    border-color: var(--secondary) !important;
+    outline: none;
+    background: rgba(0, 0, 0, 0.3) !important;
 }
 
 input[type="text"],
