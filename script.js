@@ -32,8 +32,109 @@ const EMAILJS_PUBLIC_KEY = "Fyvdr-qc_UTfoTKLU";
 const EMAILJS_SERVICE_ID = "service_l9hmik8";
 const EMAILJS_TEMPLATE_ID = "template_8dklrk8";
 
-let db = null;
-let isAdmin = true; // Everyone is admin now
+// Initial state: Admin locked
+let isAdmin = false;
+
+// ... (renderItemCard Logic) ...
+function renderItemCard(item) {
+    const qty = state.values[item.id] || 0;
+    const price = item.price;
+    const isZone = zones.find(z => z.id === item.id);
+
+    // Apply readonly and specific styles if not admin
+    const inputAttrs = isAdmin ? '' : 'readonly tabindex="-1"';
+    const inputStyle = isAdmin ? '' : 'border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default;';
+
+    return `
+        <div class="item-card ${isAdmin ? 'admin-mode' : ''}">
+            <div class="item-info">
+                <h3>${item.name}</h3>
+                <p>${item.desc}</p>
+            </div>
+            <div class="inputs-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                <div class="field" style="flex: 1.5; min-width: 100px;">
+                    <label style="font-size: 0.75rem;">${isZone ? 'Precio/pie²' : 'Precio Un.'}</label>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <span style="color: var(--text-muted); font-weight: 600;">$</span>
+                        <input type="number" 
+                               step="0.01"
+                               class="price-input"
+                               ${inputAttrs}
+                               style="${inputStyle}"
+                               oninput="updateBasePrice('${item.id}', this.value)"
+                               value="${price}">
+                    </div>
+                </div>
+                <div class="field" style="flex: 1; min-width: 80px;">
+                    <label style="font-size: 0.75rem;">${isZone ? 'Pies²' : 'Cant.'}</label>
+                    <input type="number" 
+                           placeholder="0" 
+                           min="0" 
+                           oninput="updateQty('${item.id}', this.value)"
+                           value="${qty || ''}">
+                </div>
+            </div>
+            <div id="subtotal-${item.id}" style="text-align: right; font-size: 0.9rem; color: var(--primary); font-weight: 600; margin-top: 0.5rem;">
+                Subtotal: $${(price * qty).toFixed(2)}
+            </div>
+        </div>
+    `;
+}
+
+// ... (toggleAdmin Logic) ...
+window.toggleAdmin = () => {
+    if (isAdmin) {
+        // Already admin, maybe offer to logout? For now just confirm active.
+        alert("Modo Administrador Activo ✅");
+        return;
+    }
+
+    const pass = prompt("Ingrese clave para modificar precios:");
+    if (pass === ADMIN_PASSWORD) {
+        isAdmin = true;
+        document.body.classList.add('admin-active');
+
+        // Show Save Button and Preview Controls
+        const saveBtn = document.getElementById('save-prices-btn');
+        if (saveBtn) saveBtn.style.display = 'block';
+
+        const previewControls = document.querySelector('.preview-controls');
+        if (previewControls) previewControls.style.display = 'flex';
+
+        renderAll();
+        alert("¡Acceso Concedido! Ahora puedes editar los precios.");
+    } else if (pass !== null) {
+        alert("Clave incorrecta ❌");
+    }
+};
+
+window.saveGlobalPrices = async () => {
+    if (!db) {
+        alert("Firebase no está configurado.");
+        return;
+    }
+    if (!isAdmin) return; // double check
+
+    const btn = document.getElementById('save-prices-btn');
+    btn.innerText = "Guardando...";
+    btn.disabled = true;
+
+    const prices = {};
+    [...zones, ...appliances].forEach(item => {
+        prices[item.id] = item.price;
+    });
+
+    try {
+        await db.collection("settings").doc("prices").set(prices);
+        alert("✅ Precios actualizados en la nube correctamente.");
+        // Optional: Stay in admin mode or logout? Let's keep them in admin mode for convenience.
+    } catch (e) {
+        alert("Error al guardar: " + e.message);
+    } finally {
+        btn.innerText = "💾 Guardar Cambios";
+        btn.disabled = false;
+    }
+};
 
 try {
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
@@ -103,6 +204,8 @@ function renderItemCard(item) {
                         <input type="number" 
                                step="0.01"
                                class="price-input"
+                               ${isAdmin ? '' : 'readonly tabindex="-1"'}
+                               style="${isAdmin ? '' : 'border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default;'}"
                                oninput="updateBasePrice('${item.id}', this.value)"
                                value="${price}">
                     </div>
