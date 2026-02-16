@@ -192,8 +192,6 @@ window.closeAdmin = () => {
     document.body.classList.remove("admin-active");
     const modal = document.getElementById('admin-modal');
     if (modal) modal.classList.remove('active');
-    const controls = document.querySelector('.preview-controls');
-    if (controls) controls.style.display = 'none';
     const lock = document.getElementById('admin-lock');
     if (lock) lock.style.display = 'block';
     renderAll();
