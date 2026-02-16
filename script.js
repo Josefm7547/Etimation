@@ -47,7 +47,19 @@ try {
 // State management
 let state = {
     contact: { name: '', email: '', phone: '', date: '', address: '' },
-    values: {} // id: qty
+    values: {}, // id: qty
+    condition: 'good' // default condition
+};
+
+window.setCondition = (val) => {
+    state.condition = val;
+    // Update active UI state
+    document.querySelectorAll('.cond-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`cond-${val}`).classList.add('active');
+
+    calculateTotal();
+    updateSummary();
+    saveState();
 };
 
 async function loadPrices() {
@@ -76,6 +88,9 @@ function init() {
         }, 0);
     }
     loadPrices();
+    if (state.condition) {
+        setTimeout(() => window.setCondition(state.condition), 500);
+    }
     updateSummary();
     calculateTotal(false);
 }
@@ -225,11 +240,21 @@ window.saveGlobalPrices = async () => {
 };
 
 function calculateTotal(animate = true) {
-    let total = 0;
+    let subtotal = 0;
     [...zones, ...appliances].forEach(item => {
         const qty = state.values[item.id] || 0;
-        total += (item.price * qty);
+        subtotal += (item.price * qty);
     });
+
+    // Apply condition multiplier
+    const multipliers = {
+        poor: 1.5,
+        fair: 1.25,
+        good: 1.0,
+        verygood: 0.85,
+        pristine: 0.75
+    };
+    const total = subtotal * (multipliers[state.condition] || 1);
 
     const totalEl = document.getElementById('total-price');
     if (!totalEl) return;
@@ -258,6 +283,21 @@ function updateSummary() {
             `;
         }
     });
+
+    const conditionNames = {
+        poor: "Pobre",
+        fair: "Regular",
+        good: "Bueno",
+        verygood: "Muy Bueno",
+        pristine: "Impecable"
+    };
+
+    html += `
+        <div class="summary-item" style="border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 1rem;">
+            <span>Estado del Hogar:</span>
+            <span style="color: var(--secondary); font-weight: 600;">${conditionNames[state.condition]}</span>
+        </div>
+    `;
 
     container.innerHTML = hasItems ? html : '<p style="color: var(--text-muted); text-align: center;">Seleccione áreas para ver el resumen.</p>';
 }
@@ -334,7 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-                const detailsText = [...zones, ...appliances]
+                const conditionNames = { poor: "Pobre", fair: "Regular", good: "Bueno", verygood: "Muy Bueno", pristine: "Impecable" };
+                const detailsText = `Estado del Hogar: ${conditionNames[state.condition]}\n\n` + [...zones, ...appliances]
                     .filter(i => state.values[i.id] > 0)
                     .map(i => `${i.name}: ${state.values[i.id]} x $${i.price}`)
                     .join("\n");

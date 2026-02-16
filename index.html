@@ -63,6 +63,49 @@
             <p>Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.</p>
         </header>
 
+        <!-- Condition Selection Section -->
+        <section class="section condition-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿En qué estado se
+                encuentra su hogar?</h2>
+            <div class="cond-grid">
+                <div class="cond-card" id="cond-poor" onclick="setCondition('poor')">
+                    <div class="cond-letter">A</div>
+                    <div class="cond-info">
+                        <strong>ESTADO POBRE</strong>
+                        <p>Suciedad extrema; requiere limpieza profunda.</p>
+                    </div>
+                </div>
+                <div class="cond-card" id="cond-fair" onclick="setCondition('fair')">
+                    <div class="cond-letter">B</div>
+                    <div class="cond-info">
+                        <strong>ESTADO REGULAR</strong>
+                        <p>Suciedad visible; requiere atención regular.</p>
+                    </div>
+                </div>
+                <div class="cond-card active" id="cond-good" onclick="setCondition('good')">
+                    <div class="cond-letter">C</div>
+                    <div class="cond-info">
+                        <strong>ESTADO BUENO</strong>
+                        <p>Cuidado básico; algunas áreas requieren mantenimiento.</p>
+                    </div>
+                </div>
+                <div class="cond-card" id="cond-verygood" onclick="setCondition('verygood')">
+                    <div class="cond-letter">D</div>
+                    <div class="cond-info">
+                        <strong>ESTADO MUY BUENO</strong>
+                        <p>Bien mantenido; requiere limpieza mínima.</p>
+                    </div>
+                </div>
+                <div class="cond-card" id="cond-pristine" onclick="setCondition('pristine')">
+                    <div class="cond-letter">E</div>
+                    <div class="cond-info">
+                        <strong>ESTADO IMPECABLE</strong>
+                        <p>Limpieza y orden excelentes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <main class="main-grid">
             <div class="calculator-content">
                 <section class="section">
