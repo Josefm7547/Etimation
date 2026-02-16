@@ -1118,6 +1118,8 @@ input[type="number"]:focus {
     align-items: center;
     border-bottom: 1px solid var(--card-border);
     transition: var(--transition-fast);
+    text-align: center;
+    /* Horizontally align all columns */
 }
 
 @media (max-width: 1024px) {
@@ -1161,7 +1163,6 @@ input[type="number"]:focus {
 
     .table-row .price-cell {
         font-size: 0.7rem !important;
-        opacity: 0.8;
     }
 
     .table-row .subtotal-cell {
@@ -1177,7 +1178,8 @@ input[type="number"]:focus {
     background: rgba(255, 255, 255, 0.05);
     font-weight: 700;
     font-size: 0.75rem;
-    color: var(--secondary);
+    color: white !important;
+    /* Pure white for maximum contrast */
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     border-bottom: 2px solid var(--card-border);
@@ -1204,15 +1206,23 @@ input[type="number"]:focus {
 .table-row .price-cell {
     font-family: monospace;
     font-weight: 600;
-    color: var(--text-muted);
+    color: white !important;
+    /* Pure white */
     text-align: center;
 }
 
 .table-row .subtotal-cell {
     font-weight: 700;
-    color: var(--text-main);
-    text-align: right;
+    color: white !important;
+    /* Pure white */
+    text-align: center;
+    /* Centered as requested */
     font-size: 1.1rem;
+}
+
+.table-row div:first-child {
+    color: white !important;
+    /* Pure white labels */
 }
 
 /* Soap Bubbles Animation */
