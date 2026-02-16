@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init();
 
-    document.getElementById('admin-trigger').addEventListener('click', toggleAdmin);
+    // document.getElementById('admin-trigger').addEventListener('click', toggleAdmin);
 
     // Admin Save Button logic
     const saveBtn = document.getElementById('save-prices-btn');
