@@ -190,6 +190,13 @@ window.updateQty = (id, value) => {
 };
 
 window.toggleAdmin = () => {
+    if (isAdmin) {
+        // If already admin, just ensure the modal is open
+        document.getElementById('admin-modal').classList.add('active');
+        document.querySelector('.preview-controls').style.display = 'flex';
+        return;
+    }
+
     const pass = prompt("Ingrese la contraseña de administrador:");
     if (pass === ADMIN_PASSWORD) {
         isAdmin = true;
@@ -197,7 +204,7 @@ window.toggleAdmin = () => {
         document.getElementById('admin-modal').classList.add('active');
         document.querySelector('.preview-controls').style.display = 'flex';
         renderAll();
-    } else {
+    } else if (pass !== null) {
         alert("Contraseña incorrecta.");
     }
 };
