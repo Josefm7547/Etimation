@@ -62,6 +62,24 @@ window.setCondition = (val) => {
     saveState();
 };
 
+window.goToScreen = (num) => {
+    const s1 = document.getElementById('screen-1');
+    const s2 = document.getElementById('screen-2');
+    if (num === 1) {
+        s1.style.display = 'block';
+        s1.classList.add('fade-in');
+        s2.style.display = 'none';
+        s2.classList.remove('fade-in');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        s1.style.display = 'none';
+        s1.classList.remove('fade-in');
+        s2.style.display = 'block';
+        s2.classList.add('fade-in');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+};
+
 async function loadPrices() {
     if (db) {
         try {

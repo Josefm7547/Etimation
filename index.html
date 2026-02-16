@@ -63,111 +63,131 @@
             <p>Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.</p>
         </header>
 
-        <!-- Condition Selection Section -->
-        <section class="section condition-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿En qué estado se
-                encuentra su hogar?</h2>
-            <div class="cond-grid">
-                <div class="cond-card" id="cond-poor" onclick="setCondition('poor')">
-                    <div class="cond-letter">A</div>
-                    <div class="cond-info">
-                        <strong>ESTADO POBRE</strong>
-                        <p>Suciedad extrema; requiere limpieza profunda.</p>
-                    </div>
-                </div>
-                <div class="cond-card" id="cond-fair" onclick="setCondition('fair')">
-                    <div class="cond-letter">B</div>
-                    <div class="cond-info">
-                        <strong>ESTADO REGULAR</strong>
-                        <p>Suciedad visible; requiere atención regular.</p>
-                    </div>
-                </div>
-                <div class="cond-card active" id="cond-good" onclick="setCondition('good')">
-                    <div class="cond-letter">C</div>
-                    <div class="cond-info">
-                        <strong>ESTADO BUENO</strong>
-                        <p>Cuidado básico; algunas áreas requieren mantenimiento.</p>
-                    </div>
-                </div>
-                <div class="cond-card" id="cond-verygood" onclick="setCondition('verygood')">
-                    <div class="cond-letter">D</div>
-                    <div class="cond-info">
-                        <strong>ESTADO MUY BUENO</strong>
-                        <p>Bien mantenido; requiere limpieza mínima.</p>
-                    </div>
-                </div>
-                <div class="cond-card" id="cond-pristine" onclick="setCondition('pristine')">
-                    <div class="cond-letter">E</div>
-                    <div class="cond-info">
-                        <strong>ESTADO IMPECABLE</strong>
-                        <p>Limpieza y orden excelentes.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Screen 1: Condition Selection -->
+        <div id="screen-1">
 
-        <main class="main-grid">
-            <div class="calculator-content">
-                <section class="section">
-                    <h2 class="section-title"><span>✦</span> Áreas de la Casa</h2>
-                    <div id="zones-container" class="card-grid"></div>
-                </section>
-
-                <section class="section">
-                    <h2 class="section-title"><span>✦</span> Servicios Adicionales</h2>
-                    <div id="appliances-container" class="card-grid"></div>
-                </section>
-
-                <p
-                    style="text-align: center; color: var(--secondary); font-size: 0.9rem; margin: 2rem 0; font-weight: 500;">
-                    🛡️ Satisfacción 100% Garantizada en cada limpieza
-                </p>
-            </div>
-
-            <aside>
-                <div class="summary-card">
-                    <h2 class="summary-title">Resumen de Cotización</h2>
-                    <div id="summary-items"></div>
-                    <div class="total-display">
-                        <p class="total-label">Total Estimado</p>
-                        <p class="total-amount">$<span id="total-price">0.00</span></p>
+            <!-- Condition Selection Section -->
+            <section class="section condition-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿En qué estado
+                    se
+                    encuentra su hogar?</h2>
+                <div class="cond-grid">
+                    <div class="cond-card" id="cond-poor" onclick="setCondition('poor')">
+                        <div class="cond-letter">A</div>
+                        <div class="cond-info">
+                            <strong>ESTADO POBRE</strong>
+                            <p>Suciedad extrema; requiere limpieza profunda.</p>
+                        </div>
                     </div>
-                    <button class="btn-primary" id="book-btn">Confirmar Reserva</button>
-                    <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">Descargar
-                        PDF</button>
-                    <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">Precio
-                        sujeto a inspección física.</p>
+                    <div class="cond-card" id="cond-fair" onclick="setCondition('fair')">
+                        <div class="cond-letter">B</div>
+                        <div class="cond-info">
+                            <strong>ESTADO REGULAR</strong>
+                            <p>Suciedad visible; requiere atención regular.</p>
+                        </div>
+                    </div>
+                    <div class="cond-card active" id="cond-good" onclick="setCondition('good')">
+                        <div class="cond-letter">C</div>
+                        <div class="cond-info">
+                            <strong>ESTADO BUENO</strong>
+                            <p>Cuidado básico; algunas áreas requieren mantenimiento.</p>
+                        </div>
+                    </div>
+                    <div class="cond-card" id="cond-verygood" onclick="setCondition('verygood')">
+                        <div class="cond-letter">D</div>
+                        <div class="cond-info">
+                            <strong>ESTADO MUY BUENO</strong>
+                            <p>Bien mantenido; requiere limpieza mínima.</p>
+                        </div>
+                    </div>
+                    <div class="cond-card" id="cond-pristine" onclick="setCondition('pristine')">
+                        <div class="cond-letter">E</div>
+                        <div class="cond-info">
+                            <strong>ESTADO IMPECABLE</strong>
+                            <p>Limpieza y orden excelentes.</p>
+                        </div>
+                    </div>
                 </div>
-            </aside>
-        </main>
 
-        <section class="customer-section">
-            <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--secondary);">
-                <span>✦</span> Completa tus datos para Finalizar
-            </h2>
-            <div class="compact-form">
-                <div class="compact-field col-3">
-                    <label>Nombre</label>
-                    <input type="text" id="cust-name" placeholder="Ej. Juan Pérez" oninput="updateContactData()">
+                <!-- Next Button -->
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button class="btn-primary" onclick="goToScreen(2)"
+                        style="max-width: 300px; margin: 0 auto;">Siguiente ➔</button>
                 </div>
-                <div class="compact-field col-3">
-                    <label>Correo</label>
-                    <input type="email" id="cust-email" placeholder="juan@ejemplo.com" oninput="updateContactData()">
+            </section>
+        </div>
+
+        <!-- Screen 2: Calculator and Form -->
+        <div id="screen-2" style="display: none;">
+            <main class="main-grid">
+                <div class="calculator-content">
+                    <section class="section">
+                        <h2 class="section-title"><span>✦</span> Áreas de la Casa</h2>
+                        <div id="zones-container" class="card-grid"></div>
+                    </section>
+
+                    <section class="section">
+                        <h2 class="section-title"><span>✦</span> Servicios Adicionales</h2>
+                        <div id="appliances-container" class="card-grid"></div>
+                    </section>
+
+                    <p
+                        style="text-align: center; color: var(--secondary); font-size: 0.9rem; margin: 2rem 0; font-weight: 500;">
+                        🛡️ Satisfacción 100% Garantizada en cada limpieza
+                    </p>
                 </div>
-                <div class="compact-field col-2">
-                    <label>Teléfono</label>
-                    <input type="tel" id="cust-phone" placeholder="(555) 000-0000" oninput="updateContactData()">
+
+                <aside>
+                    <div class="summary-card">
+                        <h2 class="summary-title">Resumen de Cotización</h2>
+                        <div id="summary-items"></div>
+                        <div class="total-display">
+                            <p class="total-label">Total Estimado</p>
+                            <p class="total-amount">$<span id="total-price">0.00</span></p>
+                        </div>
+                        <button class="btn-primary" id="book-btn">Confirmar Reserva</button>
+                        <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">Descargar
+                            PDF</button>
+                        <button class="btn-secondary" onclick="goToScreen(1)"
+                            style="width: 100%; margin-top: 0.5rem; background: transparent; border: 1px solid var(--card-border);">←
+                            Volver</button>
+                        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">
+                            Precio
+                            sujeto a inspección física.</p>
+                    </div>
+                </aside>
+            </main>
+
+            <section class="customer-section">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--secondary);">
+                    <span>✦</span> Completa tus datos para Finalizar
+                </h2>
+                <div class="compact-form">
+                    <div class="compact-field col-3">
+                        <label>Nombre</label>
+                        <input type="text" id="cust-name" placeholder="Ej. Juan Pérez" oninput="updateContactData()">
+                    </div>
+                    <div class="compact-field col-3">
+                        <label>Correo</label>
+                        <input type="email" id="cust-email" placeholder="juan@ejemplo.com"
+                            oninput="updateContactData()">
+                    </div>
+                    <div class="compact-field col-2">
+                        <label>Teléfono</label>
+                        <input type="tel" id="cust-phone" placeholder="(555) 000-0000" oninput="updateContactData()">
+                    </div>
+                    <div class="compact-field col-2">
+                        <label>Fecha</label>
+                        <input type="date" id="cust-date" oninput="updateContactData()">
+                    </div>
+                    <div class="compact-field col-2">
+                        <label>Dirección</label>
+                        <input type="text" id="cust-address" placeholder="Calle, Ciudad..."
+                            oninput="updateContactData()">
+                    </div>
                 </div>
-                <div class="compact-field col-2">
-                    <label>Fecha</label>
-                    <input type="date" id="cust-date" oninput="updateContactData()">
-                </div>
-                <div class="compact-field col-2">
-                    <label>Dirección</label>
-                    <input type="text" id="cust-address" placeholder="Calle, Ciudad..." oninput="updateContactData()">
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
     <!-- Admin Bar -->
