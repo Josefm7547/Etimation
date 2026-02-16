@@ -1354,6 +1354,36 @@ input[type="number"]:focus {
     opacity: 0;
 }
 
+.bubble.neon-cyan {
+    background: rgba(0, 243, 255, 0.25);
+    border-color: rgba(0, 243, 255, 0.6);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.bubble.neon-pink {
+    background: rgba(255, 0, 255, 0.25);
+    border-color: rgba(255, 0, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.bubble.neon-green {
+    background: rgba(0, 255, 136, 0.25);
+    border-color: rgba(0, 255, 136, 0.6);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.bubble.neon-purple {
+    background: rgba(188, 19, 254, 0.25);
+    border-color: rgba(188, 19, 254, 0.6);
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.bubble.neon-yellow {
+    background: rgba(243, 236, 25, 0.25);
+    border-color: rgba(243, 236, 25, 0.6);
+    box-shadow: 0 0 10px rgba(243, 236, 25, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
 .bubble::after {
     content: '';
     position: absolute;
