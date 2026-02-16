@@ -25,8 +25,8 @@ const firebaseConfig = {
 
 // EmailJS Configuration (Sign up at emailjs.com to get these)
 const EMAILJS_PUBLIC_KEY = "Fyvdr-qc_UTfoTKLU";
-const EMAILJS_SERVICE_ID = "service_default"; // Cambia esto si tienes un ID diferente
-const EMAILJS_TEMPLATE_ID = "template_quote"; // Cambia esto si tienes un ID diferente
+const EMAILJS_SERVICE_ID = "service_l9hmik8";
+const EMAILJS_TEMPLATE_ID = "template_8dklrk8";
 
 let db = null;
 try {
