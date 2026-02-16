@@ -263,6 +263,12 @@
 
                                 <!-- Items will be rendered here -->
                                 <div id="estimate-items-container"></div>
+
+                                <!-- Final Total Row -->
+                                <div class="table-row total-row-vibrant">
+                                    <div class="total-label-cell">Total estimado:</div>
+                                    <div class="total-amount-cell">$<span id="table-total-price">0</span></div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -278,8 +284,9 @@
                         <!-- Total display -->
                         <div class="total-display"
                             style="padding-bottom: 1.5rem; border-bottom: 1px solid var(--card-border);">
-                            <p class="total-label">Subtotal Cotización</p>
-                            <p class="total-amount">$<span id="total-price">0</span></p>
+                            <p class="total-label">Total estimado:</p>
+                            <p class="total-amount" style="color: #00ff88 !important;">$<span id="total-price">0</span>
+                            </p>
                         </div>
 
                         <!-- Integrated Form at the BOTTOM -->

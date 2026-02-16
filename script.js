@@ -333,11 +333,16 @@ function calculateTotal(animate = true) {
     const total = subtotal * (condMultipliers[state.condition] || 1);
 
     const totalEl = document.getElementById('total-price');
-    if (!totalEl) return;
-    if (animate) {
-        animateValue(totalEl, parseFloat(totalEl.innerText) || 0, total, 400);
-    } else {
-        totalEl.innerText = Math.round(total);
+    const tableTotalEl = document.getElementById('table-total-price');
+
+    if (totalEl) {
+        if (animate) animateValue(totalEl, parseFloat(totalEl.innerText) || 0, total, 400);
+        else totalEl.innerText = Math.round(total);
+    }
+
+    if (tableTotalEl) {
+        if (animate) animateValue(tableTotalEl, parseFloat(tableTotalEl.innerText) || 0, total, 400);
+        else tableTotalEl.innerText = Math.round(total);
     }
 }
 
