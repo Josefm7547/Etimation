@@ -4,18 +4,22 @@ const ADMIN_PASSWORD = "jose123";
 
 // Data configuration with default prices
 let zones = [
-    { id: 'sala', name: "Sala", desc: "Limpieza de áreas sociales", price: 0.50 },
-    { id: 'cocina', name: "Cocina", desc: "Desengrasado y superficies", price: 0.70 },
-    { id: 'baño', name: "Baño", desc: "Desinfección profunda", price: 0.60 },
-    { id: 'dormitorio', name: "Dormitorio", desc: "Orden y limpieza general", price: 0.50 }
+    { id: 'bedrooms', name: "BEDROOMS", desc: "Dormitorios", price: 20 },
+    { id: 'bathrooms', name: "BATHROOMS", desc: "Baños", price: 20 },
+    { id: 'kitchens', name: "KITCHENS", desc: "Cocinas", price: 20 },
+    { id: 'laundry_rooms', name: "LAUNDRY ROOMS", desc: "Lavandería", price: 20 },
+    { id: 'study_offices', name: "STUDY/OFFICES", desc: "Estudios/Oficinas", price: 20 },
+    { id: 'living_rooms', name: "LIVING ROOMS", desc: "Salas de estar", price: 20 },
+    { id: 'dining_rooms', name: "DINING ROOMS", desc: "Comedores", price: 20 },
+    { id: 'hallways', name: "HALLWAYS", desc: "Pasillos", price: 20 },
+    { id: 'stairs', name: "STAIRS", desc: "Escaleras", price: 20 },
+    { id: 'foyer_entryways', name: "FOYER/ENTRYWAYS", desc: "Entradas", price: 20 },
+    { id: 'walkin_closets', name: "WALK-IN CLOSETS", desc: "Vestidores", price: 20 },
+    { id: 'gyms', name: "GYMS", desc: "Gimnasios", price: 20 },
+    { id: 'pantries', name: "PANTRIES", desc: "Despensas", price: 20 }
 ];
 
-let appliances = [
-    { id: 'refri', name: "Refrigerador", desc: "Limpieza interior/exterior", price: 25 },
-    { id: 'horno', name: "Horno", desc: "Eliminación de grasa", price: 20 },
-    { id: 'lavadora', name: "Lavadora", desc: "Limpieza de filtros", price: 30 },
-    { id: 'secadora', name: "Secadora", desc: "Limpieza de conductos", price: 25 }
-];
+let appliances = []; // Merged into the main list above
 
 // Firebase Configuration
 const firebaseConfig = {
