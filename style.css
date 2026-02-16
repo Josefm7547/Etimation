@@ -71,20 +71,40 @@ header h1 {
 .logo-container {
     margin-bottom: 1.5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
 }
 
-.main-logo {
-    max-width: 280px;
+.main-logo-icon {
+    max-width: 180px;
     height: auto;
-    filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
+    /* This makes the black background of the image disappear against our dark UI */
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4));
     animation: fadeInDown 0.8s ease-out;
 }
 
+.logo-text {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(135deg, #10b981 0%, #7C3AED 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
 @media (max-width: 768px) {
-    .main-logo {
-        max-width: 220px;
+    .main-logo-icon {
+        max-width: 140px;
+    }
+
+    .logo-text {
+        font-size: 2.5rem;
     }
 }
 
