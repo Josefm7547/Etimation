@@ -109,6 +109,12 @@ window.goToScreen = (num) => {
         target.classList.add('fade-in');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Hide/Show header tagline based on screen
+    const tagline = document.getElementById('header-tagline');
+    if (tagline) {
+        tagline.style.display = (num === 4) ? 'none' : 'block';
+    }
 };
 
 async function loadPrices() {
