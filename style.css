@@ -1105,7 +1105,8 @@ input[type="number"]:focus {
     /* Solid Dark Blue (Slate-900) */
     border: 1px solid var(--card-border);
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible;
+    /* Important for position: sticky to work */
     backdrop-filter: none !important;
     /* Remove translucency */
 }
@@ -1146,9 +1147,14 @@ input[type="number"]:focus {
     .table-header {
         font-size: 0.7rem !important;
         letter-spacing: 0.05rem !important;
-        background: rgba(255, 255, 255, 0.03) !important;
+        background: #0f172a !important;
+        /* Solid background for mobile scrolling */
+        border-radius: 0 !important;
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
 
     .table-row div:first-child {
@@ -1175,7 +1181,13 @@ input[type="number"]:focus {
 }
 
 .table-header {
-    background: rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1e293b !important;
+    border-radius: 20px 20px 0 0;
+    /* Match table rounded corners */
+    /* Solid dark background to hide scrolling rows */
     font-weight: 700;
     font-size: 0.75rem;
     color: white !important;
