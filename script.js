@@ -1,6 +1,6 @@
 // Branding Configuration
 const businessName = "StarClean";
-const ADMIN_PASSWORD = "jose123"; // <--- CAMBIA TU CONTRASEÑA AQUÍ
+const ADMIN_PASSWORD = "jose123";
 
 // Data configuration with default prices
 let zones = [
@@ -32,109 +32,8 @@ const EMAILJS_PUBLIC_KEY = "Fyvdr-qc_UTfoTKLU";
 const EMAILJS_SERVICE_ID = "service_l9hmik8";
 const EMAILJS_TEMPLATE_ID = "template_8dklrk8";
 
-// Initial state: Admin locked
+let db = null;
 let isAdmin = false;
-
-// ... (renderItemCard Logic) ...
-function renderItemCard(item) {
-    const qty = state.values[item.id] || 0;
-    const price = item.price;
-    const isZone = zones.find(z => z.id === item.id);
-
-    // Apply readonly and specific styles if not admin
-    const inputAttrs = isAdmin ? '' : 'readonly tabindex="-1"';
-    const inputStyle = isAdmin ? '' : 'border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default;';
-
-    return `
-        <div class="item-card ${isAdmin ? 'admin-mode' : ''}">
-            <div class="item-info">
-                <h3>${item.name}</h3>
-                <p>${item.desc}</p>
-            </div>
-            <div class="inputs-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
-                <div class="field" style="flex: 1.5; min-width: 100px;">
-                    <label style="font-size: 0.75rem;">${isZone ? 'Precio/pie²' : 'Precio Un.'}</label>
-                    <div style="display: flex; align-items: center; gap: 4px;">
-                        <span style="color: var(--text-muted); font-weight: 600;">$</span>
-                        <input type="number" 
-                               step="0.01"
-                               class="price-input"
-                               ${inputAttrs}
-                               style="${inputStyle}"
-                               oninput="updateBasePrice('${item.id}', this.value)"
-                               value="${price}">
-                    </div>
-                </div>
-                <div class="field" style="flex: 1; min-width: 80px;">
-                    <label style="font-size: 0.75rem;">${isZone ? 'Pies²' : 'Cant.'}</label>
-                    <input type="number" 
-                           placeholder="0" 
-                           min="0" 
-                           oninput="updateQty('${item.id}', this.value)"
-                           value="${qty || ''}">
-                </div>
-            </div>
-            <div id="subtotal-${item.id}" style="text-align: right; font-size: 0.9rem; color: var(--primary); font-weight: 600; margin-top: 0.5rem;">
-                Subtotal: $${(price * qty).toFixed(2)}
-            </div>
-        </div>
-    `;
-}
-
-// ... (toggleAdmin Logic) ...
-window.toggleAdmin = () => {
-    if (isAdmin) {
-        // Already admin, maybe offer to logout? For now just confirm active.
-        alert("Modo Administrador Activo ✅");
-        return;
-    }
-
-    const pass = prompt("Ingrese clave para modificar precios:");
-    if (pass === ADMIN_PASSWORD) {
-        isAdmin = true;
-        document.body.classList.add('admin-active');
-
-        // Show Save Button and Preview Controls
-        const saveBtn = document.getElementById('save-prices-btn');
-        if (saveBtn) saveBtn.style.display = 'block';
-
-        const previewControls = document.querySelector('.preview-controls');
-        if (previewControls) previewControls.style.display = 'flex';
-
-        renderAll();
-        alert("¡Acceso Concedido! Ahora puedes editar los precios.");
-    } else if (pass !== null) {
-        alert("Clave incorrecta ❌");
-    }
-};
-
-window.saveGlobalPrices = async () => {
-    if (!db) {
-        alert("Firebase no está configurado.");
-        return;
-    }
-    if (!isAdmin) return; // double check
-
-    const btn = document.getElementById('save-prices-btn');
-    btn.innerText = "Guardando...";
-    btn.disabled = true;
-
-    const prices = {};
-    [...zones, ...appliances].forEach(item => {
-        prices[item.id] = item.price;
-    });
-
-    try {
-        await db.collection("settings").doc("prices").set(prices);
-        alert("✅ Precios actualizados en la nube correctamente.");
-        // Optional: Stay in admin mode or logout? Let's keep them in admin mode for convenience.
-    } catch (e) {
-        alert("Error al guardar: " + e.message);
-    } finally {
-        btn.innerText = "💾 Guardar Cambios";
-        btn.disabled = false;
-    }
-};
 
 try {
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
@@ -190,6 +89,9 @@ function renderItemCard(item) {
     const price = item.price;
     const isZone = zones.find(z => z.id === item.id);
 
+    const inputAttrs = isAdmin ? "" : 'readonly tabindex="-1"';
+    const inputStyle = isAdmin ? "" : "border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default; outline:none;";
+
     return `
         <div class="item-card ${isAdmin ? 'admin-mode' : ''}">
             <div class="item-info">
@@ -204,8 +106,8 @@ function renderItemCard(item) {
                         <input type="number" 
                                step="0.01"
                                class="price-input"
-                               ${isAdmin ? '' : 'readonly tabindex="-1"'}
-                               style="${isAdmin ? '' : 'border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default;'}"
+                               ${inputAttrs}
+                               style="${inputStyle}"
                                oninput="updateBasePrice('${item.id}', this.value)"
                                value="${price}">
                     </div>
@@ -238,7 +140,6 @@ window.updateBasePrice = (id, value) => {
     let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
     if (item) item.price = val;
 
-    // Update individual subtotal UI
     const qty = state.values[id] || 0;
     const subEl = document.getElementById(`subtotal-${id}`);
     if (subEl) subEl.innerText = `Subtotal: $${(val * qty).toFixed(2)}`;
@@ -247,39 +148,8 @@ window.updateBasePrice = (id, value) => {
     updateSummary();
 };
 
-window.updateContactData = () => {
-    state.contact.name = document.getElementById('cust-name').value;
-    state.contact.email = document.getElementById('cust-email').value;
-    state.contact.phone = document.getElementById('cust-phone').value;
-    state.contact.date = document.getElementById('cust-date').value;
-    state.contact.address = document.getElementById('cust-address').value;
-    saveState();
-
-    // Lead Tracking Alert: If name and email are present, send a quick alert
-    if (state.contact.name && state.contact.email) {
-        clearTimeout(window.leadTimer);
-        window.leadTimer = setTimeout(async () => {
-            if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-                try {
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                        to_email: "josefm7547@gmail.com",
-                        subject: "🔔 NUEVO INTERESADO en StarClean",
-                        from_name: state.contact.name,
-                        customer_email: state.contact.email,
-                        customer_phone: state.contact.phone,
-                        details: "El cliente está actualmente llenando el formulario de cotización."
-                    });
-                    console.log("Lead alert sent!");
-                } catch (e) { console.log("Lead alert failed:", e); }
-            }
-        }, 5000); // Wait 5 seconds of inactivity to send
-    }
-};
-
 window.updateQty = (id, value) => {
     state.values[id] = parseFloat(value) || 0;
-
-    // Update individual subtotal UI
     let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
     const price = item ? item.price : 0;
     const subEl = document.getElementById(`subtotal-${id}`);
@@ -290,13 +160,56 @@ window.updateQty = (id, value) => {
     saveState();
 };
 
-// Admin functions removed as requested. Everyone is admin now.
+window.toggleAdmin = () => {
+    if (isAdmin) {
+        alert("El Modo Admin ya está activo.");
+        return;
+    }
+    const pass = prompt("Clave de administrador:");
+    if (pass === ADMIN_PASSWORD) {
+        isAdmin = true;
+        document.body.classList.add("admin-active");
+
+        const modal = document.getElementById('admin-modal');
+        if (modal) modal.classList.add('active');
+
+        const controls = document.querySelector('.preview-controls');
+        if (controls) controls.style.display = 'flex';
+
+        renderAll();
+        // Hide the lock icon after activation
+        const lock = document.getElementById('admin-lock');
+        if (lock) lock.style.display = 'none';
+
+        alert("✅ Acceso Concedido.");
+    } else if (pass !== null) {
+        alert("❌ Clave incorrecta.");
+    }
+};
+
+window.closeAdmin = () => {
+    isAdmin = false;
+    document.body.classList.remove("admin-active");
+    const modal = document.getElementById('admin-modal');
+    if (modal) modal.classList.remove('active');
+    const controls = document.querySelector('.preview-controls');
+    if (controls) controls.style.display = 'none';
+    const lock = document.getElementById('admin-lock');
+    if (lock) lock.style.display = 'block';
+    renderAll();
+};
 
 window.saveGlobalPrices = async () => {
     if (!db) {
-        alert("Firebase no está configurado. Los precios se perderán al recargar.");
+        alert("Firebase no está configurado.");
         return;
     }
+    const btn = document.getElementById('save-prices-btn-bar');
+    if (!btn) return;
+
+    btn.innerText = "Guardando...";
+    btn.disabled = true;
+
     const prices = {};
     [...zones, ...appliances].forEach(item => {
         prices[item.id] = item.price;
@@ -304,11 +217,12 @@ window.saveGlobalPrices = async () => {
 
     try {
         await db.collection("settings").doc("prices").set(prices);
-        alert("¡Precios guardados en la nube exitosamente!");
-        // isAdmin = false; // No need to reset admin since everyone is admin
-        renderAll();
+        alert("✅ Precios actualizados exitosamente.");
     } catch (e) {
-        alert("Error al guardar precios: " + e.message);
+        alert("Error: " + e.message);
+    } finally {
+        btn.innerText = "💾 Guardar Cambios";
+        btn.disabled = false;
     }
 };
 
@@ -322,7 +236,7 @@ function calculateTotal(animate = true) {
     const totalEl = document.getElementById('total-price');
     if (!totalEl) return;
     if (animate) {
-        animateValue(totalEl, parseFloat(totalEl.innerText), total, 400);
+        animateValue(totalEl, parseFloat(totalEl.innerText) || 0, total, 400);
     } else {
         totalEl.innerText = total.toFixed(2);
     }
@@ -335,7 +249,7 @@ function updateSummary() {
     let hasItems = false;
 
     [...zones, ...appliances].forEach(item => {
-        const qty = state.values[item.id];
+        const qty = state.values[item.id] || 0;
         if (qty > 0) {
             hasItems = true;
             html += `
@@ -362,23 +276,38 @@ function animateValue(obj, start, end, duration) {
     window.requestAnimationFrame(step);
 }
 
+window.updateContactData = () => {
+    state.contact.name = document.getElementById('cust-name').value;
+    state.contact.email = document.getElementById('cust-email').value;
+    state.contact.phone = document.getElementById('cust-phone').value;
+    state.contact.date = document.getElementById('cust-date').value;
+    state.contact.address = document.getElementById('cust-address').value;
+    saveState();
+
+    if (state.contact.name && state.contact.email) {
+        clearTimeout(window.leadTimer);
+        window.leadTimer = setTimeout(async () => {
+            if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                try {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        to_email: "josefm7547@gmail.com",
+                        subject: "🔔 NUEVO INTERESADO en StarClean",
+                        from_name: state.contact.name,
+                        customer_email: state.contact.email,
+                        customer_phone: state.contact.phone,
+                        details: "El cliente está actualmente llenando el formulario de cotización."
+                    });
+                } catch (e) { console.log("Lead alert failed:", e); }
+            }
+        }, 5000);
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") emailjs.init(EMAILJS_PUBLIC_KEY);
-
-    const logo = document.querySelector('header h1');
-    if (logo) logo.innerText = businessName;
-    document.title = `${businessName} | Cotización`;
-
     init();
 
-    const adminTrigger = document.getElementById('new-admin-trigger');
-    if (adminTrigger) {
-        // Just use onclick from HTML to avoid double firing
-    }
-    // Admin trigger handled via onclick in HTML
-
-    // Admin Save Button logic
-    const saveBtn = document.getElementById('save-prices-btn');
+    const saveBtn = document.getElementById('save-prices-btn-bar');
     if (saveBtn) saveBtn.addEventListener('click', saveGlobalPrices);
 
     document.getElementById('book-btn').addEventListener('click', async function () {
@@ -420,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     details: detailsText
                 });
             }
-
             document.getElementById('success-modal').classList.add('active');
         } catch (e) {
             alert("Error al procesar la reserva.");
@@ -430,7 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('print-btn').addEventListener('click', () => window.print());
+    const printBtn = document.getElementById('print-btn');
+    if (printBtn) printBtn.addEventListener('click', () => window.print());
 });
 
 window.openPreview = (device) => {

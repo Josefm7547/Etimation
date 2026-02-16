@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estimate Pro | Cotización de Limpieza</title>
-    <meta name="description" content="Calcula el costo de limpieza de tu hogar de forma rápida y profesional.">
+    <title>StarClean | Cotización de Limpieza</title>
+    <meta name="description"
+        content="Calcula el costo de limpieza de tu hogar de forma rápida y profesional con StarClean.">
     <link rel="stylesheet" href="style.css">
     <!-- Firebase SDK (Compatibility Version) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -15,16 +16,10 @@
 </head>
 
 <body>
-    <!-- Admin Trigger Icon (Top Right) -->
-    <button id="new-admin-trigger" onclick="toggleAdmin()"
-        style="position: fixed; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer; z-index: 9999; opacity: 0.1; color: white;">
-        ⚙️
-    </button>
     <div class="container">
         <header>
             <div class="logo-container">
                 <div class="logo-svg-wrapper">
-                    <!-- Detailed House & Multiple Stars SVG -->
                     <svg viewBox="0 0 100 100" class="main-logo-svg">
                         <defs>
                             <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -39,22 +34,16 @@
                                 </feMerge>
                             </filter>
                         </defs>
-                        <!-- Detailed House -->
                         <g filter="url(#glow)">
-                            <!-- Roof with Chimney -->
                             <path d="M10,50 L50,15 L90,50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
                                 stroke-linecap="round" />
                             <path d="M72,34 V22 H82 V43" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
-                            <!-- House Body -->
                             <path d="M20,50 V85 H80 V50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
                                 stroke-linecap="round" />
-                            <!-- Door -->
                             <path d="M42,85 V65 H58 V85" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
-                            <!-- Window -->
                             <rect x="28" y="60" width="10" height="10" fill="none" stroke="url(#logo-grad)"
                                 stroke-width="3" rx="2" />
                         </g>
-                        <!-- Multiple Twinkling Stars -->
                         <path d="M50,5 L52,11 L58,13 L52,15 L50,21 L48,15 L42,13 L48,11 Z" fill="url(#logo-grad)"
                             class="star star-1" />
                         <path d="M85,30 L87,35 L93,37 L87,39 L85,45 L83,39 L77,37 L83,35 Z" fill="url(#logo-grad)"
@@ -76,25 +65,14 @@
 
         <main class="main-grid">
             <div class="calculator-content">
-
-                <!-- Zones Section -->
                 <section class="section">
-                    <h2 class="section-title">
-                        <span>✦</span> Áreas de la Casa
-                    </h2>
-                    <div id="zones-container" class="card-grid">
-                        <!-- Zones will be rendered here by JS -->
-                    </div>
+                    <h2 class="section-title"><span>✦</span> Áreas de la Casa</h2>
+                    <div id="zones-container" class="card-grid"></div>
                 </section>
 
-                <!-- Appliances Section -->
                 <section class="section">
-                    <h2 class="section-title">
-                        <span>✦</span> Servicios Adicionales
-                    </h2>
-                    <div id="appliances-container" class="card-grid">
-                        <!-- Appliances will be rendered here by JS -->
-                    </div>
+                    <h2 class="section-title"><span>✦</span> Servicios Adicionales</h2>
+                    <div id="appliances-container" class="card-grid"></div>
                 </section>
 
                 <p
@@ -106,30 +84,20 @@
             <aside>
                 <div class="summary-card">
                     <h2 class="summary-title">Resumen de Cotización</h2>
-
-                    <div id="summary-items">
-                        <!-- Summary items will be rendered here -->
-                    </div>
-
+                    <div id="summary-items"></div>
                     <div class="total-display">
                         <p class="total-label">Total Estimado</p>
                         <p class="total-amount">$<span id="total-price">0.00</span></p>
                     </div>
-
-                    <button class="btn-primary" id="book-btn">
-                        Confirmar Reserva
-                    </button>
-                    <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">
-                        Descargar/Imprimir PDF
-                    </button>
-                    <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">
-                        Precio sujeto a inspección física.
-                    </p>
+                    <button class="btn-primary" id="book-btn">Confirmar Reserva</button>
+                    <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">Descargar
+                        PDF</button>
+                    <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">Precio
+                        sujeto a inspección física.</p>
                 </div>
             </aside>
         </main>
 
-        <!-- Compact Customer Info Section Moved to Bottom -->
         <section class="customer-section">
             <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--secondary);">
                 <span>✦</span> Completa tus datos para Finalizar
@@ -159,44 +127,38 @@
         </section>
     </div>
 
-    <!-- Admin Bar (Visible only in admin mode) -->
+    <!-- Admin Bar -->
     <div id="admin-modal" class="admin-bar">
         <div class="admin-bar-content">
             <div class="admin-info">
                 <strong>🔐 Modo Admin</strong>
-                <span>Edita precios en las tarjetas y guarda cuando termines.</span>
+                <span>Edita precios y guarda en la nube.</span>
             </div>
             <div class="admin-actions">
                 <button class="btn-secondary" onclick="closeAdmin()">Cerrar</button>
-                <button id="save-prices-btn" class="btn-primary" style="margin:0; background: var(--secondary);">💾
-                    Guardar en la Nube</button>
+                <button id="save-prices-btn-bar" class="btn-primary" style="margin:0; background: var(--secondary);">💾
+                    Guardar Cambios</button>
             </div>
         </div>
     </div>
 
     <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem; position: relative;">
-        <!-- Hidden Save Button (Only for Admin) -->
-        <button id="save-prices-btn" class="btn-primary"
-            style="display: none; margin: 0 auto 1rem auto; width: auto; background: var(--secondary);">💾 Guardar
-            Cambios</button>
-
         <p style="color: var(--text-muted); font-size: 0.8rem;">&copy; 2024 StarClean. Todos los derechos reservados.
         </p>
-
-        <!-- Discreet Admin Trigger (small lock in corner) -->
-        <button id="admin-lock" onclick="toggleAdmin()"
-            style="position: absolute; bottom: 10px; right: 10px; opacity: 0.2; background: none; border: none; cursor: pointer; font-size: 1.2rem;">
-            🔒
-        </button>
+        <!-- Discreet Lock Logic -->
+        <div id="admin-lock" onclick="toggleAdmin()"
+            style="position: absolute; bottom: 10px; right: 20px; opacity: 0.15; cursor: pointer; font-size: 1.2rem; user-select: none;">
+            🔒</div>
     </footer>
 
-    <div class="preview-controls">
-        <button class="preview-btn" onclick="openPreview('mobile')">📱 Celular</button>
+    <!-- Tools (Only visible to Admin) -->
+    <div class="preview-controls" style="display: none;">
+        <button class="preview-btn" onclick="openPreview('mobile')">📱 Móvil</button>
         <button class="preview-btn" onclick="openPreview('tablet')"> tablet</button>
     </div>
 
     <div id="device-simulator" class="device-overlay">
-        <button class="close-preview" onclick="closePreview()">✕ Salir Vista Previa</button>
+        <button class="close-preview" onclick="closePreview()">✕ Salir</button>
         <div id="device-frame" class="device-frame">
             <iframe id="preview-iframe"></iframe>
         </div>
