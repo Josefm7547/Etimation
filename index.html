@@ -19,24 +19,49 @@
         <header>
             <div class="logo-container">
                 <div class="logo-svg-wrapper">
-                    <!-- Conceptual House & Stars SVG -->
+                    <!-- Detailed House & Multiple Stars SVG -->
                     <svg viewBox="0 0 100 100" class="main-logo-svg">
                         <defs>
                             <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
                                 <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
                             </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
                         </defs>
-                        <!-- Conceptual House Path -->
-                        <path d="M20,50 L50,20 L80,50 L80,85 L60,85 L60,65 L40,65 L40,85 L20,85 Z" fill="none"
-                            stroke="url(#logo-grad)" stroke-width="4" stroke-linejoin="round" />
-                        <!-- Stars/Sparkles -->
-                        <path d="M45,15 L47,20 L52,22 L47,24 L45,29 L43,24 L38,22 L43,20 Z" fill="url(#logo-grad)"
+                        <!-- Detailed House -->
+                        <g filter="url(#glow)">
+                            <!-- Roof with Chimney -->
+                            <path d="M10,50 L50,15 L90,50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M72,34 V22 H82 V43" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
+                            <!-- House Body -->
+                            <path d="M20,50 V85 H80 V50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
+                                stroke-linecap="round" />
+                            <!-- Door -->
+                            <path d="M42,85 V65 H58 V85" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
+                            <!-- Window -->
+                            <rect x="28" y="60" width="10" height="10" fill="none" stroke="url(#logo-grad)"
+                                stroke-width="3" rx="2" />
+                        </g>
+                        <!-- Multiple Twinkling Stars -->
+                        <path d="M50,5 L52,11 L58,13 L52,15 L50,21 L48,15 L42,13 L48,11 Z" fill="url(#logo-grad)"
                             class="star star-1" />
-                        <path d="M75,35 L76,38 L79,39 L76,40 L75,43 L74,40 L71,39 L74,38 Z" fill="url(#logo-grad)"
+                        <path d="M85,30 L87,35 L93,37 L87,39 L85,45 L83,39 L77,37 L83,35 Z" fill="url(#logo-grad)"
                             class="star star-2" />
-                        <path d="M25,30 L26,33 L29,34 L26,35 L25,38 L24,35 L21,34 L24,33 Z" fill="url(#logo-grad)"
+                        <path d="M15,35 L17,40 L23,42 L17,44 L15,50 L13,44 L7,42 L13,40 Z" fill="url(#logo-grad)"
                             class="star star-3" />
+                        <path d="M88,70 L89,73 L92,74 L89,75 L88,78 L87,75 L84,74 L87,73 Z" fill="url(#logo-grad)"
+                            class="star star-4" />
+                        <path d="M12,75 L13,78 L16,79 L13,80 L12,83 L11,80 L8,79 L11,78 Z" fill="url(#logo-grad)"
+                            class="star star-5" />
+                        <path d="M40,30 L41,32 L44,33 L41,34 L40,37 L39,34 L36,33 L39,32 Z" fill="url(#logo-grad)"
+                            class="star star-6" />
                     </svg>
                 </div>
                 <h1 class="logo-text">Star Clean</h1>
