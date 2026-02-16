@@ -194,12 +194,23 @@ function renderTableRow(item) {
 
 function renderAll() {
     const container = document.getElementById('estimate-items-container');
-    if (container) {
-        container.innerHTML = [
-            ...zones.map(z => renderTableRow(z)),
-            ...appliances.map(a => renderTableRow(a))
-        ].join('');
-    }
+    if (!container) return;
+
+    let html = '';
+    zones.forEach(item => {
+        if (item.id === 'refrigerators') {
+            html += `
+                <div class="table-row table-category-header">
+                    <div style="grid-column: 1 / -1; text-align: center; color: var(--secondary); font-weight: 800; letter-spacing: 0.2rem; font-size: 0.9rem; padding: 0.5rem 0;">
+                        ✦ SERVICIOS ESPECIALES ✦
+                    </div>
+                </div>
+            `;
+        }
+        html += renderTableRow(item);
+    });
+
+    container.innerHTML = html;
 }
 
 window.updateBasePrice = (id, value) => {
