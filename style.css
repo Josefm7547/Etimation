@@ -68,6 +68,26 @@ header h1 {
     letter-spacing: -0.02em;
 }
 
+.logo-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-logo {
+    max-width: 280px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@media (max-width: 768px) {
+    .main-logo {
+        max-width: 220px;
+    }
+}
+
 /* Form Styles */
 .no-hover:hover {
     transform: none !important;
