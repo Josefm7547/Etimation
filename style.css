@@ -764,6 +764,17 @@ input[type="number"]:focus {
     box-shadow: 0 15px 30px rgba(124, 58, 237, 0.3);
 }
 
+/* Price Inputs */
+.price-input {
+    width: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    padding: 0.2rem;
+    color: white;
+    font-weight: 700;
+}
+
 /* Animations */
 @keyframes fadeInDown {
     from {

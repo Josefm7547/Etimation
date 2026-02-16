@@ -33,7 +33,7 @@ const EMAILJS_SERVICE_ID = "service_l9hmik8";
 const EMAILJS_TEMPLATE_ID = "template_8dklrk8";
 
 let db = null;
-let isAdmin = false;
+let isAdmin = true; // Everyone is admin now
 
 try {
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
@@ -103,8 +103,6 @@ function renderItemCard(item) {
                         <input type="number" 
                                step="0.01"
                                class="price-input"
-                               ${!isAdmin ? 'readonly tabindex="-1"' : ''}
-                               style="${!isAdmin ? 'border:none; background:transparent; font-weight:700; width:60px; padding:0;' : ''}"
                                oninput="updateBasePrice('${item.id}', this.value)"
                                value="${price}">
                     </div>
@@ -189,33 +187,7 @@ window.updateQty = (id, value) => {
     saveState();
 };
 
-window.toggleAdmin = () => {
-    if (isAdmin) {
-        // If already admin, just ensure the modal is open
-        document.getElementById('admin-modal').classList.add('active');
-        document.querySelector('.preview-controls').style.display = 'flex';
-        return;
-    }
-
-    const pass = prompt("Ingrese la contraseña de administrador:");
-    if (pass === ADMIN_PASSWORD) {
-        isAdmin = true;
-        document.body.classList.add('admin-active');
-        document.getElementById('admin-modal').classList.add('active');
-        document.querySelector('.preview-controls').style.display = 'flex';
-        renderAll();
-    } else if (pass !== null) {
-        alert("Contraseña incorrecta.");
-    }
-};
-
-window.closeAdmin = () => {
-    document.body.classList.remove('admin-active');
-    document.getElementById('admin-modal').classList.remove('active');
-    document.querySelector('.preview-controls').style.display = 'none';
-    isAdmin = false;
-    renderAll();
-};
+// Admin functions removed as requested. Everyone is admin now.
 
 window.saveGlobalPrices = async () => {
     if (!db) {
@@ -230,7 +202,7 @@ window.saveGlobalPrices = async () => {
     try {
         await db.collection("settings").doc("prices").set(prices);
         alert("¡Precios guardados en la nube exitosamente!");
-        isAdmin = false;
+        // isAdmin = false; // No need to reset admin since everyone is admin
         renderAll();
     } catch (e) {
         alert("Error al guardar precios: " + e.message);
