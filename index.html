@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StarClean | Cotización de Limpieza</title>
-    <meta name="description"
-        content="Calcula el costo de limpieza de tu hogar de forma rápida y profesional con StarClean.">
+    <title>StarClean | Cleaning Quote</title>
+    <meta name="description" content="Calculate your home cleaning cost quickly and professionally with StarClean.">
     <link rel="stylesheet" href="style.css">
     <!-- Firebase SDK (Compatibility Version) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -16,7 +15,14 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="position: relative;">
+        <!-- Language Toggle Button -->
+        <div id="float-lang-container" style="position: absolute; top: 1rem; right: 1rem; z-index: 1000;">
+            <button id="lang-toggle-btn" class="btn-secondary" onclick="toggleLanguage()"
+                style="padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--secondary); font-weight: 600; white-space: nowrap; backdrop-filter: blur(8px);">
+                Español 🇪🇸
+            </button>
+        </div>
         <header>
             <div class="logo-container">
                 <div class="logo-svg-wrapper">
@@ -60,7 +66,7 @@
                 </div>
                 <h1 class="logo-text">Star Clean</h1>
             </div>
-            <p id="header-tagline">Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.</p>
+            <p id="header-tagline">Smart estimate calculator for professional home cleaning.</p>
         </header>
 
         <!-- Screen 1: Condition Selection -->
@@ -68,9 +74,8 @@
 
             <!-- Condition Selection Section -->
             <section class="section condition-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿En qué estado
-                    se
-                    encuentra su hogar?</h2>
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> What is the
+                    current condition of your home?</h2>
                 <div class="cond-grid">
                     <div class="cond-card" id="cond-poor" onclick="setCondition('poor')">
                         <div class="cond-letter">A</div>
@@ -111,7 +116,7 @@
 
                 <!-- Next Button -->
                 <div style="text-align: center; margin-top: 3rem; display: flex; justify-content: center;">
-                    <button class="btn-primary" onclick="goToScreen(2)" style="max-width: 300px;">Siguiente ➔</button>
+                    <button class="btn-primary" onclick="goToScreen(2)" style="max-width: 300px;">Next ➔</button>
                 </div>
             </section>
         </div>
@@ -120,8 +125,8 @@
         <div id="screen-2" style="display: none;">
             <!-- Frequency Selection Section -->
             <section class="section frequency-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿Con qué
-                    frecuencia limpia su hogar?</h2>
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> How often do
+                    you clean your home?</h2>
                 <div class="freq-grid">
                     <div class="freq-card" id="freq-weekly" onclick="setFrequency('weekly')">
                         <div class="freq-letter">A</div>
@@ -163,8 +168,8 @@
                 <!-- Buttons for Screen 2 -->
                 <div
                     style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-primary" onclick="goToScreen(3)" style="max-width: 300px;">Siguiente ➔</button>
-                    <button class="btn-secondary" onclick="goToScreen(1)" style="max-width: 200px;">← Volver</button>
+                    <button class="btn-primary" onclick="goToScreen(3)" style="max-width: 300px;">Next ➔</button>
+                    <button class="btn-secondary" onclick="goToScreen(1)" style="max-width: 200px;">← Back</button>
                 </div>
             </section>
         </div>
@@ -172,8 +177,8 @@
         <!-- Screen 3: Service Type Information -->
         <div id="screen-3" style="display: none;">
             <section class="section service-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
-                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> Información
-                    Importante sobre el Servicio</h2>
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> Important
+                    Service Information</h2>
 
                 <div class="info-block flash-important">
                     <div class="bubbles-container">
@@ -186,8 +191,9 @@
                         <div class="bubble neon-purple"
                             style="left: 85%; width: 18px; height: 18px; --duration: 6s; animation-delay: 2s;"></div>
                     </div>
-                    <h3>Limpieza Estándar</h3>
-                    <p>Limpieza rutinaria de cocina, baños y salas; enfocada en superficies y orden general.</p>
+                    <h3>Standard Cleaning</h3>
+                    <p>Routine cleaning of kitchen, bathrooms, and living areas; focused on surfaces and general
+                        tidiness.</p>
                 </div>
 
                 <div class="info-block flash-important" style="animation-delay: 1.5s;">
@@ -240,22 +246,22 @@
                             style="left: 60%; width: 22px; height: 22px; --duration: 4.8s; animation-delay: 2.3s;">
                         </div>
                     </div>
-                    <h3>Limpieza Profunda</h3>
-                    <p>Limpieza intensiva que requiere más esfuerzo y atención al detalle; elimina suciedad acumulada en
-                        todo el hogar.</p>
+                    <h3>Deep Cleaning</h3>
+                    <p>Intensive cleaning requiring extra effort and attention to detail; targets built-up grime
+                        throughout the home.</p>
                 </div>
 
                 <p
                     style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem; font-style: italic;">
-                    Nota: Los precios calculados a continuación se basan en una limpieza estándar. El costo final puede
-                    variar según el nivel de profundidad requerido.
+                    Note: Estimated prices are based on standard cleaning. Final cost may vary depending on the level of
+                    deep cleaning required.
                 </p>
 
                 <!-- Buttons for Screen 3 -->
                 <div
                     style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-primary" onclick="goToScreen(4)" style="max-width: 300px;">Siguiente ➔</button>
-                    <button class="btn-secondary" onclick="goToScreen(2)" style="max-width: 200px;">← Volver</button>
+                    <button class="btn-primary" onclick="goToScreen(4)" style="max-width: 300px;">Next ➔</button>
+                    <button class="btn-secondary" onclick="goToScreen(2)" style="max-width: 200px;">← Back</button>
                 </div>
             </section>
         </div>
@@ -270,11 +276,11 @@
                             <div class="estimate-table">
                                 <!-- Header -->
                                 <div class="table-row table-header">
-                                    <div>ZONA / ARTÍCULO</div>
-                                    <div style="text-align: center;">CT. STD</div>
+                                    <div>AREA / ITEM</div>
+                                    <div style="text-align: center;">QTY STD</div>
                                     <div style="text-align: center;">$ STD</div>
-                                    <div style="text-align: center;">CT. DP</div>
-                                    <div style="text-align: center;">$ DP</div>
+                                    <div style="text-align: center;">QTY DEEP</div>
+                                    <div style="text-align: center;">$ DEEP</div>
                                     <div style="text-align: center;">TOTAL</div>
                                 </div>
 
@@ -283,7 +289,7 @@
 
                                 <!-- Final Total Row -->
                                 <div class="table-row total-row-vibrant">
-                                    <div class="total-label-cell">Total estimado:</div>
+                                    <div class="total-label-cell">Estimated Total:</div>
                                     <div class="total-amount-cell">$<span id="table-total-price">0</span></div>
                                 </div>
                             </div>
@@ -299,30 +305,30 @@
                             style="background: transparent; padding: 1.5rem 0 0 0; border: none; backdrop-filter: none; gap: 0.5rem;">
                             <h3
                                 style="color: var(--secondary); font-size: 1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1rem;">
-                                Información del Cliente</h3>
+                                Customer Information</h3>
                             <div class="compact-field col-6">
-                                <label>Nombre Completo *</label>
-                                <input type="text" id="cust-name" placeholder="Ej. Juan Pérez"
+                                <label>Full Name *</label>
+                                <input type="text" id="cust-name" placeholder="e.g. John Doe"
                                     oninput="updateContactData()" required>
                             </div>
                             <div class="compact-field col-6">
-                                <label>WhatsApp / Teléfono (USA) *</label>
+                                <label>WhatsApp / Phone (USA) *</label>
                                 <input type="tel" id="cust-phone" placeholder="(555) 000-0000"
                                     oninput="updateContactData()" required
                                     pattern="^(\+?1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$">
                             </div>
                             <div class="compact-field col-6">
-                                <label>Correo Electrónico *</label>
-                                <input type="email" id="cust-email" placeholder="juan@ejemplo.com"
+                                <label>Email Address *</label>
+                                <input type="email" id="cust-email" placeholder="john@example.com"
                                     oninput="updateContactData()" required>
                             </div>
                             <div class="compact-field col-6">
-                                <label>Dirección del Servicio *</label>
-                                <input type="text" id="cust-address" placeholder="Calle, Ciudad, Código Postal"
+                                <label>Property Address (for quote only) *</label>
+                                <input type="text" id="cust-address" placeholder="123 Main St, City, Zip"
                                     oninput="updateContactData()" required>
                             </div>
                             <div class="compact-field col-6" style="margin-top: 0.5rem;">
-                                <label>Fecha de Solicitud (Auto)</label>
+                                <label>Request Date (Auto)</label>
                                 <input type="text" id="cust-date" readonly
                                     style="opacity: 0.6; cursor: not-allowed; border: 1px dashed var(--card-border) !important;">
                             </div>
@@ -330,20 +336,20 @@
 
                         <p
                             style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 1.5rem; font-style: italic;">
-                            Precio sujeto a inspección física detallada.
+                            Price subject to detailed on-site inspection.
                         </p>
                     </div>
                 </aside>
 
                 <p
                     style="text-align: center; color: var(--secondary); font-size: 0.9rem; margin: 2rem 0; font-weight: 500;">
-                    🛡️ Satisfacción 100% Garantizada en cada limpieza
+                    🛡️ 100% Satisfaction Guaranteed on every cleaning
                 </p>
             </main>
 
             <!-- Back navigation moved to the absolute bottom -->
             <div style="text-align: center; margin-top: 4rem; padding-bottom: 2rem;">
-                <button class="btn-secondary" onclick="goToScreen(3)" style="max-width: 200px;">← Volver</button>
+                <button class="btn-secondary" onclick="goToScreen(3)" style="max-width: 200px;">← Back</button>
             </div>
         </div>
     </div>
@@ -352,19 +358,19 @@
     <div id="admin-modal" class="admin-bar">
         <div class="admin-bar-content">
             <div class="admin-info">
-                <strong>🔐 Modo Admin</strong>
-                <span>Edita precios y guarda en la nube.</span>
+                <strong>🔐 Admin Mode</strong>
+                <span>Edit prices and save to the cloud.</span>
             </div>
             <div class="admin-actions">
-                <button class="btn-secondary" onclick="closeAdmin()">Cerrar</button>
+                <button class="btn-secondary" onclick="closeAdmin()">Close</button>
                 <button id="save-prices-btn-bar" class="btn-primary" style="margin:0; background: var(--secondary);">💾
-                    Guardar Cambios</button>
+                    Save Changes</button>
             </div>
         </div>
     </div>
 
     <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem; position: relative;">
-        <p style="color: var(--text-muted); font-size: 0.8rem;">&copy; 2024 StarClean. Todos los derechos reservados.
+        <p style="color: var(--text-muted); font-size: 0.8rem;">&copy; 2024 StarClean. All rights reserved.
         </p>
         <!-- Discreet Lock Logic -->
         <div id="admin-lock" onclick="toggleAdmin()"
@@ -374,12 +380,12 @@
 
     <!-- Tools (Only visible to Admin) -->
     <div class="preview-controls">
-        <button class="preview-btn" onclick="openPreview('mobile')">📱 Móvil</button>
+        <button class="preview-btn" onclick="openPreview('mobile')">📱 Mobile</button>
         <button class="preview-btn" onclick="openPreview('tablet')"> tablet</button>
     </div>
 
     <div id="device-simulator" class="device-overlay">
-        <button class="close-preview" onclick="closePreview()">✕ Salir</button>
+        <button class="close-preview" onclick="closePreview()">✕ Exit</button>
         <div id="device-frame" class="device-frame">
             <iframe id="preview-iframe"></iframe>
         </div>

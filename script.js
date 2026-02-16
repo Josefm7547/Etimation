@@ -4,23 +4,23 @@ const ADMIN_PASSWORD = "jose123";
 
 // Data configuration with default prices
 let zones = [
-    { id: 'bedrooms', name: "BEDROOMS", desc: "Dormitorios", price: 20 },
-    { id: 'bathrooms', name: "BATHROOMS", desc: "Baños", price: 20 },
-    { id: 'kitchens', name: "KITCHENS", desc: "Cocinas", price: 20 },
-    { id: 'laundry_rooms', name: "LAUNDRY ROOMS", desc: "Lavandería", price: 20 },
-    { id: 'study_offices', name: "OFFICES", desc: "Estudios/Oficinas", price: 20 },
-    { id: 'living_rooms', name: "LIVING ROOMS", desc: "Salas de estar", price: 20 },
-    { id: 'dining_rooms', name: "DINING ROOMS", desc: "Comedores", price: 20 },
-    { id: 'hallways', name: "HALLWAYS", desc: "Pasillos", price: 20 },
-    { id: 'stairs', name: "STAIRS", desc: "Escaleras", price: 20 },
-    { id: 'foyer_entryways', name: "ENTRIES", desc: "Entradas", price: 20 },
-    { id: 'walkin_closets', name: "WALK-IN CLOSETS", desc: "Vestidores", price: 20 },
-    { id: 'gyms', name: "GYMS", desc: "Gimnasios", price: 20 },
-    { id: 'pantries', name: "PANTRIES", desc: "Despensas", price: 20 },
-    { id: 'refrigerators', name: "FRIDGES", desc: "Refrigeradores", price: 20 },
-    { id: 'ovens', name: "OVENS", desc: "Hornos", price: 20 },
-    { id: 'microv', name: "MICROV.", desc: "Microondas", price: 20 },
-    { id: 'windows', name: "WINDOWS", desc: "Ventanas", price: 20 }
+    { id: 'bedrooms', price: 20 },
+    { id: 'bathrooms', price: 20 },
+    { id: 'kitchens', price: 20 },
+    { id: 'laundry_rooms', price: 20 },
+    { id: 'study_offices', price: 20 },
+    { id: 'living_rooms', price: 20 },
+    { id: 'dining_rooms', price: 20 },
+    { id: 'hallways', price: 20 },
+    { id: 'stairs', price: 20 },
+    { id: 'foyer_entryways', price: 20 },
+    { id: 'walkin_closets', price: 20 },
+    { id: 'gyms', price: 20 },
+    { id: 'pantries', price: 20 },
+    { id: 'refrigerators', price: 20 },
+    { id: 'ovens', price: 20 },
+    { id: 'microv', price: 20 },
+    { id: 'windows', price: 20 }
 ];
 
 let appliances = []; // Merged into the main list above
@@ -52,13 +52,198 @@ try {
     console.error("Firebase error:", e);
 }
 
+// Translation Dictionary
+const i18n = {
+    en: {
+        tagline: "Smart estimate calculator for professional home cleaning.",
+        screen1_title: "✦ What is the current condition of your home?",
+        next: "Next ➔",
+        back: "← Back",
+        cond_poor_title: "HEAVY BUILD-UP",
+        cond_poor_desc: "Extreme dirt; requires deep cleaning.",
+        cond_fair_title: "AVERAGE CONDITION",
+        cond_fair_desc: "Visible dirt; requires regular attention.",
+        cond_good_title: "WELL-MAINTAINED",
+        cond_good_desc: "Basic care; some areas require maintenance.",
+        cond_verygood_title: "EXCELLENT CONDITION",
+        cond_verygood_desc: "Well maintained; requires minimal cleaning.",
+        cond_pristine_title: "PRISTINE",
+        cond_pristine_desc: "Excellent cleanliness and order.",
+        screen2_title: "✦ How often do you clean your home?",
+        freq_weekly_title: "WEEKLY",
+        freq_weekly_desc: "Scheduled service once a week.",
+        freq_biweekly_title: "BI-WEEKLY",
+        freq_biweekly_desc: "Scheduled service every two weeks.",
+        freq_monthly_title: "MONTHLY",
+        freq_monthly_desc: "Scheduled service once a month.",
+        freq_once_title: "ONE-TIME / OCCASIONAL",
+        freq_once_desc: "Occasional cleaning as needed.",
+        freq_hiring_title: "LOOKING TO START REGULAR SERVICE",
+        freq_hiring_desc: "First time or looking for recurring service.",
+        screen3_title: "✦ Important Service Information",
+        std_clean_title: "Standard Cleaning",
+        std_clean_desc: "Routine cleaning of kitchen, bathrooms, and living areas; focused on surfaces and general tidiness.",
+        deep_clean_title: "Deep Cleaning",
+        deep_clean_desc: "Intensive cleaning requiring extra effort and attention to detail; targets built-up grime throughout the home.",
+        service_note: "Note: Estimated prices are based on standard cleaning. Final cost may vary depending on the level of deep cleaning required.",
+        table_header_area: "AREA / ITEM",
+        table_header_qty_std: "QTY STD",
+        table_header_price_std: "$ STD",
+        table_header_qty_deep: "QTY DEEP",
+        table_header_price_deep: "$ DEEP",
+        table_header_total: "TOTAL",
+        special_services: "✦ SPECIAL SERVICES ✦",
+        estimated_total: "Estimated Total:",
+        guarantee: "🛡️ 100% Satisfaction Guaranteed on every cleaning",
+        inspection_note: "Price subject to detailed on-site inspection.",
+        cust_info_title: "Customer Information",
+        cust_name_label: "Full Name *",
+        cust_name_placeholder: "e.g. John Doe",
+        cust_phone_label: "WhatsApp / Phone (USA) *",
+        cust_phone_placeholder: "(555) 000-0000",
+        cust_date_label: "Request Date (Auto)",
+        cust_address_label: "Property Address (for quote only) *",
+        cust_address_placeholder: "123 Main St, City, Zip",
+        admin_mode: "🔐 Admin Mode",
+        admin_desc: "Edit prices and save to the cloud.",
+        close: "Close",
+        save_changes: "💾 Save Changes",
+        copyright: "&copy; 2024 StarClean. All rights reserved.",
+        bedrooms: "BEDROOMS",
+        bedrooms_desc: "Bedrooms",
+        bathrooms: "BATHROOMS",
+        bathrooms_desc: "Bathrooms",
+        kitchens: "KITCHENS",
+        kitchens_desc: "Kitchens",
+        laundry_rooms: "LAUNDRY ROOMS",
+        laundry_rooms_desc: "Laundry Rooms",
+        study_offices: "OFFICES",
+        study_offices_desc: "Study/Offices",
+        living_rooms: "LIVING ROOMS",
+        living_rooms_desc: "Living Rooms",
+        dining_rooms: "DINING ROOMS",
+        dining_rooms_desc: "Dining Rooms",
+        hallways: "HALLWAYS",
+        hallways_desc: "Hallways",
+        stairs: "STAIRS",
+        stairs_desc: "Stairs",
+        foyer_entryways: "ENTRIES",
+        foyer_entryways_desc: "Entries",
+        walkin_closets: "WALK-IN CLOSETS",
+        walkin_closets_desc: "Walk-in Closets",
+        gyms: "GYMS",
+        gyms_desc: "Gyms",
+        pantries: "PANTRIES",
+        pantries_desc: "Pantries",
+        refrigerators: "FRIDGES",
+        refrigerators_desc: "Refrigerators",
+        ovens: "OVENS",
+        ovens_desc: "Ovens",
+        microv: "MICROV.",
+        microv_desc: "Microwaves",
+        windows: "WINDOWS",
+        windows_desc: "Windows"
+    },
+    es: {
+        tagline: "Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.",
+        screen1_title: "✦ ¿En qué estado se encuentra su hogar?",
+        next: "Siguiente ➔",
+        back: "← Volver",
+        cond_poor_title: "ESTADO POBRE",
+        cond_poor_desc: "Suciedad extrema; requiere limpieza profunda.",
+        cond_fair_title: "ESTADO REGULAR",
+        cond_fair_desc: "Suciedad visible; requiere atención regular.",
+        cond_good_title: "ESTADO BUENO",
+        cond_good_desc: "Cuidado básico; algunas áreas requieren mantenimiento.",
+        cond_verygood_title: "ESTADO MUY BUENO",
+        cond_verygood_desc: "Bien mantenido; requiere limpieza mínima.",
+        cond_pristine_title: "ESTADO IMPECABLE",
+        cond_pristine_desc: "Limpieza y orden excelentes.",
+        screen2_title: "✦ ¿Con qué frecuencia limpia su hogar?",
+        freq_weekly_title: "SEMANAL",
+        freq_weekly_desc: "Servicio programado una vez a la semana.",
+        freq_biweekly_title: "QUINCENAL",
+        freq_biweekly_desc: "Servicio programado cada dos semanas.",
+        freq_monthly_title: "MENSUAL",
+        freq_monthly_desc: "Servicio programado una vez al mes.",
+        freq_once_title: "DE VEZ EN CUANDO",
+        freq_once_desc: "Limpieza puntual según sea necesario.",
+        freq_hiring_title: "QUIERO COMENZAR A CONTRATAR A ALGUIEN",
+        freq_hiring_desc: "Primera vez o buscando un servicio regular.",
+        screen3_title: "✦ Información Importante sobre el Servicio",
+        std_clean_title: "Limpieza Estándar",
+        std_clean_desc: "Limpieza rutinaria de cocina, baños y salas; enfocada en superficies y orden general.",
+        deep_clean_title: "Limpieza Profunda",
+        deep_clean_desc: "Limpieza intensiva que requiere más esfuerzo y atención al detalle; elimina suciedad acumulada en todo el hogar.",
+        service_note: "Nota: Los precios calculados a continuación se basan en una limpieza estándar. El costo final puede variar según el nivel de profundidad requerido.",
+        table_header_area: "ZONA / ARTÍCULO",
+        table_header_qty_std: "CT. STD",
+        table_header_price_std: "$ STD",
+        table_header_qty_deep: "CT. DP",
+        table_header_price_deep: "$ DP",
+        table_header_total: "TOTAL",
+        special_services: "✦ SERVICIOS ESPECIALES ✦",
+        estimated_total: "Total estimado:",
+        guarantee: "🛡️ Satisfacción 100% Garantizada en cada limpieza",
+        inspection_note: "Precio sujeto a inspección física detallada.",
+        cust_info_title: "Información del Cliente",
+        cust_name_label: "Nombre Completo *",
+        cust_name_placeholder: "Ej. Juan Pérez",
+        cust_phone_label: "WhatsApp / Teléfono (USA) *",
+        cust_phone_placeholder: "(555) 000-0000",
+        cust_date_label: "Fecha de Solicitud (Auto)",
+        cust_address_label: "Dirección de la propiedad (solo para la cotización) *",
+        cust_address_placeholder: "Ej. 123 Calle Principal, Ciudad, CP",
+        admin_mode: "🔐 Modo Admin",
+        admin_desc: "Edita precios y guarda en la nube.",
+        close: "Cerrar",
+        save_changes: "💾 Guardar Cambios",
+        copyright: "&copy; 2024 StarClean. Todos los derechos reservados.",
+        bedrooms: "DORMITORIOS",
+        bedrooms_desc: "Dormitorios",
+        bathrooms: "BAÑOS",
+        bathrooms_desc: "Baños",
+        kitchens: "COCINAS",
+        kitchens_desc: "Cocinas",
+        laundry_rooms: "LAVANDERÍA",
+        laundry_rooms_desc: "Lavandería",
+        study_offices: "ESTUDIOS/OFICINAS",
+        study_offices_desc: "Estudios/Oficinas",
+        living_rooms: "SALAS DE ESTAR",
+        living_rooms_desc: "Salas de estar",
+        dining_rooms: "COMEDORES",
+        dining_rooms_desc: "Comedores",
+        hallways: "PASILLOS",
+        hallways_desc: "Pasillos",
+        stairs: "ESCALERAS",
+        stairs_desc: "Escaleras",
+        foyer_entryways: "ENTRADAS",
+        foyer_entryways_desc: "Entradas",
+        walkin_closets: "VESTIDORES",
+        walkin_closets_desc: "Vestidores",
+        gyms: "GIMNASIOS",
+        gyms_desc: "Gimnasios",
+        pantries: "DESPENSAS",
+        pantries_desc: "Despensas",
+        refrigerators: "REFRIGERADORES",
+        refrigerators_desc: "Refrigeradores",
+        ovens: "HORNOS",
+        ovens_desc: "Hornos",
+        microv: "MICROONDAS",
+        microv_desc: "Microondas",
+        windows: "VENTANAS",
+        windows_desc: "Ventanas"
+    }
+};
+
 // State management
 let state = {
     contact: { name: '', email: '', phone: '', date: '', address: '' },
     values: {}, // id: qty
     condition: 'good', // default condition
     frequency: 'monthly', // default frequency
-    serviceType: 'standard' // default service type info
+    serviceType: 'standard', // default service type info
+    lang: 'en' // English by default
 };
 
 window.setServiceType = (val) => {
@@ -115,6 +300,12 @@ window.goToScreen = (num) => {
     if (tagline) {
         tagline.style.display = (num === 4) ? 'none' : 'block';
     }
+
+    // Hide/Show float-lang-container based on screen
+    const langBtn = document.getElementById('float-lang-container');
+    if (langBtn) {
+        langBtn.style.display = (num === 1) ? 'block' : 'none';
+    }
 };
 
 async function loadPrices() {
@@ -149,6 +340,8 @@ function init() {
     }
     updateSummary();
     calculateTotal(false);
+    // Apply initial translation
+    translateUI();
 }
 
 function saveState() {
@@ -159,11 +352,18 @@ function renderTableRow(item) {
     const qtyStd = state.values[item.id]?.std || 0;
     const qtyDeep = state.values[item.id]?.deep || 0;
     const priceStd = item.price;
-    const priceDeep = item.price * 1.5; // Default deep price logic
+    const priceDeep = priceStd * 1.5;
+    const subtotal = (qtyStd * priceStd) + (qtyDeep * priceDeep);
+
+    const translatedName = i18n[state.lang][item.id] || item.id.toUpperCase();
+    const translatedDesc = i18n[state.lang][`${item.id}_desc`] || '';
 
     return `
         <div class="table-row">
-            <div style="font-weight: 600; color: var(--text-main);">${item.name}</div>
+            <div style="font-weight: 500;">
+                <span style="display: block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">${translatedName}</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>
+            </div>
             <div>
                 <input type="number" placeholder="0" min="0" 
                     oninput="updateTableQty('${item.id}', 'std', this.value)" 
@@ -405,4 +605,153 @@ window.openPreview = (device) => {
 window.closePreview = () => {
     document.getElementById('device-simulator').classList.remove('active');
     document.getElementById('preview-iframe').src = '';
+};
+
+window.translateUI = () => {
+    const lang = state.lang;
+    const t_set = i18n[lang];
+
+    // Main text elements
+    const tagline = document.getElementById('header-tagline');
+    if (tagline) tagline.innerText = t_set.tagline;
+
+    // Screen 1
+    const s1_title = document.querySelector('#screen-1 .section-title');
+    if (s1_title) s1_title.innerHTML = `<span>✦</span> ${t_set.screen1_title}`;
+
+    // Condition Cards
+    const conds = ['poor', 'fair', 'good', 'verygood', 'pristine'];
+    conds.forEach(c => {
+        const title = document.querySelector(`#cond-${c} strong`);
+        const desc = document.querySelector(`#cond-${c} p`);
+        if (title) title.innerText = t_set[`cond_${c}_title`];
+        if (desc) desc.innerText = t_set[`cond_${c}_desc`];
+    });
+
+    // Screen 2
+    const s2_title = document.querySelector('#screen-2 .section-title');
+    if (s2_title) s2_title.innerHTML = `<span>✦</span> ${t_set.screen2_title}`;
+
+    const freqs = ['weekly', 'biweekly', 'monthly', 'once', 'hiring'];
+    freqs.forEach(f => {
+        const title = document.querySelector(`#freq-${f} strong`);
+        const desc = document.querySelector(`#freq-${f} p`);
+        if (title) title.innerText = t_set[`freq_${f}_title`];
+        if (desc) desc.innerText = t_set[`freq_${f}_desc`];
+    });
+
+    // Screen 3
+    const s3_title = document.querySelector('#screen-3 .section-title');
+    if (s3_title) s3_title.innerHTML = `<span>✦</span> ${t_set.screen3_title}`;
+
+    const std_clean_block = document.querySelector('#screen-3 .info-block:nth-of-type(1)');
+    if (std_clean_block) {
+        std_clean_block.querySelector('h3').innerText = t_set.std_clean_title;
+        std_clean_block.querySelector('p').innerText = t_set.std_clean_desc;
+    }
+    const deep_clean_block = document.querySelector('#screen-3 .info-block:nth-of-type(2)');
+    if (deep_clean_block) {
+        deep_clean_block.querySelector('h3').innerText = t_set.deep_clean_title;
+        deep_clean_block.querySelector('p').innerText = t_set.deep_clean_desc;
+    }
+    const s3_note = document.querySelector('#screen-3 > section > p');
+    if (s3_note) s3_note.innerText = t_set.service_note;
+
+    // Buttons
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+        if (btn.innerText.includes('Siguiente') || btn.innerText.includes('Next')) {
+            btn.innerHTML = `${t_set.next}`;
+        }
+    });
+    document.querySelectorAll('.btn-secondary').forEach(btn => {
+        if (btn.innerText.includes('Volver') || btn.innerText.includes('Back')) {
+            btn.innerHTML = `${t_set.back}`;
+        }
+    });
+
+    // Screen 4
+    const table_headers = document.querySelectorAll('.table-header div');
+    if (table_headers.length >= 6) {
+        table_headers[0].innerText = t_set.table_header_area;
+        table_headers[1].innerText = t_set.table_header_qty_std;
+        table_headers[2].innerText = t_set.table_header_price_std;
+        table_headers[3].innerText = t_set.table_header_qty_deep;
+        table_headers[4].innerText = t_set.table_header_price_deep;
+        table_headers[5].innerText = t_set.table_header_total;
+    }
+
+    const special_header = document.querySelector('.special-services-title');
+    if (special_header) special_header.innerText = `✦ ${t_set.special_services} ✦`;
+
+    const total_labels = document.querySelectorAll('.total-label, .total-label-cell');
+    total_labels.forEach(l => l.innerText = t_set.estimated_total);
+
+    const guarantee_text = document.querySelector('#screen-4 p[style*="font-weight: 500"]');
+    if (guarantee_text) guarantee_text.innerText = t_set.guarantee;
+
+    const inspection_note = document.querySelector('.summary-card p[style*="font-style: italic"]');
+    if (inspection_note) inspection_note.innerText = t_set.inspection_note;
+
+    const cust_info_title = document.querySelector('.compact-form h3');
+    if (cust_info_title) cust_info_title.innerText = t_set.cust_info_title;
+
+    // Form labels and placeholders
+    const name_label = document.querySelector('.compact-field:nth-child(2) label');
+    const name_input = document.getElementById('cust-name');
+    if (name_label) name_label.innerText = t_set.cust_name_label;
+    if (name_input) name_input.placeholder = t_set.cust_name_placeholder;
+
+    const phone_label = document.querySelector('.compact-field:nth-child(3) label');
+    const phone_input = document.getElementById('cust-phone');
+    if (phone_label) phone_label.innerText = t_set.cust_phone_label;
+    if (phone_input) phone_input.placeholder = t_set.cust_phone_placeholder;
+
+    // Fix Email field mapping (it's the 4th child)
+    const email_label = document.querySelector('.compact-field:nth-child(4) label');
+    const email_input = document.getElementById('cust-email');
+    if (email_label) email_label.innerText = lang === 'en' ? 'Email Address *' : 'Correo Electrónico *';
+    if (email_input) email_input.placeholder = lang === 'en' ? 'john@example.com' : 'juan@ejemplo.com';
+
+    // Address is the 5th child
+    const address_label = document.querySelector('.compact-field:nth-child(5) label');
+    const address_input = document.getElementById('cust-address');
+    if (address_label) address_label.innerText = t_set.cust_address_label;
+    if (address_input) address_input.placeholder = t_set.cust_address_placeholder;
+
+    const date_label = document.querySelector('.compact-field:nth-child(6) label');
+    if (date_label) date_label.innerText = t_set.cust_date_label;
+
+    // Footer
+    const footer_text = document.querySelector('footer p');
+    if (footer_text) footer_text.innerHTML = t_set.copyright;
+
+    // Admin Bar
+    const admin_info_strong = document.querySelector('.admin-info strong');
+    const admin_info_span = document.querySelector('.admin-info span');
+    if (admin_info_strong) admin_info_strong.innerText = t_set.admin_mode;
+    if (admin_info_span) admin_info_span.innerText = t_set.admin_desc;
+
+    const admin_close_btn = document.querySelector('.admin-actions .btn-secondary');
+    const admin_save_btn = document.getElementById('save-prices-btn-bar');
+    if (admin_close_btn) admin_close_btn.innerText = t_set.close;
+    if (admin_save_btn) admin_save_btn.innerHTML = `💾 ${t_set.save_changes}`;
+
+    // Refresh today's date in correct language
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const today = new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', options);
+    state.contact.date = today;
+    const dateEl = document.getElementById('cust-date');
+    if (dateEl) dateEl.value = today;
+
+    // Update language toggle button text
+    const langBtn = document.getElementById('lang-toggle-btn');
+    if (langBtn) langBtn.innerText = lang === 'en' ? 'Español 🇪🇸' : 'English 🇺🇸';
+
+    // Re-render table items with correct area names
+    renderAll();
+};
+
+window.toggleLanguage = () => {
+    state.lang = state.lang === 'en' ? 'es' : 'en';
+    translateUI();
 };
