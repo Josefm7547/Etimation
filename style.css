@@ -1026,12 +1026,39 @@ input[type="number"]:focus {
 }
 
 @media (max-width: 768px) {
-    .cond-card {
-        gap: 1rem;
-        padding: 1rem;
+
+    .cond-card,
+    .freq-card,
+    .service-card {
+        gap: 0.75rem;
+        padding: 0.65rem 1rem;
+        min-height: 60px;
     }
 
-    .cond-card:hover {
+    .cond-letter,
+    .freq-letter,
+    .service-letter {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .cond-info strong,
+    .freq-info strong,
+    .service-info strong {
+        font-size: 0.85rem;
+        margin-bottom: 0px;
+    }
+
+    .cond-info p,
+    .freq-info p,
+    .service-info p {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .cond-card:hover,
+    .info-block:hover {
         transform: none;
     }
 
@@ -1041,10 +1068,6 @@ input[type="number"]:focus {
 
     .info-block p {
         font-size: 1.1rem;
-    }
-
-    .info-block:hover {
-        transform: none;
     }
 }
 
