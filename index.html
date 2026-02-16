@@ -169,8 +169,39 @@
             </section>
         </div>
 
-        <!-- Screen 3: Calculator and Form -->
+        <!-- Screen 3: Service Type Selection -->
         <div id="screen-3" style="display: none;">
+            <section class="section service-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿Qué tipo de
+                    servicio desea?</h2>
+                <div class="service-grid">
+                    <div class="service-card active" id="service-standard" onclick="setServiceType('standard')">
+                        <div class="service-letter">A</div>
+                        <div class="service-info">
+                            <strong>LIMPIEZA ESTÁNDAR</strong>
+                            <p>Limpieza rutinaria de cocina, baños y salas; enfocada en superficies y orden general.</p>
+                        </div>
+                    </div>
+                    <div class="service-card" id="service-deep" onclick="setServiceType('deep')">
+                        <div class="service-letter">B</div>
+                        <div class="service-info">
+                            <strong>LIMPIEZA PROFUNDA</strong>
+                            <p>Limpieza intensiva que requiere más esfuerzo y atención al detalle; elimina suciedad
+                                acumulada en todo el hogar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons for Screen 3 -->
+                <div style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn-secondary" onclick="goToScreen(2)" style="max-width: 150px;">← Volver</button>
+                    <button class="btn-primary" onclick="goToScreen(4)" style="max-width: 300px;">Siguiente ➔</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Screen 4: Calculator and Form -->
+        <div id="screen-4" style="display: none;">
             <main class="main-grid">
                 <div class="calculator-content">
                     <section class="section">
@@ -200,7 +231,7 @@
                         <button class="btn-primary" id="book-btn">Confirmar Reserva</button>
                         <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">Descargar
                             PDF</button>
-                        <button class="btn-secondary" onclick="goToScreen(2)"
+                        <button class="btn-secondary" onclick="goToScreen(3)"
                             style="width: 100%; margin-top: 0.5rem; background: transparent; border: 1px solid var(--card-border);">←
                             Volver</button>
                         <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">

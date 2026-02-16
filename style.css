@@ -935,16 +935,18 @@ input[type="number"]:focus {
     z-index: 3100;
 }
 
-/* Condition & Frequency Selector Styles */
+/* Condition, Frequency & Service Selector Styles */
 .cond-grid,
-.freq-grid {
+.freq-grid,
+.service-grid {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
 .cond-card,
-.freq-card {
+.freq-card,
+.service-card {
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -958,21 +960,24 @@ input[type="number"]:focus {
 }
 
 .cond-card:hover,
-.freq-card:hover {
+.freq-card:hover,
+.service-card:hover {
     transform: translateX(10px);
     border-color: var(--primary);
     background: rgba(124, 58, 237, 0.1);
 }
 
 .cond-card.active,
-.freq-card.active {
+.freq-card.active,
+.service-card.active {
     border-color: var(--secondary);
     background: rgba(16, 185, 129, 0.15);
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
 .cond-letter,
-.freq-letter {
+.freq-letter,
+.service-letter {
     width: 40px;
     height: 40px;
     background: rgba(255, 255, 255, 0.05);
@@ -988,14 +993,16 @@ input[type="number"]:focus {
 }
 
 .cond-card.active .cond-letter,
-.freq-card.active .freq-letter {
+.freq-card.active .freq-letter,
+.service-card.active .service-letter {
     background: var(--secondary);
     color: white;
     border-color: var(--secondary);
 }
 
 .cond-info strong,
-.freq-info strong {
+.freq-info strong,
+.service-info strong {
     display: block;
     font-size: 0.95rem;
     color: var(--text-main);
@@ -1004,7 +1011,8 @@ input[type="number"]:focus {
 }
 
 .cond-info p,
-.freq-info p {
+.freq-info p,
+.service-info p {
     font-size: 0.8rem;
     color: var(--text-muted);
 }

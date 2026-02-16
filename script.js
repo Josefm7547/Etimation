@@ -49,7 +49,18 @@ let state = {
     contact: { name: '', email: '', phone: '', date: '', address: '' },
     values: {}, // id: qty
     condition: 'good', // default condition
-    frequency: 'monthly' // default frequency
+    frequency: 'monthly', // default frequency
+    serviceType: 'standard' // default service type
+};
+
+window.setServiceType = (val) => {
+    state.serviceType = val;
+    document.querySelectorAll('.service-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`service-${val}`).classList.add('active');
+
+    calculateTotal();
+    updateSummary();
+    saveState();
 };
 
 window.setFrequency = (val) => {
@@ -76,9 +87,10 @@ window.goToScreen = (num) => {
     const s1 = document.getElementById('screen-1');
     const s2 = document.getElementById('screen-2');
     const s3 = document.getElementById('screen-3');
+    const s4 = document.getElementById('screen-4');
 
     // Reset all
-    [s1, s2, s3].forEach(s => {
+    [s1, s2, s3, s4].forEach(s => {
         if (s) {
             s.style.display = 'none';
             s.classList.remove('fade-in');
@@ -86,7 +98,7 @@ window.goToScreen = (num) => {
     });
 
     // Show target
-    const target = num === 1 ? s1 : (num === 2 ? s2 : s3);
+    const target = num === 1 ? s1 : (num === 2 ? s2 : (num === 3 ? s3 : s4));
     if (target) {
         target.style.display = 'block';
         target.classList.add('fade-in');
@@ -125,6 +137,9 @@ function init() {
     }
     if (state.frequency) {
         setTimeout(() => window.setFrequency(state.frequency), 600);
+    }
+    if (state.serviceType) {
+        setTimeout(() => window.setServiceType(state.serviceType), 700);
     }
     updateSummary();
     calculateTotal(false);
@@ -281,15 +296,11 @@ function calculateTotal(animate = true) {
         subtotal += (item.price * qty);
     });
 
-    // Apply condition multiplier
-    const multipliers = {
-        poor: 1.5,
-        fair: 1.25,
-        good: 1.0,
-        verygood: 0.85,
-        pristine: 0.75
-    };
-    const total = subtotal * (multipliers[state.condition] || 1);
+    // Apply condition and service multipliers
+    const condMultipliers = { poor: 1.5, fair: 1.25, good: 1.0, verygood: 0.85, pristine: 0.75 };
+    const serviceMultipliers = { standard: 1.0, deep: 1.5 };
+
+    const total = subtotal * (condMultipliers[state.condition] || 1) * (serviceMultipliers[state.serviceType] || 1);
 
     const totalEl = document.getElementById('total-price');
     if (!totalEl) return;
@@ -335,6 +346,11 @@ function updateSummary() {
         hiring: "Primera vez / Buscando contratar"
     };
 
+    const serviceNames = {
+        standard: "Limpieza Estándar",
+        deep: "Limpieza Profunda"
+    };
+
     html += `
         <div class="summary-item" style="border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 1rem;">
             <span>Estado del Hogar:</span>
@@ -343,6 +359,10 @@ function updateSummary() {
         <div class="summary-item">
             <span>Frecuencia:</span>
             <span style="color: var(--secondary); font-weight: 600;">${frequencyNames[state.frequency]}</span>
+        </div>
+        <div class="summary-item">
+            <span>Tipo de Servicio:</span>
+            <span style="color: var(--secondary); font-weight: 600;">${serviceNames[state.serviceType] || 'Estándar'}</span>
         </div>
     `;
 
@@ -423,8 +443,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
                 const conditionNames = { poor: "Pobre", fair: "Regular", good: "Bueno", verygood: "Muy Bueno", pristine: "Impecable" };
                 const frequencyNames = { weekly: "Semanal", biweekly: "Quincenal", monthly: "Mensual", once: "De vez en cuando", hiring: "Primera vez" };
+                const serviceNames = { standard: "Estándar", deep: "Profunda" };
                 const detailsText = `Estado del Hogar: ${conditionNames[state.condition]}\n` +
-                    `Frecuencia: ${frequencyNames[state.frequency]}\n\n` +
+                    `Frecuencia: ${frequencyNames[state.frequency]}\n` +
+                    `Tipo de Servicio: ${serviceNames[state.serviceType]}\n\n` +
                     [...zones, ...appliances]
                         .filter(i => state.values[i.id] > 0)
                         .map(i => `${i.name}: ${state.values[i.id]} x $${i.price}`)
