@@ -19,8 +19,8 @@ let zones = [
     { id: 'pantries', name: "PANTRIES", desc: "Despensas", price: 20 },
     { id: 'refrigerators', name: "FRIDGES", desc: "Refrigeradores", price: 20 },
     { id: 'ovens', name: "OVENS", desc: "Hornos", price: 20 },
-    { id: 'washers', name: "WASHERS", desc: "Lavadoras", price: 20 },
-    { id: 'dryers', name: "DRYERS", desc: "Secadoras", price: 20 }
+    { id: 'microv', name: "MICROV.", desc: "Microondas", price: 20 },
+    { id: 'windows', name: "WINDOWS", desc: "Ventanas", price: 20 }
 ];
 
 let appliances = []; // Merged into the main list above
