@@ -17,42 +17,12 @@
 <body>
     <div class="container">
         <header>
-            <h1>Estimate Pro</h1>
-            <p>Calcula el presupuesto para la limpieza de tu hogar con nuestra calculadora inteligente de alta
-                precisión.</p>
+            <h1>StarClean.life</h1>
+            <p>Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.</p>
         </header>
 
         <main class="main-grid">
             <div class="calculator-content">
-                <!-- Compact Customer Info Section -->
-                <section class="customer-section">
-                    <div class="compact-form">
-                        <div class="compact-field col-3">
-                            <label>Nombre</label>
-                            <input type="text" id="cust-name" placeholder="Ej. Juan Pérez"
-                                oninput="updateContactData()">
-                        </div>
-                        <div class="compact-field col-3">
-                            <label>Correo</label>
-                            <input type="email" id="cust-email" placeholder="juan@ejemplo.com"
-                                oninput="updateContactData()">
-                        </div>
-                        <div class="compact-field col-2">
-                            <label>Teléfono</label>
-                            <input type="tel" id="cust-phone" placeholder="(555) 000-0000"
-                                oninput="updateContactData()">
-                        </div>
-                        <div class="compact-field col-2">
-                            <label>Fecha</label>
-                            <input type="date" id="cust-date" oninput="updateContactData()">
-                        </div>
-                        <div class="compact-field col-2">
-                            <label>Dirección</label>
-                            <input type="text" id="cust-address" placeholder="Calle, Ciudad..."
-                                oninput="updateContactData()">
-                        </div>
-                    </div>
-                </section>
 
                 <!-- Zones Section -->
                 <section class="section">
@@ -105,6 +75,35 @@
                 </div>
             </aside>
         </main>
+
+        <!-- Compact Customer Info Section Moved to Bottom -->
+        <section class="customer-section">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--secondary);">
+                <span>✦</span> Completa tus datos para Finalizar
+            </h2>
+            <div class="compact-form">
+                <div class="compact-field col-3">
+                    <label>Nombre</label>
+                    <input type="text" id="cust-name" placeholder="Ej. Juan Pérez" oninput="updateContactData()">
+                </div>
+                <div class="compact-field col-3">
+                    <label>Correo</label>
+                    <input type="email" id="cust-email" placeholder="juan@ejemplo.com" oninput="updateContactData()">
+                </div>
+                <div class="compact-field col-2">
+                    <label>Teléfono</label>
+                    <input type="tel" id="cust-phone" placeholder="(555) 000-0000" oninput="updateContactData()">
+                </div>
+                <div class="compact-field col-2">
+                    <label>Fecha</label>
+                    <input type="date" id="cust-date" oninput="updateContactData()">
+                </div>
+                <div class="compact-field col-2">
+                    <label>Dirección</label>
+                    <input type="text" id="cust-address" placeholder="Calle, Ciudad..." oninput="updateContactData()">
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- Admin Bar (Visible only in admin mode) -->

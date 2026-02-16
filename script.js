@@ -193,6 +193,7 @@ window.toggleAdmin = () => {
     const pass = prompt("Ingrese la contraseña de administrador:");
     if (pass === ADMIN_PASSWORD) {
         isAdmin = true;
+        document.body.classList.add('admin-active');
         document.getElementById('admin-modal').classList.add('active');
         renderAll();
     } else {
@@ -201,6 +202,7 @@ window.toggleAdmin = () => {
 };
 
 window.closeAdmin = () => {
+    document.body.classList.remove('admin-active');
     document.getElementById('admin-modal').classList.remove('active');
     isAdmin = false;
     renderAll();
