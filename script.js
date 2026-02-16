@@ -50,14 +50,11 @@ let state = {
     values: {}, // id: qty
     condition: 'good', // default condition
     frequency: 'monthly', // default frequency
-    serviceType: 'standard' // default service type
+    serviceType: 'standard' // default service type info
 };
 
 window.setServiceType = (val) => {
     state.serviceType = val;
-    document.querySelectorAll('.service-card').forEach(card => card.classList.remove('active'));
-    document.getElementById(`service-${val}`).classList.add('active');
-
     calculateTotal();
     updateSummary();
     saveState();
@@ -137,9 +134,6 @@ function init() {
     }
     if (state.frequency) {
         setTimeout(() => window.setFrequency(state.frequency), 600);
-    }
-    if (state.serviceType) {
-        setTimeout(() => window.setServiceType(state.serviceType), 700);
     }
     updateSummary();
     calculateTotal(false);

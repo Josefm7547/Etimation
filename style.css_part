@@ -1,0 +1,65 @@
+@media (max-width: 768px) {
+    .cond-card {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .cond-card:hover {
+        transform: none;
+    }
+
+    .info-block {
+        padding: 1.5rem;
+    }
+
+    .info-block p {
+        font-size: 1.1rem;
+    }
+
+    .info-block:hover {
+        transform: none;
+    }
+}
+
+/* Informative & Flashing Text Styles */
+.info-block {
+    background: rgba(124, 58, 237, 0.05);
+    border-left: 4px solid var(--primary);
+    padding: 2rem;
+    border-radius: 0 16px 16px 0;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(var(--glass-blur));
+    border-top: 1px solid var(--card-border);
+    border-right: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+    transition: var(--transition-fast);
+}
+
+.info-block:hover {
+    background: rgba(124, 58, 237, 0.1);
+    transform: translateX(10px);
+}
+
+.info-block h3 {
+    color: var(--secondary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.info-block p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.flash-important {
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    50% { opacity: 0.8; filter: brightness(1.3); }
+}
