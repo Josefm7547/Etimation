@@ -163,12 +163,18 @@ window.updateQty = (id, value) => {
 window.toggleAdmin = () => {
     const pass = prompt("Ingrese la contraseña de administrador:");
     if (pass === ADMIN_PASSWORD) {
-        isAdmin = !isAdmin;
-        alert(isAdmin ? "Modo Administrador ACTIVADO. Ahora puedes editar los precios directamente en las tarjetas." : "Modo Administrador DESACTIVADO.");
+        isAdmin = true;
+        document.getElementById('admin-modal').classList.add('active');
         renderAll();
     } else {
         alert("Contraseña incorrecta.");
     }
+};
+
+window.closeAdmin = () => {
+    document.getElementById('admin-modal').classList.remove('active');
+    isAdmin = false;
+    renderAll();
 };
 
 window.saveGlobalPrices = async () => {
