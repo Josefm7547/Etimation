@@ -114,17 +114,27 @@
         </main>
     </div>
 
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal">
-        <div class="modal-content">
-            <div class="check-icon">✓</div>
-            <h2>¡Reserva Recibida!</h2>
-            <p>Tu solicitud ha sido procesada con éxito. Un coordinador de limpieza se pondrá en contacto contigo en
-                breve.</p>
-            <div id="ticket-summary"></div>
-            <button class="btn-primary" onclick="closeModal()">Nueva Cotización</button>
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <h2>Panel de Control</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">Modifica los precios globales de la aplicación.</p>
+            <div id="admin-prices-list"
+                style="margin-bottom: 1.5rem; max-height: 400px; overflow-y: auto; text-align: left;">
+                <!-- Precios dinámicos aparecerán aquí -->
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-secondary" onclick="closeAdmin()" style="flex: 1;">Cerrar</button>
+                <button id="save-prices-btn" class="btn-primary" style="flex: 1;">Guardar</button>
+            </div>
         </div>
     </div>
+
+    <footer style="text-align: center; margin-top: 3rem; padding-bottom: 2rem;">
+        <button id="admin-trigger"
+            style="background:none; border:none; color:rgba(255,255,255,0.05); font-size:0.7rem; cursor:pointer;">Acceso
+            Admin</button>
+    </footer>
 
     <script src="script.js"></script>
 </body>

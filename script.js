@@ -1,19 +1,20 @@
 // Branding Configuration
-const businessName = "StarClean"; // <--- CAMBIA TU NOMBRE AQUÍ
+const businessName = "StarClean";
+const ADMIN_PASSWORD = "jose123"; // <--- CAMBIA TU CONTRASEÑA AQUÍ
 
-// Data configuration
-const zones = [
-    { id: 'sala', name: "Sala", desc: "Limpieza de áreas sociales" },
-    { id: 'cocina', name: "Cocina", desc: "Desengrasado y superficies" },
-    { id: 'baño', name: "Baño", desc: "Desinfección profunda" },
-    { id: 'dormitorio', name: "Dormitorio", desc: "Orden y limpieza general" }
+// Data configuration with default prices
+let zones = [
+    { id: 'sala', name: "Sala", desc: "Limpieza de áreas sociales", price: 0.50 },
+    { id: 'cocina', name: "Cocina", desc: "Desengrasado y superficies", price: 0.70 },
+    { id: 'baño', name: "Baño", desc: "Desinfección profunda", price: 0.60 },
+    { id: 'dormitorio', name: "Dormitorio", desc: "Orden y limpieza general", price: 0.50 }
 ];
 
-const appliances = [
-    { id: 'refri', name: "Refrigerador", desc: "Limpieza interior/exterior" },
-    { id: 'horno', name: "Horno", desc: "Eliminación de grasa" },
-    { id: 'lavadora', name: "Lavadora", desc: "Limpieza de filtros" },
-    { id: 'secadora', name: "Secadora", desc: "Limpieza de conductos" }
+let appliances = [
+    { id: 'refri', name: "Refrigerador", desc: "Limpieza interior/exterior", price: 25 },
+    { id: 'horno', name: "Horno", desc: "Eliminación de grasa", price: 20 },
+    { id: 'lavadora', name: "Lavadora", desc: "Limpieza de filtros", price: 30 },
+    { id: 'secadora', name: "Secadora", desc: "Limpieza de conductos", price: 25 }
 ];
 
 // Firebase Configuration
@@ -23,12 +24,14 @@ const firebaseConfig = {
     projectId: "your-project-id"
 };
 
-// EmailJS Configuration (Sign up at emailjs.com to get these)
+// EmailJS Configuration
 const EMAILJS_PUBLIC_KEY = "Fyvdr-qc_UTfoTKLU";
 const EMAILJS_SERVICE_ID = "service_l9hmik8";
 const EMAILJS_TEMPLATE_ID = "template_8dklrk8";
 
 let db = null;
+let isAdmin = false;
+
 try {
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
         firebase.initializeApp(firebaseConfig);
@@ -41,8 +44,22 @@ try {
 // State management
 let state = {
     contact: { name: '', email: '', phone: '', date: '', address: '' },
-    values: {} // id: { price: 0, qty: 0 }
+    values: {} // id: qty
 };
+
+async function loadPrices() {
+    if (db) {
+        try {
+            const doc = await db.collection("settings").doc("prices").get();
+            if (doc.exists) {
+                const data = doc.data();
+                zones = zones.map(z => ({ ...z, price: data[z.id] || z.price }));
+                appliances = appliances.map(a => ({ ...a, price: data[a.id] || a.price }));
+            }
+        } catch (e) { console.log("Using default prices"); }
+    }
+    renderAll();
+}
 
 function init() {
     const saved = localStorage.getItem('cleaning_estimate_state_v2');
@@ -54,12 +71,8 @@ function init() {
                 if (el) el.value = state.contact[key];
             });
         }, 0);
-    } else {
-        [...zones, ...appliances].forEach(item => {
-            state.values[item.id] = { price: 0, qty: 0 };
-        });
     }
-    renderAll();
+    loadPrices();
     updateSummary();
     calculateTotal(false);
 }
@@ -68,89 +81,118 @@ function saveState() {
     localStorage.setItem('cleaning_estimate_state_v2', JSON.stringify(state));
 }
 
-function renderItemCard(item, containerId) {
-    const data = state.values[item.id] || { price: 0, qty: 0 };
+function renderItemCard(item) {
+    const qty = state.values[item.id] || 0;
+    const price = item.price;
+    const isZone = zones.find(z => z.id === item.id);
+
     return `
-        <div class="item-card">
+        <div class="item-card ${isAdmin ? 'admin-mode' : ''}">
             <div class="item-info">
                 <h3>${item.name}</h3>
                 <p>${item.desc}</p>
             </div>
-            <div class="inputs-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <div class="field" style="flex: 1; min-width: 100px;">
-                    <label style="font-size: 0.75rem;">Precio $</label>
-                    <input type="number" 
-                           placeholder="0.00" 
-                           min="0" 
-                           oninput="updateItem('${item.id}', 'price', this.value)"
-                           value="${data.price || ''}">
+            <div class="inputs-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                <div class="field" style="flex: 1.5; min-width: 100px;">
+                    <label style="font-size: 0.75rem;">${isZone ? 'Precio/pie²' : 'Precio Un.'}</label>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <span style="color: var(--text-muted); font-weight: 600;">$</span>
+                        <input type="number" 
+                               step="0.01"
+                               class="price-input"
+                               ${!isAdmin ? 'readonly tabindex="-1"' : ''}
+                               style="${!isAdmin ? 'border:none; background:transparent; font-weight:700; width:60px; padding:0;' : ''}"
+                               oninput="updateBasePrice('${item.id}', this.value)"
+                               value="${price}">
+                    </div>
                 </div>
                 <div class="field" style="flex: 1; min-width: 80px;">
-                    <label style="font-size: 0.75rem;">Cantidad</label>
+                    <label style="font-size: 0.75rem;">${isZone ? 'Pies²' : 'Cant.'}</label>
                     <input type="number" 
                            placeholder="0" 
                            min="0" 
-                           oninput="updateItem('${item.id}', 'qty', this.value)"
-                           value="${data.qty || ''}">
+                           oninput="updateQty('${item.id}', this.value)"
+                           value="${qty || ''}">
                 </div>
             </div>
             <div id="subtotal-${item.id}" style="text-align: right; font-size: 0.9rem; color: var(--primary); font-weight: 600; margin-top: 0.5rem;">
-                Subtotal: $${(data.price * data.qty).toFixed(2)}
+                Subtotal: $${(price * qty).toFixed(2)}
             </div>
         </div>
     `;
 }
 
 function renderAll() {
-    document.getElementById('zones-container').innerHTML = zones.map(z => renderItemCard(z)).join('');
-    document.getElementById('appliances-container').innerHTML = appliances.map(a => renderItemCard(a)).join('');
+    const zContainer = document.getElementById('zones-container');
+    const aContainer = document.getElementById('appliances-container');
+    if (zContainer) zContainer.innerHTML = zones.map(z => renderItemCard(z)).join('');
+    if (aContainer) aContainer.innerHTML = appliances.map(a => renderItemCard(a)).join('');
 }
 
-window.updateItem = (id, field, value) => {
-    if (!state.values[id]) state.values[id] = { price: 0, qty: 0 };
-    state.values[id][field] = parseFloat(value) || 0;
+window.updateBasePrice = (id, value) => {
+    const val = parseFloat(value) || 0;
+    let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
+    if (item) item.price = val;
 
-    // Update Subtotal UI instantly
-    const sub = state.values[id].price * state.values[id].qty;
-    document.getElementById(`subtotal-${id}`).innerText = `Subtotal: $${sub.toFixed(2)}`;
+    // Update individual subtotal UI
+    const qty = state.values[id] || 0;
+    const subEl = document.getElementById(`subtotal-${id}`);
+    if (subEl) subEl.innerText = `Subtotal: $${(val * qty).toFixed(2)}`;
+
+    calculateTotal();
+    updateSummary();
+};
+
+window.updateQty = (id, value) => {
+    state.values[id] = parseFloat(value) || 0;
+
+    // Update individual subtotal UI
+    let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
+    const price = item ? item.price : 0;
+    const subEl = document.getElementById(`subtotal-${id}`);
+    if (subEl) subEl.innerText = `Subtotal: $${(price * state.values[id]).toFixed(2)}`;
 
     calculateTotal();
     updateSummary();
     saveState();
 };
 
-window.updateContactData = () => {
-    state.contact.name = document.getElementById('cust-name').value;
-    state.contact.email = document.getElementById('cust-email').value;
-    state.contact.phone = document.getElementById('cust-phone').value;
-    state.contact.date = document.getElementById('cust-date').value;
-    state.contact.address = document.getElementById('cust-address').value;
-    saveState();
+window.toggleAdmin = () => {
+    const pass = prompt("Ingrese la contraseña de administrador:");
+    if (pass === ADMIN_PASSWORD) {
+        isAdmin = !isAdmin;
+        alert(isAdmin ? "Modo Administrador ACTIVADO. Ahora puedes editar los precios directamente en las tarjetas." : "Modo Administrador DESACTIVADO.");
+        renderAll();
+    } else {
+        alert("Contraseña incorrecta.");
+    }
+};
 
-    // Lead Tracking Alert: If name and email are present, send a quick alert
-    if (state.contact.name && state.contact.email) {
-        clearTimeout(window.leadTimer);
-        window.leadTimer = setTimeout(async () => {
-            if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-                try {
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                        to_email: "josefm7547@gmail.com",
-                        subject: "🔔 NUEVO INTERESADO en StarClean",
-                        from_name: state.contact.name,
-                        customer_email: state.contact.email,
-                        customer_phone: state.contact.phone,
-                        details: "El cliente está actualmente llenando el formulario de cotización."
-                    });
-                } catch (e) { console.log("Lead alert waiting for config."); }
-            }
-        }, 5000); // Wait 5 seconds of inactivity to send
+window.saveGlobalPrices = async () => {
+    if (!db) {
+        alert("Firebase no está configurado. Los precios se perderán al recargar.");
+        return;
+    }
+    const prices = {};
+    [...zones, ...appliances].forEach(item => {
+        prices[item.id] = item.price;
+    });
+
+    try {
+        await db.collection("settings").doc("prices").set(prices);
+        alert("¡Precios guardados en la nube exitosamente!");
+        isAdmin = false;
+        renderAll();
+    } catch (e) {
+        alert("Error al guardar precios: " + e.message);
     }
 };
 
 function calculateTotal(animate = true) {
     let total = 0;
-    Object.values(state.values).forEach(val => {
-        total += (val.price * val.qty);
+    [...zones, ...appliances].forEach(item => {
+        const qty = state.values[item.id] || 0;
+        total += (item.price * qty);
     });
 
     const totalEl = document.getElementById('total-price');
@@ -164,23 +206,24 @@ function calculateTotal(animate = true) {
 
 function updateSummary() {
     const container = document.getElementById('summary-items');
+    if (!container) return;
     let html = '';
     let hasItems = false;
 
     [...zones, ...appliances].forEach(item => {
-        const val = state.values[item.id];
-        if (val && val.qty > 0 && val.price > 0) {
+        const qty = state.values[item.id];
+        if (qty > 0) {
             hasItems = true;
             html += `
                 <div class="summary-item">
-                    <span>${item.name} (${val.qty} x $${val.price})</span>
-                    <span>$${(val.qty * val.price).toFixed(2)}</span>
+                    <span>${item.name} (${qty} x $${item.price})</span>
+                    <span>$${(qty * item.price).toFixed(2)}</span>
                 </div>
             `;
         }
     });
 
-    container.innerHTML = hasItems ? html : '<p style="color: var(--text-muted); text-align: center;">Agregue precios y cantidades para ver el resumen.</p>';
+    container.innerHTML = hasItems ? html : '<p style="color: var(--text-muted); text-align: center;">Seleccione áreas para ver el resumen.</p>';
 }
 
 function animateValue(obj, start, end, duration) {
@@ -195,23 +238,20 @@ function animateValue(obj, start, end, duration) {
     window.requestAnimationFrame(step);
 }
 
-window.closeModal = () => {
-    document.getElementById('success-modal').classList.remove('active');
-    localStorage.removeItem('cleaning_estimate_state_v2');
-    location.reload();
-};
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize EmailJS
-    if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
-    // Update Branding in UI
+    if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") emailjs.init(EMAILJS_PUBLIC_KEY);
+
     const logo = document.querySelector('header h1');
     if (logo) logo.innerText = businessName;
     document.title = `${businessName} | Cotización`;
 
     init();
+
+    document.getElementById('admin-trigger').addEventListener('click', toggleAdmin);
+
+    // Admin Save Button logic
+    const saveBtn = document.getElementById('save-prices-btn');
+    if (saveBtn) saveBtn.addEventListener('click', saveGlobalPrices);
 
     document.getElementById('book-btn').addEventListener('click', async function () {
         const total = parseFloat(document.getElementById('total-price').innerText);
@@ -220,17 +260,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         if (total <= 0) {
-            alert('Agregue al menos un item con precio y cantidad.');
+            alert('La cotización debe ser mayor a $0.');
             return;
         }
 
         const btn = this;
-        const originalText = btn.innerText;
         btn.innerText = "Procesando...";
         btn.disabled = true;
 
         try {
-            // 1. Save to Database
             if (db) {
                 await db.collection("estimates").add({
                     ...state.contact,
@@ -238,40 +276,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     total: total,
                     date: new Date().toISOString()
                 });
-            } else {
-                await new Promise(r => setTimeout(r, 800));
             }
 
-            // 2. Send email via EmailJS (if configured)
             if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-                const summaryText = Object.entries(state.values)
-                    .filter(([id, val]) => val.qty > 0)
-                    .map(([id, val]) => `${id}: ${val.qty} x $${val.price}`)
+                const detailsText = [...zones, ...appliances]
+                    .filter(i => state.values[i.id] > 0)
+                    .map(i => `${i.name}: ${state.values[i.id]} x $${i.price}`)
                     .join("\n");
 
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                     to_email: "josefm7547@gmail.com",
                     from_name: state.contact.name,
                     customer_email: state.contact.email,
-                    customer_phone: state.contact.phone,
-                    service_date: state.contact.date,
-                    address: state.contact.address,
                     total_amount: `$${total.toFixed(2)}`,
-                    details: summaryText
+                    details: detailsText
                 });
             }
 
-            const summary = document.getElementById('ticket-summary');
-            summary.innerHTML = `
-                <strong>Ticket: #${Math.random().toString(36).substr(2, 7).toUpperCase()}</strong><br>
-                Cliente: ${state.contact.name}<br>
-                Total: $${total.toFixed(2)}
-            `;
             document.getElementById('success-modal').classList.add('active');
         } catch (e) {
-            alert("Error al guardar.");
+            alert("Error al procesar la reserva.");
         } finally {
-            btn.innerText = originalText;
+            btn.innerText = "Confirmar Reserva";
             btn.disabled = false;
         }
     });
