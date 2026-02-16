@@ -1093,15 +1093,16 @@ input[type="number"]:focus {
 
 /* Estimate Table Redesign */
 .estimate-table-container {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: hidden;
+    /* Avoid horizontal scroll on mobile */
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--secondary) transparent;
 }
 
 .estimate-table {
-    min-width: 900px;
+    width: 100%;
+    min-width: 100%;
+    /* No more forced 900px */
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 20px;
@@ -1111,12 +1112,38 @@ input[type="number"]:focus {
 
 .table-row {
     display: grid;
-    grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 1.2fr;
+    grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr 0.8fr 1fr;
     gap: 0.5rem;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1rem;
     align-items: center;
     border-bottom: 1px solid var(--card-border);
     transition: var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+    .table-row {
+        grid-template-columns: 1.5fr 0.7fr 0.7fr 0.7fr 0.7fr 1fr;
+        padding: 0.75rem 0.4rem;
+        gap: 0.2rem;
+    }
+
+    .table-header {
+        font-size: 0.55rem !important;
+        letter-spacing: 0.05rem !important;
+    }
+
+    .table-row input {
+        padding: 0.4rem 0.2rem !important;
+        font-size: 0.75rem !important;
+    }
+
+    .table-row .price-cell {
+        font-size: 0.7rem !important;
+    }
+
+    .table-row .subtotal-cell {
+        font-size: 0.85rem !important;
+    }
 }
 
 .table-row:hover {

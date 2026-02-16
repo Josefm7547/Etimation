@@ -255,12 +255,12 @@
                             <div class="estimate-table">
                                 <!-- Header -->
                                 <div class="table-row table-header">
-                                    <div>ZONA / ELECTRODOMÉSTICO</div>
-                                    <div style="text-align: center;">CANT. STD</div>
+                                    <div>ZONA / ARTÍCULO</div>
+                                    <div style="text-align: center;">CT. STD</div>
                                     <div style="text-align: center;">$ STD</div>
-                                    <div style="text-align: center;">CANT. DEEP</div>
-                                    <div style="text-align: center;">$ DEEP</div>
-                                    <div style="text-align: right;">SUBTOTAL</div>
+                                    <div style="text-align: center;">CT. DP</div>
+                                    <div style="text-align: center;">$ DP</div>
+                                    <div style="text-align: right;">TOTAL</div>
                                 </div>
 
                                 <!-- Items will be rendered here -->
@@ -275,11 +275,21 @@
                     </p>
                 </div>
 
-                <aside style="margin-top: 2rem;">
-                    <div class="summary-card">
-                        <!-- Integrated Form at the TOP -->
+                <aside style="margin-top: 1rem; width: 100%; max-width: 1000px; margin: 0 auto;">
+                    <div class="summary-card" style="margin-top: 0;">
+                        <!-- Total display -->
+                        <div class="total-display"
+                            style="padding-bottom: 1.5rem; border-bottom: 1px solid var(--card-border);">
+                            <p class="total-label">Subtotal Cotización</p>
+                            <p class="total-amount">$<span id="total-price">0.00</span></p>
+                        </div>
+
+                        <!-- Integrated Form at the BOTTOM -->
                         <div class="compact-form"
-                            style="background: transparent; padding: 0; border: none; backdrop-filter: none; gap: 0.5rem; margin-bottom: 2rem;">
+                            style="background: transparent; padding: 1.5rem 0 0 0; border: none; backdrop-filter: none; gap: 0.5rem;">
+                            <h3
+                                style="color: var(--secondary); font-size: 1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1rem;">
+                                Información del Cliente</h3>
                             <div class="compact-field col-6">
                                 <label>Nombre Completo *</label>
                                 <input type="text" id="cust-name" placeholder="Ej. Juan Pérez"
@@ -301,27 +311,18 @@
                                 <input type="text" id="cust-address" placeholder="Calle, Ciudad, Código Postal"
                                     oninput="updateContactData()" required>
                             </div>
-                            <div class="compact-field col-6">
-                                <div class="compact-field col-6">
-                                    <label>Fecha de Solicitud (Auto)</label>
-                                    <input type="text" id="cust-date" readonly
-                                        style="opacity: 0.7; cursor: not-allowed;">
-                                </div>
+                            <div class="compact-field col-6" style="margin-top: 0.5rem;">
+                                <label>Fecha de Solicitud (Auto)</label>
+                                <input type="text" id="cust-date" readonly
+                                    style="opacity: 0.6; cursor: not-allowed; border: 1px dashed var(--card-border) !important;">
                             </div>
-
-                            <!-- Total display at the bottom -->
-                            <div class="total-display"
-                                style="border-top: 1px solid var(--card-border); padding-top: 1.5rem;">
-                                <p class="total-label">Total Estimado</p>
-                                <p class="total-amount">$<span id="total-price">0.00</span></p>
-                            </div>
-
-
-                            <p
-                                style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem;">
-                                Precio sujeto a inspección física.
-                            </p>
                         </div>
+
+                        <p
+                            style="text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 1.5rem; font-style: italic;">
+                            Precio sujeto a inspección física detallada.
+                        </p>
+                    </div>
                 </aside>
             </main>
 
