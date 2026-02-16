@@ -439,9 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.disabled = false;
         }
     });
-
-    const printBtn = document.getElementById('print-btn');
-    if (printBtn) printBtn.addEventListener('click', () => window.print());
 });
 
 window.openPreview = (device) => {
