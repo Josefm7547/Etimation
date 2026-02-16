@@ -132,16 +132,7 @@ async function loadPrices() {
 }
 
 function init() {
-    const saved = localStorage.getItem('cleaning_estimate_state_v2');
-    if (saved) {
-        state = JSON.parse(saved);
-        setTimeout(() => {
-            Object.keys(state.contact).forEach(key => {
-                const el = document.getElementById(`cust-${key}`);
-                if (el) el.value = state.contact[key];
-            });
-        }, 0);
-    }
+    // State persistence disabled per user request: client values reset on refresh
     loadPrices();
 
     // Auto-set today's date
@@ -161,7 +152,7 @@ function init() {
 }
 
 function saveState() {
-    localStorage.setItem('cleaning_estimate_state_v2', JSON.stringify(state));
+    // Persistence disabled
 }
 
 function renderTableRow(item) {
