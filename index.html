@@ -246,15 +246,27 @@
         <!-- Screen 4: Calculator and Form -->
         <div id="screen-4" style="display: none;">
             <main class="main-grid">
-                <div class="calculator-content">
+                <div class="calculator-content" style="max-width: 1000px; margin: 0 auto;">
                     <section class="section">
-                        <h2 class="section-title"><span>✦</span> Áreas de la Casa</h2>
-                        <div id="zones-container" class="card-grid"></div>
-                    </section>
+                        <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span>
+                            Detalle de la Cotización</h2>
 
-                    <section class="section">
-                        <h2 class="section-title"><span>✦</span> Servicios Adicionales</h2>
-                        <div id="appliances-container" class="card-grid"></div>
+                        <div class="estimate-table-container">
+                            <div class="estimate-table">
+                                <!-- Header -->
+                                <div class="table-row table-header">
+                                    <div>ZONA / ELECTRODOMÉSTICO</div>
+                                    <div style="text-align: center;">CANT. STD</div>
+                                    <div style="text-align: center;">$ STD</div>
+                                    <div style="text-align: center;">CANT. DEEP</div>
+                                    <div style="text-align: center;">$ DEEP</div>
+                                    <div style="text-align: right;">SUBTOTAL</div>
+                                </div>
+
+                                <!-- Items will be rendered here -->
+                                <div id="estimate-items-container"></div>
+                            </div>
+                        </div>
                     </section>
 
                     <p

@@ -1091,6 +1091,80 @@ input[type="number"]:focus {
     }
 }
 
+/* Estimate Table Redesign */
+.estimate-table-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) transparent;
+}
+
+.estimate-table {
+    min-width: 900px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(var(--glass-blur));
+    overflow: hidden;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr 1.2fr;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--card-border);
+    transition: var(--transition-fast);
+}
+
+.table-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.table-header {
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    border-bottom: 2px solid var(--card-border);
+}
+
+.table-row input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.table-row input:focus {
+    border-color: var(--secondary);
+    outline: none;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.table-row .price-cell {
+    font-family: monospace;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.table-row .subtotal-cell {
+    font-weight: 700;
+    color: var(--text-main);
+    text-align: right;
+    font-size: 1.1rem;
+}
+
 /* Soap Bubbles Animation */
 .info-block h3,
 .info-block p {

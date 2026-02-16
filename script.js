@@ -150,55 +150,42 @@ function saveState() {
     localStorage.setItem('cleaning_estimate_state_v2', JSON.stringify(state));
 }
 
-function renderItemCard(item) {
-    const qty = state.values[item.id] || 0;
-    const price = item.price;
-    const isZone = zones.find(z => z.id === item.id);
-
-    const inputAttrs = isAdmin ? "" : 'readonly tabindex="-1"';
-    const inputStyle = isAdmin ? "" : "border:none; background:transparent; font-weight:700; width:60px; padding:0; cursor:default; outline:none;";
+function renderTableRow(item) {
+    const qtyStd = state.values[item.id]?.std || 0;
+    const qtyDeep = state.values[item.id]?.deep || 0;
+    const priceStd = item.price;
+    const priceDeep = item.price * 1.5; // Default deep price logic
 
     return `
-        <div class="item-card ${isAdmin ? 'admin-mode' : ''}">
-            <div class="item-info">
-                <h3>${item.name}</h3>
-                <p>${item.desc}</p>
+        <div class="table-row">
+            <div style="font-weight: 600; color: var(--text-main);">${item.name}</div>
+            <div>
+                <input type="number" placeholder="0" min="0" 
+                    oninput="updateTableQty('${item.id}', 'std', this.value)" 
+                    value="${qtyStd || ''}">
             </div>
-            <div class="inputs-row" style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
-                <div class="field" style="flex: 1.5; min-width: 100px;">
-                    <label style="font-size: 0.75rem;">${isZone ? 'Precio/pie²' : 'Precio Un.'}</label>
-                    <div style="display: flex; align-items: center; gap: 4px;">
-                        <span style="color: var(--text-muted); font-weight: 600;">$</span>
-                        <input type="number" 
-                               step="0.01"
-                               class="price-input"
-                               ${inputAttrs}
-                               style="${inputStyle}"
-                               oninput="updateBasePrice('${item.id}', this.value)"
-                               value="${price}">
-                    </div>
-                </div>
-                <div class="field" style="flex: 1; min-width: 80px;">
-                    <label style="font-size: 0.75rem;">${isZone ? 'Pies²' : 'Cant.'}</label>
-                    <input type="number" 
-                           placeholder="0" 
-                           min="0" 
-                           oninput="updateQty('${item.id}', this.value)"
-                           value="${qty || ''}">
-                </div>
+            <div class="price-cell">$${priceStd.toFixed(2)}</div>
+            <div>
+                <input type="number" placeholder="0" min="0" 
+                    oninput="updateTableQty('${item.id}', 'deep', this.value)" 
+                    value="${qtyDeep || ''}">
             </div>
-            <div id="subtotal-${item.id}" style="text-align: right; font-size: 0.9rem; color: var(--primary); font-weight: 600; margin-top: 0.5rem;">
-                Subtotal: $${(price * qty).toFixed(2)}
+            <div class="price-cell">$${priceDeep.toFixed(2)}</div>
+            <div id="subtotal-${item.id}" class="subtotal-cell">
+                $${(priceStd * qtyStd + priceDeep * qtyDeep).toFixed(2)}
             </div>
         </div>
     `;
 }
 
 function renderAll() {
-    const zContainer = document.getElementById('zones-container');
-    const aContainer = document.getElementById('appliances-container');
-    if (zContainer) zContainer.innerHTML = zones.map(z => renderItemCard(z)).join('');
-    if (aContainer) aContainer.innerHTML = appliances.map(a => renderItemCard(a)).join('');
+    const container = document.getElementById('estimate-items-container');
+    if (container) {
+        container.innerHTML = [
+            ...zones.map(z => renderTableRow(z)),
+            ...appliances.map(a => renderTableRow(a))
+        ].join('');
+    }
 }
 
 window.updateBasePrice = (id, value) => {
@@ -214,15 +201,27 @@ window.updateBasePrice = (id, value) => {
     updateSummary();
 };
 
-window.updateQty = (id, value) => {
-    state.values[id] = parseFloat(value) || 0;
+window.updateTableQty = (id, type, value) => {
+    if (!state.values[id]) state.values[id] = { std: 0, deep: 0 };
+    if (typeof state.values[id] !== 'object') {
+        // Migration from old state
+        const oldVal = state.values[id];
+        state.values[id] = { std: oldVal, deep: 0 };
+    }
+
+    state.values[id][type] = parseFloat(value) || 0;
+
     let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
-    const price = item ? item.price : 0;
+    const priceStd = item ? item.price : 0;
+    const priceDeep = priceStd * 1.5;
+
     const subEl = document.getElementById(`subtotal-${id}`);
-    if (subEl) subEl.innerText = `Subtotal: $${(price * state.values[id]).toFixed(2)}`;
+    if (subEl) {
+        const subtotal = (priceStd * state.values[id].std) + (priceDeep * state.values[id].deep);
+        subEl.innerText = `$${subtotal.toFixed(2)}`;
+    }
 
     calculateTotal();
-    updateSummary();
     saveState();
 };
 
@@ -293,15 +292,20 @@ window.saveGlobalPrices = async () => {
 function calculateTotal(animate = true) {
     let subtotal = 0;
     [...zones, ...appliances].forEach(item => {
-        const qty = state.values[item.id] || 0;
-        subtotal += (item.price * qty);
+        const vals = state.values[item.id] || { std: 0, deep: 0 };
+        const priceStd = item.price;
+        const priceDeep = item.price * 1.5;
+
+        if (typeof vals === 'object') {
+            subtotal += (priceStd * (vals.std || 0)) + (priceDeep * (vals.deep || 0));
+        } else {
+            subtotal += (priceStd * vals);
+        }
     });
 
-    // Apply condition and service multipliers
+    // Apply condition multiplier
     const condMultipliers = { poor: 1.5, fair: 1.25, good: 1.0, verygood: 0.85, pristine: 0.75 };
-    const serviceMultipliers = { standard: 1.0, deep: 1.5 };
-
-    const total = subtotal * (condMultipliers[state.condition] || 1) * (serviceMultipliers[state.serviceType] || 1);
+    const total = subtotal * (condMultipliers[state.condition] || 1);
 
     const totalEl = document.getElementById('total-price');
     if (!totalEl) return;
