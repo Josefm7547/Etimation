@@ -290,28 +290,26 @@
                                     oninput="updateContactData()" required>
                             </div>
                             <div class="compact-field col-6">
-                                <label>Fecha de Solicitud (Auto)</label>
-                                <input type="text" id="cust-date" readonly style="opacity: 0.7; cursor: not-allowed;">
+                                <div class="compact-field col-6">
+                                    <label>Fecha de Solicitud (Auto)</label>
+                                    <input type="text" id="cust-date" readonly
+                                        style="opacity: 0.7; cursor: not-allowed;">
+                                </div>
                             </div>
+
+                            <!-- Total display at the bottom -->
+                            <div class="total-display"
+                                style="border-top: 1px solid var(--card-border); padding-top: 1.5rem;">
+                                <p class="total-label">Total Estimado</p>
+                                <p class="total-amount">$<span id="total-price">0.00</span></p>
+                            </div>
+
+
+                            <p
+                                style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem;">
+                                Precio sujeto a inspección física.
+                            </p>
                         </div>
-
-                        <!-- Title and Informative text -->
-                        <h2 class="summary-title" style="margin-bottom: 0.5rem; font-size: 1.2rem;">Resumen de
-                            Cotización</h2>
-                        <div id="summary-items" style="margin-bottom: 1.5rem;"></div>
-
-                        <!-- Total display at the bottom -->
-                        <div class="total-display"
-                            style="border-top: 1px solid var(--card-border); padding-top: 1.5rem;">
-                            <p class="total-label">Total Estimado</p>
-                            <p class="total-amount">$<span id="total-price">0.00</span></p>
-                        </div>
-
-
-                        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem;">
-                            Precio sujeto a inspección física.
-                        </p>
-                    </div>
                 </aside>
             </main>
 

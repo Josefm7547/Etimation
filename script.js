@@ -315,7 +315,7 @@ function calculateTotal(animate = true) {
 function updateSummary() {
     const container = document.getElementById('summary-items');
     if (container) {
-        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; font-size: 0.9rem; font-style: italic;">Los detalles de su selección se incluirán en la cotización descargable.</p>';
+        container.innerHTML = '';
     }
 }
 
