@@ -19,9 +19,12 @@ let appliances = [
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id"
+    apiKey: "AIzaSyDCHjSe1a9h-JQm_RVIAAQAxfL3UrHRtp0",
+    authDomain: "starclean-43024.firebaseapp.com",
+    projectId: "starclean-43024",
+    storageBucket: "starclean-43024.firebasestorage.app",
+    messagingSenderId: "1042926359678",
+    appId: "1:1042926359678:web:7d8b18998a5fd929ed742f"
 };
 
 // EmailJS Configuration
