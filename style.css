@@ -154,8 +154,69 @@ input:focus {
     padding: 1rem;
 }
 
-.modal.active {
+/* Admin Bar Styles */
+.admin-bar {
+    position: fixed;
+    top: -100px;
+    /* Hidden initially */
+    left: 0;
+    width: 100%;
+    background: #1e1b4b;
+    border-bottom: 2px solid var(--secondary);
+    z-index: 2000;
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.admin-bar.active {
+    top: 0;
+}
+
+.admin-bar-content {
+    max-width: 1100px;
+    margin: 0 auto;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-info strong {
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.admin-info span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.admin-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .admin-bar-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .admin-actions {
+        width: 100%;
+    }
+
+    .admin-actions button {
+        flex: 1;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
 }
 
 .modal-content {
