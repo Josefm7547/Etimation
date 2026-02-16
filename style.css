@@ -1101,11 +1101,13 @@ input[type="number"]:focus {
 .estimate-table {
     width: 100%;
     min-width: 100%;
-    background: var(--card-bg);
+    background: #0f172a;
+    /* Solid Dark Blue (Slate-900) */
     border: 1px solid var(--card-border);
     border-radius: 20px;
-    backdrop-filter: blur(var(--glass-blur));
     overflow: hidden;
+    backdrop-filter: none !important;
+    /* Remove translucency */
 }
 
 .table-row {

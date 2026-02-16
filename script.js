@@ -164,15 +164,15 @@ function renderTableRow(item) {
                     oninput="updateTableQty('${item.id}', 'std', this.value)" 
                     value="${qtyStd || ''}">
             </div>
-            <div class="price-cell">$${priceStd.toFixed(2)}</div>
+            <div class="price-cell">$${priceStd.toFixed(0)}</div>
             <div>
                 <input type="number" placeholder="0" min="0" 
                     oninput="updateTableQty('${item.id}', 'deep', this.value)" 
                     value="${qtyDeep || ''}">
             </div>
-            <div class="price-cell">$${priceDeep.toFixed(2)}</div>
+            <div class="price-cell">$${priceDeep.toFixed(0)}</div>
             <div id="subtotal-${item.id}" class="subtotal-cell">
-                $${(priceStd * qtyStd + priceDeep * qtyDeep).toFixed(2)}
+                $${Math.round(priceStd * qtyStd + priceDeep * qtyDeep)}
             </div>
         </div>
     `;
@@ -218,7 +218,7 @@ window.updateTableQty = (id, type, value) => {
     const subEl = document.getElementById(`subtotal-${id}`);
     if (subEl) {
         const subtotal = (priceStd * state.values[id].std) + (priceDeep * state.values[id].deep);
-        subEl.innerText = `$${subtotal.toFixed(2)}`;
+        subEl.innerText = `$${Math.round(subtotal)}`;
     }
 
     calculateTotal();
@@ -312,7 +312,7 @@ function calculateTotal(animate = true) {
     if (animate) {
         animateValue(totalEl, parseFloat(totalEl.innerText) || 0, total, 400);
     } else {
-        totalEl.innerText = total.toFixed(2);
+        totalEl.innerText = Math.round(total);
     }
 }
 
@@ -329,7 +329,7 @@ function animateValue(obj, start, end, duration) {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
         const current = progress * (end - start) + start;
-        obj.innerHTML = current.toFixed(2);
+        obj.innerHTML = Math.round(current);
         if (progress < 1) window.requestAnimationFrame(step);
     };
     window.requestAnimationFrame(step);
