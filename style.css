@@ -327,20 +327,23 @@ input:focus {
 
 /* Secondary Button */
 .btn-secondary {
+    width: 100%;
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-main);
     border: 1px solid var(--card-border);
-    padding: 1rem;
+    padding: 1.25rem;
     border-radius: 16px;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: var(--transition-fast);
+    backdrop-filter: blur(var(--glass-blur));
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--primary);
+    transform: translateY(-2px);
 }
 
 /* Modal Styles */
@@ -770,7 +773,6 @@ input[type="number"]:focus {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 2rem;
     transition: var(--transition-fast);
     box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
 }

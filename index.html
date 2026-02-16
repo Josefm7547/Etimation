@@ -110,9 +110,8 @@
                 </div>
 
                 <!-- Next Button -->
-                <div style="text-align: center; margin-top: 3rem;">
-                    <button class="btn-primary" onclick="goToScreen(2)"
-                        style="max-width: 300px; margin: 0 auto;">Siguiente ➔</button>
+                <div style="text-align: center; margin-top: 3rem; display: flex; justify-content: center;">
+                    <button class="btn-primary" onclick="goToScreen(2)" style="max-width: 300px;">Siguiente ➔</button>
                 </div>
             </section>
         </div>
@@ -162,8 +161,9 @@
                 </div>
 
                 <!-- Buttons for Screen 2 -->
-                <div style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center;">
-                    <button class="btn-secondary" onclick="goToScreen(1)" style="max-width: 150px;">← Volver</button>
+                <div
+                    style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-secondary" onclick="goToScreen(1)" style="max-width: 200px;">← Volver</button>
                     <button class="btn-primary" onclick="goToScreen(3)" style="max-width: 300px;">Siguiente ➔</button>
                 </div>
             </section>
@@ -193,8 +193,9 @@
                 </p>
 
                 <!-- Buttons for Screen 3 -->
-                <div style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center;">
-                    <button class="btn-secondary" onclick="goToScreen(2)" style="max-width: 150px;">← Volver</button>
+                <div
+                    style="text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-secondary" onclick="goToScreen(2)" style="max-width: 200px;">← Volver</button>
                     <button class="btn-primary" onclick="goToScreen(4)" style="max-width: 300px;">Siguiente ➔</button>
                 </div>
             </section>
@@ -228,11 +229,9 @@
                             <p class="total-label">Total Estimado</p>
                             <p class="total-amount">$<span id="total-price">0.00</span></p>
                         </div>
-                        <button class="btn-primary" id="book-btn">Confirmar Reserva</button>
-                        <button class="btn-secondary" id="print-btn" style="width: 100%; margin-top: 1rem;">Descargar
-                            PDF</button>
-                        <button class="btn-secondary" onclick="goToScreen(3)"
-                            style="width: 100%; margin-top: 0.5rem; background: transparent; border: 1px solid var(--card-border);">←
+                        <button class="btn-primary" id="book-btn" style="margin-top: 2rem;">Confirmar Reserva</button>
+                        <button class="btn-secondary" id="print-btn" style="margin-top: 1rem;">Descargar PDF</button>
+                        <button class="btn-secondary" onclick="goToScreen(3)" style="margin-top: 1rem;">←
                             Volver</button>
                         <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem;">
                             Precio
