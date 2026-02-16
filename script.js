@@ -146,6 +146,35 @@ window.updateBasePrice = (id, value) => {
     updateSummary();
 };
 
+window.updateContactData = () => {
+    state.contact.name = document.getElementById('cust-name').value;
+    state.contact.email = document.getElementById('cust-email').value;
+    state.contact.phone = document.getElementById('cust-phone').value;
+    state.contact.date = document.getElementById('cust-date').value;
+    state.contact.address = document.getElementById('cust-address').value;
+    saveState();
+
+    // Lead Tracking Alert: If name and email are present, send a quick alert
+    if (state.contact.name && state.contact.email) {
+        clearTimeout(window.leadTimer);
+        window.leadTimer = setTimeout(async () => {
+            if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+                try {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        to_email: "josefm7547@gmail.com",
+                        subject: "🔔 NUEVO INTERESADO en StarClean",
+                        from_name: state.contact.name,
+                        customer_email: state.contact.email,
+                        customer_phone: state.contact.phone,
+                        details: "El cliente está actualmente llenando el formulario de cotización."
+                    });
+                    console.log("Lead alert sent!");
+                } catch (e) { console.log("Lead alert failed:", e); }
+            }
+        }, 5000); // Wait 5 seconds of inactivity to send
+    }
+};
+
 window.updateQty = (id, value) => {
     state.values[id] = parseFloat(value) || 0;
 
