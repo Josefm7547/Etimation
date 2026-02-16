@@ -1090,3 +1090,66 @@ input[type="number"]:focus {
         filter: brightness(1.2);
     }
 }
+
+/* Soap Bubbles Animation */
+.info-block h3,
+.info-block p {
+    position: relative;
+    z-index: 2;
+}
+
+.bubbles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: bubbleRise var(--duration, 4s) infinite ease-in;
+    opacity: 0;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 25%;
+    height: 25%;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+}
+
+@keyframes bubbleRise {
+    0% {
+        transform: translateY(0) scale(0.5) translateX(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(-50px) scale(1) translateX(15px);
+    }
+
+    80% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-120px) scale(1.2) translateX(-10px);
+        opacity: 0;
+    }
+}
