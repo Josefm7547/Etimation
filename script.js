@@ -48,7 +48,17 @@ try {
 let state = {
     contact: { name: '', email: '', phone: '', date: '', address: '' },
     values: {}, // id: qty
-    condition: 'good' // default condition
+    condition: 'good', // default condition
+    frequency: 'monthly' // default frequency
+};
+
+window.setFrequency = (val) => {
+    state.frequency = val;
+    document.querySelectorAll('.freq-card').forEach(card => card.classList.remove('active'));
+    document.getElementById(`freq-${val}`).classList.add('active');
+
+    updateSummary();
+    saveState();
 };
 
 window.setCondition = (val) => {
@@ -108,6 +118,9 @@ function init() {
     loadPrices();
     if (state.condition) {
         setTimeout(() => window.setCondition(state.condition), 500);
+    }
+    if (state.frequency) {
+        setTimeout(() => window.setFrequency(state.frequency), 600);
     }
     updateSummary();
     calculateTotal(false);
@@ -310,10 +323,22 @@ function updateSummary() {
         pristine: "Impecable"
     };
 
+    const frequencyNames = {
+        weekly: "Semanal",
+        biweekly: "Quincenal",
+        monthly: "Mensual",
+        once: "De vez en cuando",
+        hiring: "Primera vez / Buscando contratar"
+    };
+
     html += `
         <div class="summary-item" style="border-top: 1px solid var(--card-border); padding-top: 1rem; margin-top: 1rem;">
             <span>Estado del Hogar:</span>
             <span style="color: var(--secondary); font-weight: 600;">${conditionNames[state.condition]}</span>
+        </div>
+        <div class="summary-item">
+            <span>Frecuencia:</span>
+            <span style="color: var(--secondary); font-weight: 600;">${frequencyNames[state.frequency]}</span>
         </div>
     `;
 
@@ -393,10 +418,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
                 const conditionNames = { poor: "Pobre", fair: "Regular", good: "Bueno", verygood: "Muy Bueno", pristine: "Impecable" };
-                const detailsText = `Estado del Hogar: ${conditionNames[state.condition]}\n\n` + [...zones, ...appliances]
-                    .filter(i => state.values[i.id] > 0)
-                    .map(i => `${i.name}: ${state.values[i.id]} x $${i.price}`)
-                    .join("\n");
+                const frequencyNames = { weekly: "Semanal", biweekly: "Quincenal", monthly: "Mensual", once: "De vez en cuando", hiring: "Primera vez" };
+                const detailsText = `Estado del Hogar: ${conditionNames[state.condition]}\n` +
+                    `Frecuencia: ${frequencyNames[state.frequency]}\n\n` +
+                    [...zones, ...appliances]
+                        .filter(i => state.values[i.id] > 0)
+                        .map(i => `${i.name}: ${state.values[i.id]} x $${i.price}`)
+                        .join("\n");
 
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                     to_email: "josefm7547@gmail.com",

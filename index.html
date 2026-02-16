@@ -119,6 +119,49 @@
 
         <!-- Screen 2: Calculator and Form -->
         <div id="screen-2" style="display: none;">
+            <!-- Frequency Selection Section -->
+            <section class="section frequency-section" style="max-width: 900px; margin: 0 auto 3rem auto;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;"><span>✦</span> ¿Con qué
+                    frecuencia limpia su hogar?</h2>
+                <div class="freq-grid">
+                    <div class="freq-card" id="freq-weekly" onclick="setFrequency('weekly')">
+                        <div class="freq-letter">A</div>
+                        <div class="freq-info">
+                            <strong>SEMANAL</strong>
+                            <p>Servicio programado una vez a la semana.</p>
+                        </div>
+                    </div>
+                    <div class="freq-card" id="freq-biweekly" onclick="setFrequency('biweekly')">
+                        <div class="freq-letter">B</div>
+                        <div class="freq-info">
+                            <strong>QUINCENAL</strong>
+                            <p>Servicio programado cada dos semanas.</p>
+                        </div>
+                    </div>
+                    <div class="freq-card active" id="freq-monthly" onclick="setFrequency('monthly')">
+                        <div class="freq-letter">C</div>
+                        <div class="freq-info">
+                            <strong>MENSUAL</strong>
+                            <p>Servicio programado una vez al mes.</p>
+                        </div>
+                    </div>
+                    <div class="freq-card" id="freq-once" onclick="setFrequency('once')">
+                        <div class="freq-letter">D</div>
+                        <div class="freq-info">
+                            <strong>DE VEZ EN CUANDO</strong>
+                            <p>Limpieza puntual según sea necesario.</p>
+                        </div>
+                    </div>
+                    <div class="freq-card" id="freq-hiring" onclick="setFrequency('hiring')">
+                        <div class="freq-letter">E</div>
+                        <div class="freq-info">
+                            <strong>QUIERO COMENZAR A CONTRATAR A ALGUIEN</strong>
+                            <p>Primera vez o buscando un servicio regular.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <main class="main-grid">
                 <div class="calculator-content">
                     <section class="section">
