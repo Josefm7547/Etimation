@@ -405,8 +405,7 @@ header p {
     max-width: 600px;
     /* Narrower for better mobile focus */
     margin: 0 auto;
-    padding: 1rem 1rem 120px 1rem;
-    /* Extra bottom padding for the floating summary */
+    padding: 1rem 1rem 3rem 1rem;
 }
 
 header h1 {
@@ -433,30 +432,28 @@ header h1 {
     gap: 0.75rem !important;
 }
 
-/* Summary Card - Sticky/Floating at the bottom for Mobile */
+/* Summary Card - Flow naturally at the bottom for Mobile */
 aside {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: static;
     width: 100%;
-    z-index: 100;
+    margin-top: 2rem;
 }
 
 .summary-card {
     position: relative;
     top: 0;
-    border-radius: 24px 24px 0 0;
-    padding: 1.25rem;
+    border-radius: 24px;
+    padding: 1.5rem;
     margin: 0;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-    background: rgba(15, 23, 42, 0.95);
-    border-top: 1px solid var(--primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--bg-dark), #1e1b4b);
+    border: 1px solid var(--card-border);
 }
 
 .summary-title,
 #summary-items {
-    display: none;
-    /* Hide details on mobile summary to save space */
+    display: block;
+    /* Show details even on mobile when scrolled down */
 }
 
 .total-display {
@@ -495,6 +492,7 @@ aside {
         position: sticky;
         top: 2rem;
         width: auto;
+        margin-top: 0;
     }
 
     .summary-card {
