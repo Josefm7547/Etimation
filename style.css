@@ -1409,9 +1409,9 @@ input[type="number"]:focus {
 .table-header>div:nth-child(4),
 .table-header>div:nth-child(5) {
     background: linear-gradient(135deg, #00c853 0%, #00e676 40%, #00b368 100%) !important;
-    color: #ffffff !important;
+    color: #000000 !important;
     font-weight: 900;
-    text-shadow: 0 0 6px rgba(0, 255, 136, 0.6), 0 0 15px rgba(0, 255, 136, 0.2);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.2), 0 0 12px rgba(0, 230, 118, 0.15);
     animation: futuristicGreen 3s infinite ease-in-out;
 }
@@ -1420,12 +1420,12 @@ input[type="number"]:focus {
 
     0%,
     100% {
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.4), 0 0 10px rgba(0, 255, 136, 0.15);
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
         box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.15), 0 0 8px rgba(0, 230, 118, 0.1);
     }
 
     50% {
-        text-shadow: 0 0 10px rgba(0, 255, 136, 0.9), 0 0 25px rgba(0, 255, 136, 0.4), 0 0 45px rgba(0, 255, 136, 0.15);
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
         box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.35), 0 0 20px rgba(0, 230, 118, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
     }
 }
