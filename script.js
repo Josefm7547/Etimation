@@ -408,7 +408,7 @@ function renderAll() {
             html += `
                 <div class="table-row table-category-header">
                     <div class="special-services-title" style="grid-column: 1 / -1; text-align: center; color: #00d2ff; font-weight: 800; letter-spacing: 0.3rem; font-size: 1.1rem; padding: 0.75rem 0; text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);">
-                        ✦ SERVICIOS ESPECIALES ✦
+                        ✦ SPECIAL SERVICES ✦
                     </div>
                 </div>
             `;
@@ -803,7 +803,4 @@ window.translateUI = () => {
     renderAll();
 };
 
-window.toggleLanguage = () => {
-    state.lang = state.lang === 'en' ? 'es' : 'en';
-    translateUI();
-};
+// Language toggle removed as per request (English only)

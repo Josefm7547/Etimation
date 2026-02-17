@@ -1345,9 +1345,6 @@ input[type="number"]:focus {
     font-weight: 800;
 }
 
-outline: none;
-background: rgba(0, 0, 0, 0.4);
-}
 
 .table-row .price-cell {
     font-family: monospace;
