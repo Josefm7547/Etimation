@@ -1199,7 +1199,7 @@ input[type="number"]:focus {
         border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     }
 
-    .table-row:not(.total-row-vibrant)>div {
+    .table-row:not(.total-row-vibrant):not(.table-category-header)>div {
         padding: 0.8rem 0.2rem !important;
         border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
         display: flex !important;
@@ -1209,11 +1209,11 @@ input[type="number"]:focus {
         min-height: 50px;
     }
 
-    .table-row:not(.total-row-vibrant)>div:last-child {
+    .table-row:not(.total-row-vibrant):not(.table-category-header)>div:last-child {
         border-right: none !important;
     }
 
-    .table-row:not(.total-row-vibrant)>div:first-child {
+    .table-row:not(.total-row-vibrant):not(.table-category-header)>div:first-child {
         flex-direction: column !important;
         align-items: flex-start !important;
         justify-content: center !important;
@@ -1712,14 +1712,22 @@ input[type="number"]:focus {
 
 /* ═══ Mobile Special Services Title ═══ */
 @media (max-width: 768px) {
+    .table-category-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 100px;
+        border-right: none !important;
+    }
+
     .table-category-header>.special-services-title {
-        font-size: 3.8rem !important;
-        padding-top: 2.5rem !important;
-        padding-bottom: 2.5rem !important;
+        font-size: 4.2rem !important;
+        padding: 2rem 0.5rem !important;
         line-height: 1.1 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        min-height: 120px;
+        border-right: none !important;
+        min-height: auto;
     }
 }
