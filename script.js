@@ -92,7 +92,7 @@ const i18n = {
         table_header_qty_deep: "QTY DEEP",
         table_header_price_deep: "$ DEEP",
         table_header_total: "TOTAL",
-        special_services: "✦ SPECIAL SERVICES ✦",
+        special_services: "SPECIAL SERVICES",
         estimated_total: "Estimated Total:",
         guarantee: "🛡️ 100% Satisfaction Guaranteed on every cleaning",
         inspection_note: "Price subject to detailed on-site inspection.",
@@ -182,7 +182,7 @@ const i18n = {
         table_header_qty_deep: "CT. DP",
         table_header_price_deep: "$ DP",
         table_header_total: "TOTAL",
-        special_services: "✦ SERVICIOS ESPECIALES ✦",
+        special_services: "SERVICIOS ESPECIALES",
         estimated_total: "Total estimado:",
         guarantee: "🛡️ Satisfacción 100% Garantizada en cada limpieza",
         inspection_note: "Precio sujeto a inspección física detallada.",
@@ -353,7 +353,9 @@ function renderTableRow(item) {
     const qtyDeep = state.values[item.id]?.deep || 0;
     const priceStd = item.price;
     const priceDeep = priceStd * 1.5;
-    const subtotal = (qtyStd * priceStd) + (qtyDeep * priceDeep);
+
+    // Check if it's a special service to hide Standard options
+    const isSpecial = ['refrigerators', 'ovens', 'microv', 'windows'].includes(item.id);
 
     const translatedName = i18n[state.lang][item.id] || item.id.toUpperCase();
     const translatedDesc = i18n[state.lang][`${item.id}_desc`] || '';
@@ -364,12 +366,19 @@ function renderTableRow(item) {
                 <span style="display: block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">${translatedName}</span>
                 <span style="font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>
             </div>
-            <div>
-                <input type="number" placeholder="0" min="0" 
-                    oninput="updateTableQty('${item.id}', 'std', this.value)" 
-                    value="${qtyStd || ''}">
-            </div>
-            <div class="price-cell">$${priceStd.toFixed(0)}</div>
+            
+            ${isSpecial ? `
+                <div style="color: var(--text-muted); opacity: 0.5;">-</div>
+                <div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>
+            ` : `
+                <div>
+                    <input type="number" placeholder="0" min="0" 
+                        oninput="updateTableQty('${item.id}', 'std', this.value)" 
+                        value="${qtyStd || ''}">
+                </div>
+                <div class="price-cell">$${priceStd.toFixed(0)}</div>
+            `}
+
             <div>
                 <input type="number" placeholder="0" min="0" 
                     oninput="updateTableQty('${item.id}', 'deep', this.value)" 
@@ -377,7 +386,7 @@ function renderTableRow(item) {
             </div>
             <div class="price-cell">$${priceDeep.toFixed(0)}</div>
             <div id="subtotal-${item.id}" class="subtotal-cell">
-                $${Math.round(priceStd * qtyStd + priceDeep * qtyDeep)}
+                $${Math.round((isSpecial ? 0 : qtyStd) * priceStd + qtyDeep * priceDeep)}
             </div>
         </div>
     `;
@@ -507,13 +516,16 @@ window.saveGlobalPrices = async () => {
 
 function calculateTotal(animate = true) {
     let subtotal = 0;
+    const specialIds = ['refrigerators', 'ovens', 'microv', 'windows'];
     [...zones, ...appliances].forEach(item => {
         const vals = state.values[item.id] || { std: 0, deep: 0 };
         const priceStd = item.price;
         const priceDeep = item.price * 1.5;
+        const isSpecial = specialIds.includes(item.id);
 
         if (typeof vals === 'object') {
-            subtotal += (priceStd * (vals.std || 0)) + (priceDeep * (vals.deep || 0));
+            const qtyStd = isSpecial ? 0 : (vals.std || 0);
+            subtotal += (priceStd * qtyStd) + (priceDeep * (vals.deep || 0));
         } else {
             subtotal += (priceStd * vals);
         }
