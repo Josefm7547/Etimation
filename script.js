@@ -362,9 +362,11 @@ function renderTableRow(item) {
 
     return `
         <div class="table-row">
-            <div style="font-weight: 500;">
-                <span style="display: block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">${translatedName}</span>
-                <span style="font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>
+            <div style="font-weight: 500; position: relative;">
+                <span style="display: inline-block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">
+                    ${translatedName}${isSpecial ? '<span class="deep-badge">Deep</span>' : ''}
+                </span>
+                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>
             </div>
             
             ${isSpecial ? `

@@ -1441,3 +1441,35 @@ input[type="number"]:focus {
         opacity: 0;
     }
 }
+
+.deep-badge {
+    display: inline-block;
+    background: #FFD700;
+    /* Fun Yellow */
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    transform: rotate(-10deg);
+    vertical-align: middle;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    border: 1px solid #000;
+    animation: badgeJump 1.5s infinite ease-in-out;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+@keyframes badgeJump {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-10deg);
+    }
+
+    50% {
+        transform: translateY(-4px) rotate(5deg);
+    }
+}
