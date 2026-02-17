@@ -297,7 +297,7 @@ function renderTableRow(item) {
         ? `<input type="text" value="${translatedDesc}" 
              class="admin-edit-text admin-edit-desc"
              onchange="updateItemDesc('${item.id}', this.value)">`
-        : `<span style="display: block; font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>`;
+        : ``;
 
     // Admin-editable prices
     const priceStdHtml = isAdmin

@@ -1699,3 +1699,16 @@ input[type="number"]:focus {
         /* Added scale for pop */
     }
 }
+/* ═══ Mobile Special Services Title ═══ */
+@media (max-width: 768px) {
+    .table-category-header>.special-services-title {
+        font-size: 3.8rem !important;
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+        line-height: 1.1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 120px;
+    }
+}
