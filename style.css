@@ -1714,28 +1714,28 @@ input[type="number"]:focus {
 
 
 /* ═══ Mobile Special Services Title ═══ */
-@media (max-width: 1024px) {
-    .table-category-header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+@media screen and (max-width: 1024px) {
+    div.table-row.table-category-header {
+        display: block !important;
         height: 60px !important;
         min-height: 60px !important;
+        max-height: 60px !important;
         padding: 0 !important;
         margin: 0 !important;
-        border-right: none !important;
-        grid-template-columns: none !important;
+        overflow: hidden !important;
+        border-top: 1px solid rgba(124, 58, 237, 0.3) !important;
+        border-bottom: 1px solid rgba(124, 58, 237, 0.3) !important;
     }
 
-    .table-category-header>.special-services-title {
-        font-size: 2.2rem !important;
+    div.table-row.table-category-header>div.special-services-title {
+        display: block !important;
+        width: 100% !important;
+        height: 60px !important;
+        line-height: 60px !important;
+        font-size: 1.8rem !important;
         padding: 0 !important;
         margin: 0 !important;
-        line-height: 60px !important;
-        height: 60px !important;
-        display: block !important;
-        border: none !important;
-        width: 100% !important;
         text-align: center !important;
+        background: none !important;
     }
 }
