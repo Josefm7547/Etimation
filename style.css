@@ -1194,7 +1194,9 @@ input[type="number"]:focus {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        animation: neonPulseCyan 2.5s infinite ease-in-out !important;
+        border: none !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+        animation: futuristicCyan 3s infinite ease-in-out !important;
     }
 
     .table-row div:first-child {
@@ -1317,21 +1319,18 @@ input[type="number"]:focus {
     position: sticky;
     top: -1px;
     z-index: 1001;
-    background: #1e293b !important;
+    background: linear-gradient(135deg, #0a0f1e 0%, #1a1f3a 100%) !important;
     border-radius: 20px 20px 0 0;
     font-weight: 900;
-    /* Extra Bold for all headers */
     font-size: 0.95rem;
-    /* Increased size */
     color: white !important;
     text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    border-bottom: 2px solid var(--secondary);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    letter-spacing: 0.08rem;
+    border-bottom: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     padding: 0 !important;
     margin-bottom: 0 !important;
     overflow: hidden;
-    /* Keep radius */
 }
 
 .table-header>div {
@@ -1342,90 +1341,92 @@ input[type="number"]:focus {
     justify-content: center;
     text-align: center;
     position: relative;
-    animation: neonPulseCyan 2.5s infinite ease-in-out;
-    /* Vibrant blue grid border */
-    border: 2px solid #00aaff;
-    box-shadow: inset 0 0 6px rgba(0, 170, 255, 0.15), 0 0 4px rgba(0, 170, 255, 0.2);
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
 }
 
-/* AREA/ITEM (1st) and TOTAL (6th): Neon Cyan glow on dark background */
-.table-header>div:first-child,
-.table-header>div:nth-child(6) {
-    text-shadow: 0 0 4px rgba(0, 210, 255, 0.6), 0 0 12px rgba(0, 210, 255, 0.3);
-    animation: neonPulseCyan 2.5s infinite ease-in-out;
+.table-header>div:last-child {
+    border-right: none;
 }
 
-@keyframes neonPulseCyan {
-
-    0%,
-    100% {
-        text-shadow: 0 0 4px rgba(0, 210, 255, 0.4), 0 0 8px rgba(0, 210, 255, 0.2);
-        transform: scale(1);
-    }
-
-    50% {
-        text-shadow: 0 0 8px rgba(0, 210, 255, 0.9), 0 0 20px rgba(0, 210, 255, 0.5), 0 0 35px rgba(0, 210, 255, 0.2);
-        transform: scale(1.02);
-    }
-}
-
+/* ── AREA/ITEM (1st): Futuristic Cyan ── */
 .table-header>div:first-child {
     justify-content: flex-start;
     padding-left: 1.5rem;
     text-align: left;
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+    color: #00e5ff !important;
+    text-shadow: 0 0 6px rgba(0, 210, 255, 0.5), 0 0 15px rgba(0, 210, 255, 0.2);
+    animation: futuristicCyan 3s infinite ease-in-out;
 }
 
-/* QTY STD & $ STD: Neon Yellow glow */
+/* ── TOTAL (6th): Futuristic Cyan matching ── */
+.table-header>div:nth-child(6) {
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%) !important;
+    color: #00e5ff !important;
+    text-shadow: 0 0 6px rgba(0, 210, 255, 0.5), 0 0 15px rgba(0, 210, 255, 0.2);
+    animation: futuristicCyan 3s infinite ease-in-out;
+}
+
+@keyframes futuristicCyan {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px rgba(0, 210, 255, 0.4), 0 0 10px rgba(0, 210, 255, 0.15);
+    }
+
+    50% {
+        text-shadow: 0 0 10px rgba(0, 230, 255, 0.9), 0 0 25px rgba(0, 210, 255, 0.4), 0 0 45px rgba(0, 210, 255, 0.15);
+    }
+}
+
+/* ── QTY STD & $ STD: Neon Yellow Futuristic ── */
 .table-header>div:nth-child(2),
 .table-header>div:nth-child(3) {
-    background: #ffff00 !important;
-    color: #000000 !important;
+    background: linear-gradient(135deg, #f7df00 0%, #ffee58 40%, #fdd835 100%) !important;
+    color: #1a1a00 !important;
     font-weight: 900;
-    border-color: #00aaff;
-    box-shadow: inset 0 0 20px rgba(255, 255, 0, 0.5), 0 0 14px rgba(255, 255, 0, 0.4), 0 0 30px rgba(255, 255, 0, 0.15);
-    animation: neonPulseYellow 2.5s infinite ease-in-out;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 20px rgba(255, 255, 0, 0.25), 0 0 12px rgba(255, 230, 0, 0.15);
+    animation: futuristicYellow 3s infinite ease-in-out;
 }
 
-@keyframes neonPulseYellow {
+@keyframes futuristicYellow {
 
     0%,
     100% {
-        text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-        box-shadow: inset 0 0 15px rgba(255, 255, 0, 0.35), 0 0 10px rgba(255, 255, 0, 0.25);
-        transform: scale(1);
+        box-shadow: inset 0 0 15px rgba(255, 255, 0, 0.2), 0 0 8px rgba(255, 230, 0, 0.1);
     }
 
     50% {
-        text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
-        box-shadow: inset 0 0 25px rgba(255, 255, 0, 0.7), 0 0 22px rgba(255, 255, 0, 0.55), 0 0 45px rgba(255, 255, 0, 0.25);
-        transform: scale(1.02);
+        box-shadow: inset 0 0 30px rgba(255, 255, 0, 0.45), 0 0 20px rgba(255, 230, 0, 0.3), 0 0 40px rgba(255, 255, 0, 0.1);
     }
 }
 
-/* QTY DEEP & $ DEEP: Neon Green glow */
+/* ── QTY DEEP & $ DEEP: Neon Emerald Futuristic ── */
 .table-header>div:nth-child(4),
 .table-header>div:nth-child(5) {
-    background: #00b368 !important;
+    background: linear-gradient(135deg, #00c853 0%, #00e676 40%, #00b368 100%) !important;
     color: #ffffff !important;
     font-weight: 900;
-    border-color: #00aaff;
-    box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.3), 0 0 14px rgba(0, 255, 136, 0.25), 0 0 30px rgba(0, 255, 136, 0.1);
-    animation: neonPulseGreen 2.5s infinite ease-in-out;
+    text-shadow: 0 0 6px rgba(0, 255, 136, 0.6), 0 0 15px rgba(0, 255, 136, 0.2);
+    box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.2), 0 0 12px rgba(0, 230, 118, 0.15);
+    animation: futuristicGreen 3s infinite ease-in-out;
 }
 
-@keyframes neonPulseGreen {
+@keyframes futuristicGreen {
 
     0%,
     100% {
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.5), 0 0 10px rgba(0, 255, 136, 0.3);
-        box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.2), 0 0 10px rgba(0, 255, 136, 0.15);
-        transform: scale(1);
+        text-shadow: 0 0 5px rgba(0, 255, 136, 0.4), 0 0 10px rgba(0, 255, 136, 0.15);
+        box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.15), 0 0 8px rgba(0, 230, 118, 0.1);
     }
 
     50% {
-        text-shadow: 0 0 10px rgba(0, 255, 136, 1), 0 0 25px rgba(0, 255, 136, 0.6), 0 0 40px rgba(0, 255, 136, 0.3);
-        box-shadow: inset 0 0 25px rgba(0, 255, 136, 0.4), 0 0 22px rgba(0, 255, 136, 0.4), 0 0 45px rgba(0, 255, 136, 0.2);
-        transform: scale(1.02);
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.9), 0 0 25px rgba(0, 255, 136, 0.4), 0 0 45px rgba(0, 255, 136, 0.15);
+        box-shadow: inset 0 0 30px rgba(0, 255, 136, 0.35), 0 0 20px rgba(0, 230, 118, 0.3), 0 0 40px rgba(0, 255, 136, 0.1);
     }
 }
 
