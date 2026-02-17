@@ -1203,16 +1203,19 @@ input[type="number"]:focus {
 
     .table-row input {
         padding: 0.35rem 0.1rem !important;
-        font-size: 0.75rem !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
         min-height: 32px;
     }
 
     .table-row .price-cell {
-        font-size: 0.7rem !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
     }
 
     .table-row .subtotal-cell {
         font-size: 0.85rem !important;
+        font-weight: 700 !important;
     }
 }
 
