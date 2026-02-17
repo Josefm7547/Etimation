@@ -295,7 +295,7 @@ function renderTableRow(item) {
 
             <div>
                 <input type="number" placeholder="0" min="0" 
-                    class="${qtyDeep > 0 ? 'active-input' : ''}"
+                    class="${qtyDeep > 0 ? 'active-input-deep' : ''}"
                     oninput="updateTableQty('${item.id}', 'deep', this)" 
                     value="${qtyDeep || ''}">
             </div>
@@ -346,9 +346,16 @@ window.updateTableQty = (id, type, el) => {
     let value = 0;
     if (typeof el === 'object' && el.value !== undefined) {
         value = el.value;
-        // Toggle active styling
-        if (parseFloat(value) > 0) el.classList.add('active-input');
-        else el.classList.remove('active-input');
+        // Toggle active styling based on type
+        const activeClass = type === 'deep' ? 'active-input-deep' : 'active-input';
+        const otherClass = type === 'deep' ? 'active-input' : 'active-input-deep';
+        if (parseFloat(value) > 0) {
+            el.classList.add(activeClass);
+            el.classList.remove(otherClass);
+        } else {
+            el.classList.remove(activeClass);
+            el.classList.remove(otherClass);
+        }
     } else {
         value = el;
     }

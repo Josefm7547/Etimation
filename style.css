@@ -1456,6 +1456,15 @@ input[type="number"]:focus {
     box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
 }
 
+.table-row input.active-input-deep {
+    background: #00ff41 !important;
+    /* Electric Green */
+    color: #000000 !important;
+    border-color: #000000 !important;
+    font-weight: 900;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
 
 .table-row .price-cell {
     font-family: monospace;
