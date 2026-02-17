@@ -144,97 +144,6 @@ const i18n = {
         microv_desc: "Microwaves",
         windows: "WINDOWS",
         windows_desc: "Windows"
-    },
-    es: {
-        tagline: "Calculadora inteligente de presupuestos para la limpieza profesional de tu hogar.",
-        screen1_title: "¿En qué estado se encuentra su hogar?",
-        next: "Siguiente ➔",
-        back: "← Volver",
-        cond_poor_title: "ESTADO POBRE",
-        cond_poor_desc: "Suciedad extrema; requiere limpieza profunda.",
-        cond_fair_title: "ESTADO REGULAR",
-        cond_fair_desc: "Suciedad visible; requiere atención regular.",
-        cond_good_title: "ESTADO BUENO",
-        cond_good_desc: "Cuidado básico; algunas áreas requieren mantenimiento.",
-        cond_verygood_title: "ESTADO MUY BUENO",
-        cond_verygood_desc: "Bien mantenido; requiere limpieza mínima.",
-        cond_pristine_title: "ESTADO IMPECABLE",
-        cond_pristine_desc: "Limpieza y orden excelentes.",
-        screen2_title: "¿Con qué frecuencia limpia su hogar?",
-        freq_weekly_title: "SEMANAL",
-        freq_weekly_desc: "Servicio programado una vez a la semana.",
-        freq_biweekly_title: "QUINCENAL",
-        freq_biweekly_desc: "Servicio programado cada dos semanas.",
-        freq_monthly_title: "MENSUAL",
-        freq_monthly_desc: "Servicio programado una vez al mes.",
-        freq_once_title: "DE VEZ EN CUANDO",
-        freq_once_desc: "Limpieza puntual según sea necesario.",
-        freq_hiring_title: "QUIERO COMENZAR A CONTRATAR A ALGUIEN",
-        freq_hiring_desc: "Primera vez o buscando un servicio regular.",
-        screen3_title: "Información Importante sobre el Servicio",
-        std_clean_title: "Limpieza Estándar",
-        std_clean_desc: "Limpieza rutinaria de cocina, baños y salas; enfocada en superficies y orden general.",
-        deep_clean_title: "Limpieza Profunda",
-        deep_clean_desc: "Limpieza intensiva que requiere más esfuerzo y atención al detalle; elimina suciedad acumulada en todo el hogar.",
-        service_note: "Nota: Los precios calculados a continuación se basan en una limpieza estándar. El costo final puede variar según el nivel de profundidad requerido.",
-        table_header_area: "ZONA / ARTÍCULO",
-        table_header_qty_std: "CT. STD",
-        table_header_price_std: "$ STD",
-        table_header_qty_deep: "CT. DP",
-        table_header_price_deep: "$ DP",
-        table_header_total: "TOTAL",
-        special_services: "SERVICIOS ESPECIALES",
-        estimated_total: "Total estimado:",
-        estimated_time: "Tiempo Estimado:",
-        guarantee: "🛡️ Satisfacción 100% Garantizada en cada limpieza",
-        inspection_note: "Precio sujeto a inspección física detallada.",
-        cust_info_title: "Información del Cliente",
-        cust_name_label: "Nombre Completo *",
-        cust_name_placeholder: "Ej. Juan Pérez",
-        cust_phone_label: "WhatsApp / Teléfono (USA) *",
-        cust_phone_placeholder: "(555) 000-0000",
-        cust_date_label: "Fecha de Solicitud (Auto)",
-        cust_address_label: "Dirección de la propiedad (solo para la cotización) *",
-        cust_address_placeholder: "Ej. 123 Calle Principal, Ciudad, CP",
-        admin_mode: "🔐 Modo Admin",
-        admin_desc: "Edita precios y guarda en la nube.",
-        close: "Cerrar",
-        save_changes: "💾 Guardar Cambios",
-        copyright: "&copy; 2024 StarClean. Todos los derechos reservados.",
-        bedrooms: "DORMITORIOS",
-        bedrooms_desc: "Dormitorios",
-        bathrooms: "BAÑOS",
-        bathrooms_desc: "Baños",
-        kitchens: "COCINAS",
-        kitchens_desc: "Cocinas",
-        laundry_rooms: "LAVANDERÍA",
-        laundry_rooms_desc: "Lavandería",
-        study_offices: "ESTUDIOS/OFICINAS",
-        study_offices_desc: "Estudios/Oficinas",
-        living_rooms: "SALAS DE ESTAR",
-        living_rooms_desc: "Salas de estar",
-        dining_rooms: "COMEDORES",
-        dining_rooms_desc: "Comedores",
-        hallways: "PASILLOS",
-        hallways_desc: "Pasillos",
-        stairs: "ESCALERAS",
-        stairs_desc: "Escaleras",
-        foyer_entryways: "ENTRADAS",
-        foyer_entryways_desc: "Entradas",
-        walkin_closets: "VESTIDORES",
-        walkin_closets_desc: "Vestidores",
-        gyms: "GIMNASIOS",
-        gyms_desc: "Gimnasios",
-        pantries: "DESPENSAS",
-        pantries_desc: "Despensas",
-        refrigerators: "REFRIGERADORES",
-        refrigerators_desc: "Refrigeradores",
-        ovens: "HORNOS",
-        ovens_desc: "Hornos",
-        microv: "MICROONDAS",
-        microv_desc: "Microondas",
-        windows: "VENTANAS",
-        windows_desc: "Ventanas"
     }
 };
 
@@ -245,7 +154,7 @@ let state = {
     condition: 'good', // default condition
     frequency: 'monthly', // default frequency
     serviceType: 'standard', // default service type info
-    lang: 'en' // English by default
+    lang: 'en' // Always English
 };
 
 window.setServiceType = (val) => {
@@ -657,10 +566,10 @@ window.closePreview = () => {
 };
 
 window.translateUI = () => {
-    const lang = state.lang;
-    const t_set = i18n[lang];
+    // Everything is English only now
+    const t_set = i18n.en;
 
-    // Main text elements
+    // Logo & Tagline
     const tagline = document.getElementById('header-tagline');
     if (tagline) tagline.innerText = t_set.tagline;
 
@@ -708,13 +617,13 @@ window.translateUI = () => {
 
     // Buttons
     document.querySelectorAll('.btn-primary').forEach(btn => {
-        if (btn.innerText.includes('Siguiente') || btn.innerText.includes('Next')) {
-            btn.innerHTML = `${t_set.next}`;
+        if (btn.innerText.includes('Next') || btn.innerText.includes('➔')) {
+            btn.innerHTML = t_set.next;
         }
     });
     document.querySelectorAll('.btn-secondary').forEach(btn => {
-        if (btn.innerText.includes('Volver') || btn.innerText.includes('Back')) {
-            btn.innerHTML = `${t_set.back}`;
+        if (btn.innerText.includes('Back') || btn.innerText.includes('←')) {
+            btn.innerHTML = t_set.back;
         }
     });
 
@@ -758,11 +667,10 @@ window.translateUI = () => {
     if (phone_label) phone_label.innerText = t_set.cust_phone_label;
     if (phone_input) phone_input.placeholder = t_set.cust_phone_placeholder;
 
-    // Fix Email field mapping (it's the 4th child)
     const email_label = document.querySelector('.compact-field:nth-child(4) label');
     const email_input = document.getElementById('cust-email');
-    if (email_label) email_label.innerText = lang === 'en' ? 'Email Address *' : 'Correo Electrónico *';
-    if (email_input) email_input.placeholder = lang === 'en' ? 'john@example.com' : 'juan@ejemplo.com';
+    if (email_label) email_label.innerText = 'Email Address *';
+    if (email_input) email_input.placeholder = 'john@example.com';
 
     // Address is the 5th child
     const address_label = document.querySelector('.compact-field:nth-child(5) label');
@@ -774,23 +682,24 @@ window.translateUI = () => {
     if (date_label) date_label.innerText = t_set.cust_date_label;
 
     // Footer
-    const footer_text = document.querySelector('footer p');
-    if (footer_text) footer_text.innerHTML = t_set.copyright;
+    const footer_copy = document.querySelector('footer p');
+    if (footer_copy) footer_copy.innerHTML = t_set.copyright;
 
     // Admin Bar
-    const admin_info_strong = document.querySelector('.admin-info strong');
-    const admin_info_span = document.querySelector('.admin-info span');
-    if (admin_info_strong) admin_info_strong.innerText = t_set.admin_mode;
-    if (admin_info_span) admin_info_span.innerText = t_set.admin_desc;
+    const admin_info_title = document.querySelector('.admin-info strong');
+    const admin_info_desc = document.querySelector('.admin-info span');
+    if (admin_info_title) admin_info_title.innerText = t_set.admin_mode;
+    if (admin_info_desc) admin_info_desc.innerText = t_set.admin_desc;
 
-    const admin_close_btn = document.querySelector('.admin-actions .btn-secondary');
-    const admin_save_btn = document.getElementById('save-prices-btn-bar');
-    if (admin_close_btn) admin_close_btn.innerText = t_set.close;
-    if (admin_save_btn) admin_save_btn.innerHTML = `💾 ${t_set.save_changes}`;
+    const close_btn = document.querySelector('.admin-actions .btn-secondary');
+    if (close_btn) close_btn.innerText = t_set.close;
+
+    const save_btn = document.getElementById('save-prices-btn-bar');
+    if (save_btn) save_btn.innerHTML = `💾 ${t_set.save_changes}`;
 
     // Refresh today's date in correct language
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const today = new Date().toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', options);
+    const today = new Date().toLocaleDateString('en-US', options);
     state.contact.date = today;
     const dateEl = document.getElementById('cust-date');
     if (dateEl) dateEl.value = today;
