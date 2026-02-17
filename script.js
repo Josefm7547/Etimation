@@ -377,7 +377,8 @@ function renderTableRow(item) {
             ` : `
                 <div>
                     <input type="number" placeholder="0" min="0" 
-                        oninput="updateTableQty('${item.id}', 'std', this.value)" 
+                        class="${qtyStd > 0 ? 'active-input' : ''}"
+                        oninput="updateTableQty('${item.id}', 'std', this)" 
                         value="${qtyStd || ''}">
                 </div>
                 <div class="price-cell">$${priceStd.toFixed(0)}</div>
@@ -385,7 +386,8 @@ function renderTableRow(item) {
 
             <div>
                 <input type="number" placeholder="0" min="0" 
-                    oninput="updateTableQty('${item.id}', 'deep', this.value)" 
+                    class="${qtyDeep > 0 ? 'active-input' : ''}"
+                    oninput="updateTableQty('${item.id}', 'deep', this)" 
                     value="${qtyDeep || ''}">
             </div>
             <div class="price-cell">$${priceDeep.toFixed(0)}</div>
@@ -430,7 +432,18 @@ window.updateBasePrice = (id, value) => {
     updateSummary();
 };
 
-window.updateTableQty = (id, type, value) => {
+window.updateTableQty = (id, type, el) => {
+    // Determine value: 'el' can be the input element or raw value (for backward compat if needed)
+    let value = 0;
+    if (typeof el === 'object' && el.value !== undefined) {
+        value = el.value;
+        // Toggle active styling
+        if (parseFloat(value) > 0) el.classList.add('active-input');
+        else el.classList.remove('active-input');
+    } else {
+        value = el;
+    }
+
     if (!state.values[id]) state.values[id] = { std: 0, deep: 0 };
     if (typeof state.values[id] !== 'object') {
         // Migration from old state

@@ -1337,6 +1337,18 @@ input[type="number"]:focus {
     background: rgba(0, 0, 0, 0.4);
 }
 
+.table-row input.active-input {
+    background: #fbbf24 !important;
+    /* Yellow-400 */
+    color: #000000 !important;
+    border-color: #fbbf24 !important;
+    font-weight: 800;
+}
+
+outline: none;
+background: rgba(0, 0, 0, 0.4);
+}
+
 .table-row .price-cell {
     font-family: monospace;
     font-weight: 600;
