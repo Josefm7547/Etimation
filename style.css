@@ -1280,13 +1280,12 @@ input[type="number"]:focus {
     background: rgba(124, 58, 237, 0.04);
 }
 
-/* ── Special Services Divider ── */
+/* ── Special Services Divider (Estilos unificados abajo o en media queries) ── */
 .table-category-header {
     background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(16, 185, 129, 0.06)) !important;
     border-top: 1px solid rgba(124, 58, 237, 0.25);
     border-bottom: 1px solid rgba(124, 58, 237, 0.25);
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    /* Padding removido de aquí para evitar conflictos con mobile */
 }
 
 .table-category-header>.special-services-title {
@@ -1294,9 +1293,10 @@ input[type="number"]:focus {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
+    align-items: center !important;
     text-align: center !important;
-    border-right: none !important;
-    padding: 1.5rem 0.5rem !important;
+    padding: 1rem 0.5rem !important;
+    /* Reducido de 1.5rem */
     font-size: 2.2rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.3rem !important;
