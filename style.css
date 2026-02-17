@@ -1194,8 +1194,7 @@ input[type="number"]:focus {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        animation: titlePulse 2.5s infinite ease-in-out !important;
-        /* Slightly faster for mobile */
+        animation: neonPulseCyan 2.5s infinite ease-in-out !important;
     }
 
     .table-row div:first-child {
@@ -1339,21 +1338,27 @@ input[type="number"]:focus {
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* Dynamic Outline Animation */
-    animation: titlePulse 3s infinite ease-in-out;
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+    position: relative;
+    animation: neonPulseCyan 2.5s infinite ease-in-out;
 }
 
-@keyframes titlePulse {
+/* AREA/ITEM (1st) and TOTAL (6th): Neon Cyan glow on dark background */
+.table-header>div:first-child,
+.table-header>div:nth-child(6) {
+    text-shadow: 0 0 4px rgba(0, 210, 255, 0.6), 0 0 12px rgba(0, 210, 255, 0.3);
+    animation: neonPulseCyan 2.5s infinite ease-in-out;
+}
+
+@keyframes neonPulseCyan {
 
     0%,
     100% {
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 4px rgba(0, 210, 255, 0.4), 0 0 8px rgba(0, 210, 255, 0.2);
         transform: scale(1);
     }
 
     50% {
-        text-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+        text-shadow: 0 0 8px rgba(0, 210, 255, 0.9), 0 0 20px rgba(0, 210, 255, 0.5), 0 0 35px rgba(0, 210, 255, 0.2);
         transform: scale(1.02);
     }
 }
@@ -1364,20 +1369,60 @@ input[type="number"]:focus {
     text-align: left;
 }
 
-/* QTY STD & $ STD: Vibrant Yellow background, black letters */
+/* QTY STD & $ STD: Neon Yellow glow */
 .table-header>div:nth-child(2),
 .table-header>div:nth-child(3) {
-    background: #ffff00 !important;
+    background: rgba(255, 255, 0, 0.85) !important;
     color: #000000 !important;
     font-weight: 900;
+    border-left: 1px solid rgba(255, 255, 0, 0.4);
+    border-right: 1px solid rgba(255, 255, 0, 0.4);
+    box-shadow: inset 0 0 15px rgba(255, 255, 0, 0.3), 0 0 10px rgba(255, 255, 0, 0.2);
+    animation: neonPulseYellow 2.5s infinite ease-in-out;
 }
 
-/* QTY DEEP & $ DEEP: Dark green background, white letters */
+@keyframes neonPulseYellow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 0 12px rgba(255, 255, 0, 0.2), 0 0 8px rgba(255, 255, 0, 0.15);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 20px rgba(255, 255, 0, 0.5), 0 0 18px rgba(255, 255, 0, 0.4), 0 0 35px rgba(255, 255, 0, 0.15);
+        transform: scale(1.02);
+    }
+}
+
+/* QTY DEEP & $ DEEP: Neon Green glow */
 .table-header>div:nth-child(4),
 .table-header>div:nth-child(5) {
-    background: #064e3b !important;
+    background: rgba(6, 78, 59, 0.9) !important;
     color: #ffffff !important;
     font-weight: 900;
+    border-left: 1px solid rgba(0, 255, 136, 0.3);
+    border-right: 1px solid rgba(0, 255, 136, 0.3);
+    box-shadow: inset 0 0 15px rgba(0, 255, 136, 0.15), 0 0 10px rgba(0, 255, 136, 0.1);
+    animation: neonPulseGreen 2.5s infinite ease-in-out;
+}
+
+@keyframes neonPulseGreen {
+
+    0%,
+    100% {
+        text-shadow: 0 0 4px rgba(0, 255, 136, 0.4), 0 0 8px rgba(0, 255, 136, 0.2);
+        box-shadow: inset 0 0 12px rgba(0, 255, 136, 0.1), 0 0 8px rgba(0, 255, 136, 0.1);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 8px rgba(0, 255, 136, 0.9), 0 0 20px rgba(0, 255, 136, 0.5), 0 0 35px rgba(0, 255, 136, 0.2);
+        box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.25), 0 0 18px rgba(0, 255, 136, 0.3), 0 0 35px rgba(0, 255, 136, 0.1);
+        transform: scale(1.02);
+    }
 }
 
 .table-row input {
