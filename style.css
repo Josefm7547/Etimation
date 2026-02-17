@@ -1716,18 +1716,23 @@ input[type="number"]:focus {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        min-height: 100px;
+        min-height: 120px !important;
+        padding: 0 !important;
         border-right: none !important;
+        grid-template-columns: none !important;
     }
 
     .table-category-header>.special-services-title {
-        font-size: 4.2rem !important;
-        padding: 2rem 0.5rem !important;
-        line-height: 1.1 !important;
+        font-size: 4.4rem !important;
+        /* Aproximadamente el doble de los 2.2rem originales */
+        padding: 0 0.5rem !important;
+        line-height: 1 !important;
+        height: 100% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        border-right: none !important;
-        min-height: auto;
+        border: none !important;
+        width: 100% !important;
+        text-align: center !important;
     }
 }
