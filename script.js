@@ -524,8 +524,7 @@ function calculateTotal(animate = true) {
     const specialIds = ['refrigerators', 'ovens', 'microv', 'windows'];
 
     // Time factors (in hours)
-    const TIME_STD = 0.5; // 30 mins
-    const TIME_DEEP = 0.75; // 45 mins
+    const TIME_PER_UNIT = 1.0;
 
     [...zones, ...appliances].forEach(item => {
         const vals = state.values[item.id] || { std: 0, deep: 0 };
@@ -538,10 +537,10 @@ function calculateTotal(animate = true) {
             const qtyDeep = vals.deep || 0;
 
             subtotal += (priceStd * qtyStd) + (priceDeep * qtyDeep);
-            totalHours += (qtyStd * TIME_STD) + (qtyDeep * TIME_DEEP);
+            totalHours += (qtyStd + qtyDeep) * TIME_PER_UNIT;
         } else {
             subtotal += (priceStd * vals);
-            totalHours += (vals * TIME_STD); // Assume std time for simple values
+            totalHours += (vals * TIME_PER_UNIT);
         }
     });
 
