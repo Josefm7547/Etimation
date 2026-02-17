@@ -1323,12 +1323,28 @@ input[type="number"]:focus {
 
 .table-header>div {
     padding: 1.25rem 0.5rem;
-    /* Match row vertical padding */
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    /* Dynamic Outline Animation */
+    animation: titlePulse 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes titlePulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+        transform: scale(1.02);
+    }
 }
 
 .table-header>div:first-child {
