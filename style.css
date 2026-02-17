@@ -1340,6 +1340,9 @@ input[type="number"]:focus {
     text-align: center;
     position: relative;
     animation: neonPulseCyan 2.5s infinite ease-in-out;
+    /* Vibrant blue grid border */
+    border: 2px solid #00aaff;
+    box-shadow: inset 0 0 6px rgba(0, 170, 255, 0.15), 0 0 4px rgba(0, 170, 255, 0.2);
 }
 
 /* AREA/ITEM (1st) and TOTAL (6th): Neon Cyan glow on dark background */
