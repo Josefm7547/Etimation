@@ -1306,8 +1306,10 @@ input[type="number"]:focus {
     z-index: 1001;
     background: #1e293b !important;
     border-radius: 20px 20px 0 0;
-    font-weight: 700;
-    font-size: 0.7rem;
+    font-weight: 900;
+    /* Extra Bold for all headers */
+    font-size: 0.95rem;
+    /* Increased size */
     color: white !important;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
