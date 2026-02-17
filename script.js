@@ -94,6 +94,7 @@ const i18n = {
         table_header_total: "TOTAL",
         special_services: "SPECIAL SERVICES",
         estimated_total: "Estimated Total:",
+        estimated_time: "Estimated Time:",
         guarantee: "🛡️ 100% Satisfaction Guaranteed on every cleaning",
         inspection_note: "Price subject to detailed on-site inspection.",
         cust_info_title: "Customer Information",
@@ -184,6 +185,7 @@ const i18n = {
         table_header_total: "TOTAL",
         special_services: "SERVICIOS ESPECIALES",
         estimated_total: "Total estimado:",
+        estimated_time: "Tiempo Estimado:",
         guarantee: "🛡️ Satisfacción 100% Garantizada en cada limpieza",
         inspection_note: "Precio sujeto a inspección física detallada.",
         cust_info_title: "Información del Cliente",
@@ -518,7 +520,13 @@ window.saveGlobalPrices = async () => {
 
 function calculateTotal(animate = true) {
     let subtotal = 0;
+    let totalHours = 0;
     const specialIds = ['refrigerators', 'ovens', 'microv', 'windows'];
+
+    // Time factors (in hours)
+    const TIME_STD = 0.5; // 30 mins
+    const TIME_DEEP = 0.75; // 45 mins
+
     [...zones, ...appliances].forEach(item => {
         const vals = state.values[item.id] || { std: 0, deep: 0 };
         const priceStd = item.price;
@@ -527,18 +535,26 @@ function calculateTotal(animate = true) {
 
         if (typeof vals === 'object') {
             const qtyStd = isSpecial ? 0 : (vals.std || 0);
-            subtotal += (priceStd * qtyStd) + (priceDeep * (vals.deep || 0));
+            const qtyDeep = vals.deep || 0;
+
+            subtotal += (priceStd * qtyStd) + (priceDeep * qtyDeep);
+            totalHours += (qtyStd * TIME_STD) + (qtyDeep * TIME_DEEP);
         } else {
             subtotal += (priceStd * vals);
+            totalHours += (vals * TIME_STD); // Assume std time for simple values
         }
     });
 
     // Apply condition multiplier
     const condMultipliers = { poor: 1.5, fair: 1.25, good: 1.0, verygood: 0.85, pristine: 0.75 };
-    const total = subtotal * (condMultipliers[state.condition] || 1);
+    const multiplier = condMultipliers[state.condition] || 1;
+
+    const total = subtotal * multiplier;
+    const finalHours = totalHours * multiplier;
 
     const totalEl = document.getElementById('total-price');
     const tableTotalEl = document.getElementById('table-total-price');
+    const tableTimeEl = document.getElementById('table-total-time');
 
     if (totalEl) {
         if (animate) animateValue(totalEl, parseFloat(totalEl.innerText) || 0, total, 400);
@@ -548,6 +564,13 @@ function calculateTotal(animate = true) {
     if (tableTotalEl) {
         if (animate) animateValue(tableTotalEl, parseFloat(tableTotalEl.innerText) || 0, total, 400);
         else tableTotalEl.innerText = Math.round(total);
+    }
+
+    if (tableTimeEl) {
+        // Round to 1 decimal place for cleaner display
+        const displayHours = Math.max(1, Math.round(finalHours * 10) / 10);
+        if (animate) animateValue(tableTimeEl, parseFloat(tableTimeEl.innerText) || 0, displayHours, 400);
+        else tableTimeEl.innerText = displayHours;
     }
 }
 
@@ -697,8 +720,11 @@ window.translateUI = () => {
     const special_header = document.querySelector('.special-services-title');
     if (special_header) special_header.innerText = `✦ ${t_set.special_services} ✦`;
 
-    const total_labels = document.querySelectorAll('.total-label, .total-label-cell');
-    total_labels.forEach(l => l.innerText = t_set.estimated_total);
+    const labelTotal = document.getElementById('label-total');
+    if (labelTotal) labelTotal.innerText = t_set.estimated_total;
+
+    const labelTime = document.getElementById('label-time');
+    if (labelTime) labelTime.innerText = t_set.estimated_time;
 
     const guarantee_text = document.querySelector('#screen-4 p[style*="font-weight: 500"]');
     if (guarantee_text) guarantee_text.innerText = t_set.guarantee;

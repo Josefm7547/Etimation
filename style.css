@@ -1239,6 +1239,9 @@ input[type="number"]:focus {
 }
 
 .total-row-vibrant {
+    display: flex !important;
+    justify-content: space-around;
+    align-items: center;
     background: rgba(0, 255, 136, 0.05) !important;
     border-top: 2px solid #00ff88;
     padding: 1.5rem !important;
@@ -1246,24 +1249,31 @@ input[type="number"]:focus {
 }
 
 .total-label-cell {
-    grid-column: 1 / 6;
-    text-align: right;
+    text-align: center;
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    padding-right: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .total-amount-cell {
-    grid-column: 6 / -1;
-    text-align: right;
+    text-align: center;
     font-weight: 900;
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: #00ff88 !important;
+    /* Default Green for Total */
     text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    line-height: 1.2;
 }
+
+.time-amount-cell {
+    color: #3b82f6 !important;
+    /* Vibrant Blue for Time */
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
 
 @media (max-width: 1024px) {
     .total-row-vibrant {
