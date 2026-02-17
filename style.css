@@ -1199,7 +1199,7 @@ input[type="number"]:focus {
         border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
     }
 
-    .table-row>div {
+    .table-row:not(.total-row-vibrant)>div {
         padding: 0.8rem 0.2rem !important;
         border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
         display: flex !important;
@@ -1209,11 +1209,11 @@ input[type="number"]:focus {
         min-height: 50px;
     }
 
-    .table-row>div:last-child {
+    .table-row:not(.total-row-vibrant)>div:last-child {
         border-right: none !important;
     }
 
-    .table-row>div:first-child {
+    .table-row:not(.total-row-vibrant)>div:first-child {
         flex-direction: column !important;
         align-items: flex-start !important;
         justify-content: center !important;
