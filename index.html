@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StarClean | Cleaning Quote</title>
     <meta name="description" content="Calculate your home cleaning cost quickly and professionally with StarClean.">
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/base.css?v=5.0">
+    <link rel="stylesheet" href="css/animations.css?v=5.0">
+    <link rel="stylesheet" href="css/layout.css?v=5.0">
+    <link rel="stylesheet" href="css/components.css?v=5.0">
+    <link rel="stylesheet" href="css/table.css?v=5.0">
+    <link rel="stylesheet" href="css/responsive.css?v=5.0">
     <!-- Firebase SDK (Compatibility Version) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -19,46 +25,7 @@
         <!-- Language Toggle Button Removed -->
         <header>
             <div class="logo-container">
-                <div class="logo-svg-wrapper">
-                    <svg viewBox="0 0 100 100" class="main-logo-svg">
-                        <defs>
-                            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
-                            </linearGradient>
-                            <filter id="glow">
-                                <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-                                <feMerge>
-                                    <feMergeNode in="coloredBlur" />
-                                    <feMergeNode in="SourceGraphic" />
-                                </feMerge>
-                            </filter>
-                        </defs>
-                        <g filter="url(#glow)">
-                            <path d="M10,50 L50,15 L90,50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
-                                stroke-linecap="round" />
-                            <path d="M72,34 V22 H82 V43" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
-                            <path d="M20,50 V85 H80 V50" fill="none" stroke="url(#logo-grad)" stroke-width="4"
-                                stroke-linecap="round" />
-                            <path d="M42,85 V65 H58 V85" fill="none" stroke="url(#logo-grad)" stroke-width="4" />
-                            <rect x="28" y="60" width="10" height="10" fill="none" stroke="url(#logo-grad)"
-                                stroke-width="3" rx="2" />
-                        </g>
-                        <path d="M50,5 L52,11 L58,13 L52,15 L50,21 L48,15 L42,13 L48,11 Z" fill="url(#logo-grad)"
-                            class="star star-1" />
-                        <path d="M85,30 L87,35 L93,37 L87,39 L85,45 L83,39 L77,37 L83,35 Z" fill="url(#logo-grad)"
-                            class="star star-2" />
-                        <path d="M15,35 L17,40 L23,42 L17,44 L15,50 L13,44 L7,42 L13,40 Z" fill="url(#logo-grad)"
-                            class="star star-3" />
-                        <path d="M88,70 L89,73 L92,74 L89,75 L88,78 L87,75 L84,74 L87,73 Z" fill="url(#logo-grad)"
-                            class="star star-4" />
-                        <path d="M12,75 L13,78 L16,79 L13,80 L12,83 L11,80 L8,79 L11,78 Z" fill="url(#logo-grad)"
-                            class="star star-5" />
-                        <path d="M40,30 L41,32 L44,33 L41,34 L40,37 L39,34 L36,33 L39,32 Z" fill="url(#logo-grad)"
-                            class="star star-6" />
-                    </svg>
-                </div>
-                <h1 class="logo-text">Star Clean</h1>
+                <h1 class="logo-text">StarClean</h1>
             </div>
             <p id="header-tagline">Smart estimate calculator for professional home cleaning.</p>
         </header>
@@ -175,71 +142,12 @@
                     Service Information</h2>
 
                 <div class="info-block flash-important">
-                    <div class="bubbles-container">
-                        <div class="bubble neon-cyan"
-                            style="left: 10%; width: 22px; height: 22px; --duration: 3s; animation-delay: 0s;"></div>
-                        <div class="bubble neon-pink"
-                            style="left: 30%; width: 15px; height: 15px; --duration: 5s; animation-delay: 1s;"></div>
-                        <div class="bubble neon-green"
-                            style="left: 70%; width: 25px; height: 25px; --duration: 4s; animation-delay: 0.5s;"></div>
-                        <div class="bubble neon-purple"
-                            style="left: 85%; width: 18px; height: 18px; --duration: 6s; animation-delay: 2s;"></div>
-                    </div>
                     <h3>Standard Cleaning</h3>
                     <p>Routine cleaning of kitchen, bathrooms, and living areas; focused on surfaces and general
                         tidiness.</p>
                 </div>
 
                 <div class="info-block flash-important" style="animation-delay: 1.5s;">
-                    <div class="bubbles-container">
-                        <!-- Neon Multi-colored Bubbles -->
-                        <div class="bubble neon-cyan"
-                            style="left: 5%; width: 20px; height: 20px; --duration: 3s; animation-delay: 0s;"></div>
-                        <div class="bubble neon-pink"
-                            style="left: 12%; width: 12px; height: 12px; --duration: 2.5s; animation-delay: 0.2s;">
-                        </div>
-                        <div class="bubble neon-green"
-                            style="left: 20%; width: 28px; height: 28px; --duration: 4.5s; animation-delay: 0.8s;">
-                        </div>
-                        <div class="bubble neon-purple"
-                            style="left: 28%; width: 18px; height: 18px; --duration: 3.5s; animation-delay: 1.2s;">
-                        </div>
-                        <div class="bubble neon-yellow"
-                            style="left: 35%; width: 22px; height: 22px; --duration: 5s; animation-delay: 0.5s;"></div>
-                        <div class="bubble neon-cyan"
-                            style="left: 42%; width: 16px; height: 16px; --duration: 2.8s; animation-delay: 2s;"></div>
-                        <div class="bubble neon-pink"
-                            style="left: 50%; width: 30px; height: 30px; --duration: 6s; animation-delay: 1.5s;"></div>
-                        <div class="bubble neon-green"
-                            style="left: 58%; width: 14px; height: 14px; --duration: 3.2s; animation-delay: 0.3s;">
-                        </div>
-                        <div class="bubble neon-purple"
-                            style="left: 65%; width: 24px; height: 24px; --duration: 4s; animation-delay: 2.5s;"></div>
-                        <div class="bubble neon-yellow"
-                            style="left: 72%; width: 18px; height: 18px; --duration: 2.5s; animation-delay: 1s;"></div>
-                        <div class="bubble neon-cyan"
-                            style="left: 80%; width: 15px; height: 15px; --duration: 5.5s; animation-delay: 3s;"></div>
-                        <div class="bubble neon-pink"
-                            style="left: 88%; width: 26px; height: 26px; --duration: 4s; animation-delay: 1.8s;"></div>
-                        <div class="bubble neon-green"
-                            style="left: 95%; width: 12px; height: 12px; --duration: 3s; animation-delay: 2.2s;"></div>
-                        <!-- Additional Bubbles for density -->
-                        <div class="bubble neon-purple"
-                            style="left: 15%; width: 18px; height: 18px; --duration: 4.2s; animation-delay: 0.6s;">
-                        </div>
-                        <div class="bubble neon-yellow"
-                            style="left: 45%; width: 25px; height: 25px; --duration: 3.8s; animation-delay: 1.1s;">
-                        </div>
-                        <div class="bubble neon-cyan"
-                            style="left: 75%; width: 20px; height: 20px; --duration: 5.2s; animation-delay: 0.4s;">
-                        </div>
-                        <div class="bubble neon-pink"
-                            style="left: 30%; width: 14px; height: 14px; --duration: 3.1s; animation-delay: 1.9s;">
-                        </div>
-                        <div class="bubble neon-green"
-                            style="left: 60%; width: 22px; height: 22px; --duration: 4.8s; animation-delay: 2.3s;">
-                        </div>
-                    </div>
                     <h3>Deep Cleaning</h3>
                     <p>Intensive cleaning requiring extra effort and attention to detail; targets built-up grime
                         throughout the home.</p>

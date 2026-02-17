@@ -289,7 +289,7 @@ function renderTableRow(item) {
         ? `<input type="text" value="${translatedName}" 
              class="admin-edit-text admin-edit-name"
              onchange="updateItemName('${item.id}', this.value)">`
-        : `<span style="display: inline-block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">
+        : `<span class="area-name-label">
                 ${translatedName}${isSpecial ? '<span class="deep-badge">Deep</span>' : ''}
            </span>`;
 
@@ -316,10 +316,10 @@ function renderTableRow(item) {
             </div>
             
             ${isSpecial ? `
-                <div style="color: var(--text-muted); opacity: 0.5;">-</div>
+                <div class="cell-placeholder">-</div>
                 ${isAdmin
-                ? `<div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>`
-                : `<div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>`
+                ? `<div class="price-cell cell-placeholder">-</div>`
+                : `<div class="price-cell cell-placeholder">-</div>`
             }
             ` : `
                 <div>
