@@ -567,7 +567,7 @@ function calculateTotal(animate = true) {
 
     if (tableTimeEl) {
         // Round to 1 decimal place for cleaner display
-        const displayHours = Math.max(1, Math.round(finalHours * 10) / 10);
+        const displayHours = Math.round(finalHours * 10) / 10;
         if (animate) animateValue(tableTimeEl, parseFloat(tableTimeEl.innerText) || 0, displayHours, 400);
         else tableTimeEl.innerText = displayHours;
     }
