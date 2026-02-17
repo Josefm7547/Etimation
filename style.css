@@ -1716,15 +1716,16 @@ input[type="number"]:focus {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        min-height: 120px !important;
+        min-height: 60px !important;
+        /* Altura reducida a la mitad (60px) */
         padding: 0 !important;
         border-right: none !important;
         grid-template-columns: none !important;
     }
 
     .table-category-header>.special-services-title {
-        font-size: 4.4rem !important;
-        /* Aproximadamente el doble de los 2.2rem originales */
+        font-size: 2.2rem !important;
+        /* Texto proporcional a la altura */
         padding: 0 0.5rem !important;
         line-height: 1 !important;
         height: 100% !important;
