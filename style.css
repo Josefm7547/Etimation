@@ -1123,7 +1123,8 @@ input[type="number"]:focus {
 /* Estimate Table Redesign - Optimized for Mobile */
 .estimate-table-container {
     width: 100%;
-    overflow-x: hidden;
+    overflow: visible;
+    /* Required for sticky header */
     margin-bottom: 2rem;
 }
 
@@ -1182,8 +1183,8 @@ input[type="number"]:focus {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
         position: sticky;
-        top: 0;
-        z-index: 100;
+        top: -1px;
+        z-index: 1001;
     }
 
     .table-row div:first-child {
@@ -1291,19 +1292,21 @@ input[type="number"]:focus {
 
 .table-header {
     position: sticky;
-    top: 0;
-    z-index: 100;
+    top: -1px;
+    /* Slight offset to prevent gaps */
+    z-index: 1001;
+    /* Above mobile navigation if any */
     background: #1e293b !important;
+    /* Solid Slate-800 */
     border-radius: 20px 20px 0 0;
-    /* Match table rounded corners */
-    /* Solid dark background to hide scrolling rows */
     font-weight: 700;
     font-size: 0.75rem;
     color: white !important;
-    /* Pure white for maximum contrast */
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    border-bottom: 2px solid var(--card-border);
+    border-bottom: 2px solid var(--secondary);
+    /* Accent line */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .table-row input {
