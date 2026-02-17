@@ -362,19 +362,28 @@ header {
         border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    /* THE MOBILE REQUEST: FIXED 30PX HEIGHT (Half of 60px) */
+    /* THE MOBILE REQUEST: ABSOLUTE 30PX HEIGHT */
     .table-category-header {
         display: flex !important;
         height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
         padding: 0 !important;
+        margin: 0 !important;
         align-items: center !important;
         justify-content: center !important;
+        overflow: hidden !important;
     }
 
     .special-services-title {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
+        /* Slightly smaller to ensure fit */
         line-height: 30px !important;
+        height: 30px !important;
         padding: 0 !important;
+        margin: 0 !important;
+        text-align: center !important;
+        width: 100% !important;
     }
 }
 
