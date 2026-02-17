@@ -362,18 +362,18 @@ header {
         border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    /* THE MOBILE REQUEST: FIXED 60PX HEIGHT */
+    /* THE MOBILE REQUEST: FIXED 30PX HEIGHT (Half of 60px) */
     .table-category-header {
         display: flex !important;
-        height: 60px !important;
+        height: 30px !important;
         padding: 0 !important;
         align-items: center !important;
         justify-content: center !important;
     }
 
     .special-services-title {
-        font-size: 3.6rem !important;
-        line-height: 60px !important;
+        font-size: 1.8rem !important;
+        line-height: 30px !important;
         padding: 0 !important;
     }
 }
@@ -387,7 +387,21 @@ header {
         grid-template-columns: 1fr;
     }
 }
+
 /* Specific Label Classes */
-.area-name-label { display: inline-block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem; }
-.area-cell-container { font-weight: 500; position: relative; }
-.cell-placeholder { color: var(--text-muted); opacity: 0.5; }
+.area-name-label {
+    display: inline-block;
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+}
+
+.area-cell-container {
+    font-weight: 500;
+    position: relative;
+}
+
+.cell-placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
