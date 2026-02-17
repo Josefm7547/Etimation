@@ -1435,6 +1435,7 @@ input[type="number"]:focus {
     color: white;
     text-align: center;
     font-weight: 600;
+    font-size: 1.1rem;
     transition: var(--transition-fast);
 }
 
@@ -1457,8 +1458,8 @@ input[type="number"]:focus {
 .table-row .price-cell {
     font-family: monospace;
     font-weight: 600;
+    font-size: 1.1rem;
     color: white !important;
-    /* Pure white */
     text-align: center;
 }
 
