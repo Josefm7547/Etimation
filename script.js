@@ -354,7 +354,7 @@ function renderAll() {
         if (item.id === 'refrigerators') {
             html += `
                 <div class="table-row table-category-header">
-                    <div class="special-services-title" style="grid-column: 1 / -1; text-align: center; color: #10b981; font-weight: 800; letter-spacing: 0.3rem; font-size: 2.2rem; padding: 1.5rem 0; text-shadow: 0 0 15px rgba(16, 185, 129, 0.5); width: 100%;">
+                    <div class="special-services-title">
                         ✦ SPECIAL SERVICES ✦
                     </div>
                 </div>
