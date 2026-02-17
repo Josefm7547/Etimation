@@ -1249,6 +1249,11 @@ input[type="number"]:focus {
         border-right: none !important;
     }
 
+    .table-header>div:nth-child(3) {
+        flex-direction: column !important;
+        line-height: 1.2 !important;
+    }
+
     .table-row div:first-child {
         font-size: 0.8rem !important;
     }
@@ -1503,6 +1508,63 @@ input[type="number"]:focus {
     color: var(--secondary) !important;
     text-align: center;
     font-size: 1.1rem;
+}
+
+/* ── Admin Editing Styles ── */
+.admin-edit-text {
+    background: rgba(124, 58, 237, 0.1) !important;
+    border: 1px solid rgba(124, 58, 237, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 0.4rem 0.6rem !important;
+    color: var(--text-main) !important;
+    font-family: 'Outfit', sans-serif;
+    width: 100%;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.admin-edit-text:focus {
+    border-color: var(--primary) !important;
+    background: rgba(124, 58, 237, 0.2) !important;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.2);
+}
+
+.admin-edit-name {
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.admin-edit-desc {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+}
+
+.admin-edit-price {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 0.35rem 0.3rem !important;
+    color: var(--secondary) !important;
+    font-weight: 700;
+    font-size: 0.95rem !important;
+    text-align: center;
+    width: 100%;
+    outline: none;
+    font-family: monospace;
+    transition: var(--transition-fast);
+}
+
+.admin-edit-price:focus {
+    border-color: var(--secondary) !important;
+    background: rgba(16, 185, 129, 0.2) !important;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+}
+
+.admin-edit-price[readonly] {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .table-row div:first-child {

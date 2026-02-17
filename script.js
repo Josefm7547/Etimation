@@ -229,6 +229,19 @@ async function loadPrices() {
                 appliances = appliances.map(a => ({ ...a, price: data[a.id] || a.price }));
             }
         } catch (e) { console.log("Using default prices"); }
+
+        // Load saved texts
+        try {
+            const textDoc = await db.collection("settings").doc("texts").get();
+            if (textDoc.exists) {
+                const textData = textDoc.data();
+                Object.keys(textData).forEach(key => {
+                    if (i18n[state.lang]) {
+                        i18n[state.lang][key] = textData[key];
+                    }
+                });
+            }
+        } catch (e) { console.log("Using default texts"); }
     }
     renderAll();
 }
@@ -271,18 +284,43 @@ function renderTableRow(item) {
     const translatedName = i18n[state.lang][item.id] || item.id.toUpperCase();
     const translatedDesc = i18n[state.lang][`${item.id}_desc`] || '';
 
+    // Admin-editable name & description
+    const nameHtml = isAdmin
+        ? `<input type="text" value="${translatedName}" 
+             class="admin-edit-text admin-edit-name"
+             onchange="updateItemName('${item.id}', this.value)">`
+        : `<span style="display: inline-block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">
+                ${translatedName}${isSpecial ? '<span class="deep-badge">Deep</span>' : ''}
+           </span>`;
+
+    const descHtml = isAdmin
+        ? `<input type="text" value="${translatedDesc}" 
+             class="admin-edit-text admin-edit-desc"
+             onchange="updateItemDesc('${item.id}', this.value)">`
+        : `<span style="display: block; font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>`;
+
+    // Admin-editable prices
+    const priceStdHtml = isAdmin
+        ? `<div class="price-cell"><input type="number" class="admin-edit-price" value="${priceStd}" min="0" onchange="updateBasePrice('${item.id}', this.value)"></div>`
+        : `<div class="price-cell">$${priceStd.toFixed(0)}</div>`;
+
+    const priceDeepHtml = isAdmin
+        ? `<div class="price-cell"><input type="number" class="admin-edit-price" value="${priceDeep.toFixed(0)}" min="0" readonly title="Auto: STD × 1.5"></div>`
+        : `<div class="price-cell">$${priceDeep.toFixed(0)}</div>`;
+
     return `
         <div class="table-row">
             <div style="font-weight: 500; position: relative;">
-                <span style="display: inline-block; color: var(--text-main); font-weight: 700; letter-spacing: 0.05rem;">
-                    ${translatedName}${isSpecial ? '<span class="deep-badge">Deep</span>' : ''}
-                </span>
-                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">${translatedDesc}</span>
+                ${nameHtml}
+                ${descHtml}
             </div>
             
             ${isSpecial ? `
                 <div style="color: var(--text-muted); opacity: 0.5;">-</div>
-                <div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>
+                ${isAdmin
+                ? `<div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>`
+                : `<div class="price-cell" style="color: var(--text-muted); opacity: 0.5;">-</div>`
+            }
             ` : `
                 <div>
                     <input type="number" placeholder="0" min="0" 
@@ -290,7 +328,7 @@ function renderTableRow(item) {
                         oninput="updateTableQty('${item.id}', 'std', this)" 
                         value="${qtyStd || ''}">
                 </div>
-                <div class="price-cell">$${priceStd.toFixed(0)}</div>
+                ${priceStdHtml}
             `}
 
             <div>
@@ -299,7 +337,7 @@ function renderTableRow(item) {
                     oninput="updateTableQty('${item.id}', 'deep', this)" 
                     value="${qtyDeep || ''}">
             </div>
-            <div class="price-cell">$${priceDeep.toFixed(0)}</div>
+            ${priceDeepHtml}
             <div id="subtotal-${item.id}" class="subtotal-cell">
                 $${Math.round((isSpecial ? 0 : qtyStd) * priceStd + qtyDeep * priceDeep)}
             </div>
@@ -333,12 +371,32 @@ window.updateBasePrice = (id, value) => {
     let item = zones.find(z => z.id === id) || appliances.find(a => a.id === id);
     if (item) item.price = val;
 
-    const qty = state.values[id] || 0;
-    const subEl = document.getElementById(`subtotal-${id}`);
-    if (subEl) subEl.innerText = `Subtotal: $${(val * qty).toFixed(2)}`;
+    // Recalculate the subtotal for this row
+    const isSpecial = ['refrigerators', 'ovens', 'microv', 'windows'].includes(id);
+    const vals = state.values[id] || { std: 0, deep: 0 };
+    const qtyStd = isSpecial ? 0 : (vals.std || 0);
+    const qtyDeep = vals.deep || 0;
+    const priceDeep = val * 1.5;
 
+    const subEl = document.getElementById(`subtotal-${id}`);
+    if (subEl) subEl.innerText = `$${Math.round(qtyStd * val + qtyDeep * priceDeep)}`;
+
+    // Update the deep price display in the same row
+    renderAll();
     calculateTotal();
     updateSummary();
+};
+
+window.updateItemName = (id, value) => {
+    if (i18n[state.lang]) {
+        i18n[state.lang][id] = value;
+    }
+};
+
+window.updateItemDesc = (id, value) => {
+    if (i18n[state.lang]) {
+        i18n[state.lang][`${id}_desc`] = value;
+    }
 };
 
 window.updateTableQty = (id, type, el) => {
@@ -432,13 +490,20 @@ window.saveGlobalPrices = async () => {
     btn.disabled = true;
 
     const prices = {};
+    const texts = {};
     [...zones, ...appliances].forEach(item => {
         prices[item.id] = item.price;
+        // Save current names and descriptions
+        if (i18n[state.lang]) {
+            texts[item.id] = i18n[state.lang][item.id] || item.id.toUpperCase();
+            texts[`${item.id}_desc`] = i18n[state.lang][`${item.id}_desc`] || '';
+        }
     });
 
     try {
         await db.collection("settings").doc("prices").set(prices);
-        alert("✅ Precios actualizados exitosamente.");
+        await db.collection("settings").doc("texts").set(texts);
+        alert("✅ Precios y textos actualizados exitosamente.");
     } catch (e) {
         alert("Error: " + e.message);
     } finally {
